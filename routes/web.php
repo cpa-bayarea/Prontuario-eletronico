@@ -30,13 +30,16 @@ Route::group(['prefix' => 'paciente'], function () {
     Route::post('/salvar', ['uses' => 'PacienteController@salvar', 'as' => 'paciente.salvar']);
     Route::get('/alterar/{id}', ['uses' => 'PacienteController@alterar', 'as' => 'paciente.alterar']);
     Route::get('/deletar/{id}', ['uses' => 'PacienteController@deletar', 'as' => 'paciente.deletar']);
-    Route::get('/test', ['uses' => 'PacienteController@test', 'as' => 'paciente.test']);
+    Route::get('/test', ['uses' => 'PacienteController@test', 'as' => 'paciente.test']);  // - - - - - - - - - // O QUE É ISSO ?
 });
 
 Route::group(['prefix' => 'triagem'], function () {
     Route::get('/', ['uses' => 'TriagemController@index', 'as' => 'triagem.index']);
-    Route::get('/form/{id}', ['uses' => 'TriagemController@form', 'as' => 'triagem.form']);
+    Route::get('/form', ['uses' => 'TriagemController@form', 'as' => 'triagem.form']);
+//    Route::get('/form/{id}', ['uses' => 'TriagemController@form', 'as' => 'triagem.form']);  - - -  BUGAVA POR CONTA DO {ID}
     Route::post('/salvar', ['uses' => 'TriagemController@salvar', 'as' => 'triagem.salvar']);
+    Route::get('/alterar/{id}', ['uses' => 'TriagemController@alterar', 'as' => 'triagem.alterar']);
+    Route::get('/deletar/{id}', ['uses' => 'TriagemController@deletar', 'as' => 'triagem.deletar']);
 });
 
 Route::group(['prefix' => 'supervisor'], function () {

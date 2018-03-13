@@ -42,19 +42,18 @@ class PacienteController extends Controller
         }
     }
 
-
     public function alterar($id)
-    {    //pega o id e envia os dados para form
+    {    // pega o id e envia os dados para form
         $alunos = Aluno::all();
         $dados = Paciente::where('id_paciente', $id)->get();
         $dados = $dados[0];
 //            print_r($dados);
 //            die;
-        return view('paciente.form', compact('dados','alunos'));
+        return view('paciente.form', compact('dados', 'alunos'));
     }
 
     public function deletar($dados)
-    {   //deleta dados
+    {   // deleta dados
         Paciente::where('id_paciente', $dados)->delete();
         return redirect(route('paciente.index'));
     }
@@ -65,7 +64,7 @@ class PacienteController extends Controller
         return $aluno;
     }
 
-    public function test()
+    public function test() // O QUE É ISSO ?
     {
         return view('paciente.test');
     }
