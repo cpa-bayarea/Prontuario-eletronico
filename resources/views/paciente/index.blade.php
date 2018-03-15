@@ -50,11 +50,11 @@
                             <!--  <td>{{ $dado['tx_cidade']}}</td> -->
                                 <td>{{ $dado['nu_cpf']}}</td>
                             <!--  <td>{{ $dado['nu_rg']}}</td> -->
-                            <td> 
-                            
-                             <a  href="triagem/form/{{$dado['id_paciente']}}">Iniciar Triagem</a>
-                            
-                            </td>
+                                <td>
+
+                                    <a href="triagem/form/{{$dado['id_paciente']}}">Iniciar Triagem</a>
+
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -64,9 +64,6 @@
                     <a class="btn-floating btn-large waves-effect waves-light"
                        href="{{route('paciente.form')}}"><i
                                 class="material-icons">add</i></a>
-                </div>
-                <div class="card-action">
-                    <h6 class="grey-text">Produzido por Fábrica de Softwares Jr.</h6>
                 </div>
             </div>
         </div>
@@ -79,20 +76,20 @@
 
             console.log(id);
             swal({
-                title: 'Tem certeza?',
+                title: 'Tem certeza?', // título
                 text: 'O Paciente será apagado ! (' + id + ')',
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#00c853',
+                confirmButtonColor: '#0c3', // cor do botao de confirmar
                 confirmButtonText: 'Sim',
-                cancelButtonColor: '#b71c1c',
+                cancelButtonColor: '#b11', // cor do botao de cancelar
                 cancelButtonText: 'Não'
 
             }).then(function (result) {
                 if (result.value) {
                     window.open('/paciente/deletar/' + id, '_self');
                     swal(
-                        'Deletado!', 'Paciente deletado !', 'success'
+                        'Sucesso !', 'Paciente deletado !', 'success'
                     )
                 } else if (result.dismiss === 'cancel') {
                     swal(

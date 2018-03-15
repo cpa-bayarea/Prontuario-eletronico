@@ -89,12 +89,13 @@
                             </div>
                             <div class="input-field col s12 l8">
                                 <input id="tx_nome" name="tx_nome" type="text" class="validate" required
-                                       value="{{$dados['tx_nome'] or null}}">
+                                       value="{{$dados['tx_nome'] or null}}" maxlength="75">
                                 <label for="tx_nome">Nome</label>
                             </div>
                             <div class="input-field col s3 l1">
                                 <input type="text" id="nu_crp" name="nu_crp" class="validate" required
-                                       value="{{$dados['nu_crp'] or null}}" maxlength="4">
+                                       value="{{$dados['nu_crp'] or null}}" maxlength="10">
+                                <!-- CRP de acordo com o banco de dados -->
                                 <label for="nu_crp">CRP</label>
                             </div>
                             <div class="input-field col s5 l3">
@@ -109,22 +110,23 @@
                             </div>
                             <div class="input-field col s12 l5">
                                 <input type="text" id="tx_endereco" name="tx_endereco" class="validate" required
-                                       value="{{$dados['tx_endereco'] or null}}">
+                                       value="{{$dados['tx_endereco'] or null}}" maxlength="45">
                                 <label for="tx_endereco">Endereço</label>
                             </div>
                             <div class="input-field col s3 l1">
                                 <input type="text" id="nu_numero" name="nu_numero" class="validate" required
-                                       maxlength="4" value="{{$dados['nu_numero'] or null}}">
+                                       value="{{$dados['nu_numero'] or null}}" maxlength="5">
+                                <!-- maxlength no banco é de 10, foi solicitado alteração-->
                                 <label for="tx_endereco">Nº</label>
                             </div>
                             <div class="input-field col s9 l4">
                                 <input type="text" id="tx_bairro" name="tx_bairro" class="validate" required
-                                       value="{{$dados['tx_bairro'] or null}}">
+                                       value="{{$dados['tx_bairro'] or null}}" maxlength="45">
                                 <label for="tx_bairro">Bairro</label>
                             </div>
                             <div class="input-field col s8 l3">
                                 <input type="text" id="tx_cidade" name="tx_cidade" class="validate" required
-                                       value="{{$dados['tx_cidade'] or null}}">
+                                       value="{{$dados['tx_cidade'] or null}}" maxlength="45">
                                 <label for="tx_cidade">Cidade</label>
                             </div>
                             <div class="input-field col s4 l1">
@@ -134,24 +136,26 @@
                             </div>
                             <div class="input-field col s6 l2">
                                 <input type="text" id="nu_fone" name="nu_fone" required class="validate"
-                                       value="{{$dados['nu_fone'] or null}}">
+                                       value="{{$dados['nu_fone'] or null}}" maxlength="15">
                                 <label for="nu_fone">Telefone</label>
                             </div>
                             <div class="input-field col s6 l2">
                                 <input type="text" id="nu_fone2" name="nu_fone2" class="validate"
-                                       value="{{$dados['nu_fone2'] or null}}">
+                                       value="{{$dados['nu_fone2'] or null}}" maxlength="15">
                                 <label for="nu_fone2">Celular</label>
                             </div>
                             <div class="input-field col s12 l4">
                                 <input type="email" id="tx_email" name="tx_email" class="validate"
-                                       value="{{$dados['tx_email'] or null}}">
+                                       value="{{$dados['tx_email'] or null}}" maxlength="45">
                                 <label for="tx_email">E-mail</label>
                             </div>
                         </div>
 
-                       <a href="{{route('supervisor.index')}}"> <input type="submit" value="Salvar" id="salvar" name="salvar" onclick="EventAlert()" class="btn btn-success"></a>
-                               
-                               
+                        <a href="{{route('supervisor.index')}}"> <input type="submit" value="Salvar" id="salvar"
+                                                                        name="salvar" onclick="EventAlert()"
+                                                                        class="btn btn-success"></a>
+
+
                         <a href="{{route('supervisor.index')}}" class="btn red">Cancelar</a>
                     </form>
                 </div>

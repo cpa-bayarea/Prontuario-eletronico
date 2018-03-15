@@ -114,7 +114,7 @@
                                     <label name="tp_deficiencia" class="active">Alguém de sua família tem
                                         alguma doença mental ou
                                         transtorno mental? </label>
-                                    <select active name="tp_deficiencia"
+                                    <select active name="tp_deficiencia">
                                     <option value="" active selected>Escolha uma opção</option>
                                     <option name="tp_deficiencia" value="S">Sim</option>
                                     <option name="tp_deficiencia" value="N">Não</option>

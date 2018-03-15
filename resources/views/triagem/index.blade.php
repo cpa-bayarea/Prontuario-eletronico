@@ -36,10 +36,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="right-align">
-                    <a class="btn-floating btn-large waves-effect waves-light" href="{{route('triagem.form')}}"><i
-                                class="material-icons">add</i></a>
-                </div>
             </div>
         </div>
     </div>

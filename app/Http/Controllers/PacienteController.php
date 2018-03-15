@@ -24,7 +24,7 @@ class PacienteController extends Controller
     {
         //Recebe dados de paciente.
         $dados = Paciente::all();
-        //retorna variaveis com os dados para index
+        //Retorna variaveis com os dados para index
         return view('paciente.index', compact('dados'));
 
     }
@@ -36,7 +36,7 @@ class PacienteController extends Controller
             Paciente::find($dados['id_paciente'])->update($dados->all());
             return redirect(route('paciente.index'));
         } else {
-            //salva dados e envia para index
+            //Se não tiver dados ele cria um novo, salva dados e envia para index
             Paciente::create($dados->all());
             return redirect(route('paciente.index'));
         }
