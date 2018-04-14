@@ -39,12 +39,15 @@
                                     <input type="number" name="id_triagem" id="id_triagem"
                                            value="{{$paciente['id_triagem'] or null}}"
                                            hidden>
+                                           
                                     <input type="number" name="fk_paciente" id="fk_paciente"
                                            value="{{$paciente['id_paciente'] or null}}"
                                            hidden>
+                                           
                                     <input type="text" name="tx_responsavel" id="tx_responsavel"
                                            value="{{$paciente->tx_nome_responsavel}}"
                                            hidden>
+                                           
                                     <input type="text" name="tp_grupo" id="tp_grupo"
                                            value='{{$paciente->tp_atendimento}}' hidden>
                                 </div>

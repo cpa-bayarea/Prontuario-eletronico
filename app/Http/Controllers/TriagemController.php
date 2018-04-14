@@ -10,6 +10,10 @@ use App\Paciente;
 
 class TriagemController extends Controller
 {
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -21,7 +25,9 @@ class TriagemController extends Controller
     public function form($id)  // BUGADA AQUI !!!!!
     {
         $paciente = Paciente::find($id);
+      //  dd($paciente);
         $aluno = Aluno::find($paciente->fk_aluno);
+     //   dd($aluno);
         $supervisor = Supervisor::find($aluno->fk_supervisor);
         //dd($supervisor);
         return view('triagem.form', compact('paciente', 'aluno', 'supervisor'));

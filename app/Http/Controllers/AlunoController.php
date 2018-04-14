@@ -5,8 +5,15 @@ use App\Supervisor;
 use App\Http\Requests\AlunoRequest;
 class AlunoController extends Controller
 {
-    public function index()
+    
+    public function __construct()
     {
+        $this->middleware('auth');
+    }
+
+
+    public function index()
+    {  
         $dados = Aluno::all();
         return view('aluno.index', compact('dados'));
     }

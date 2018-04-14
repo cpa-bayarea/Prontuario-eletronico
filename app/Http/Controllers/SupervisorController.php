@@ -8,6 +8,10 @@ use App\Supervisor;
 
 class SupervisorController extends Controller
 {
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $dados = Supervisor::all();

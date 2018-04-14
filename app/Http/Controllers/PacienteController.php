@@ -9,6 +9,10 @@ use App\Aluno;
 
 class PacienteController extends Controller
 {
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function form()
     {
         //Recebe dados do supervisor

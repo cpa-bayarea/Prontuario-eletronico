@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('home');
 });
 
+
 Route::group(['prefix' => 'aluno'], function () {
     Route::get('/', ['uses' => 'AlunoController@index', 'as' => 'aluno.index']);
     Route::get('/incluir', ['uses' => 'AlunoController@incluir', 'as' => 'aluno.incluir']);
@@ -126,3 +127,4 @@ Route::group(['prefix' => 'triagempatrimonio'], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
