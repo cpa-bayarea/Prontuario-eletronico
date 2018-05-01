@@ -2,7 +2,7 @@
 @section('conteudo')
 
 
-
+    <!-- TESTE DE WIZARD NO FORM DE PACIENTE / TRIAGEM -->
     <div class="row">
         <div class="col s10 offset-s1">
             <div class="card">

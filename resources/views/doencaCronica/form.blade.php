@@ -1,6 +1,5 @@
-
 @extends('templates/principal')
-@section('titulo', 'Cadastro de Aluno')
+@section('titulo', 'Doneça Crônica')
 
 @section('conteudo')
     <div class="row">
@@ -14,7 +13,7 @@
                         <div class="input-field col s6">
                             <select name="fk_triagem">
                                 @foreach($dados as $dado)
-                                <option value="{{$dado['id_triagem']}}">{{$dado['tx_nome']}}</option>
+                                    <option value="{{$dado['id_triagem']}}">{{$dado['tx_nome']}}</option>
                                 @endforeach
                             </select>
                             <label for="tx_nome">Triagem</label>
@@ -40,7 +39,7 @@
     </div>
     <script>
         function EventAlert() {
-            swal("Cadastro efetuado com sucesso!", "success")
+            swal("Cadastro efetuado com sucesso!", '', "success")
         }
 
         $(document).ready(function () {

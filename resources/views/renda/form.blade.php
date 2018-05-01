@@ -6,7 +6,7 @@
 {{--// */--}}
 
 @extends('templates/principal')
-@section('titulo', 'Cadastro de Aluno')
+@section('titulo', 'Renda')
 
 @section('conteudo')
     <div class="row">
@@ -38,6 +38,5 @@
             </div>
         </div>
     </div>
-
 
 @endsection

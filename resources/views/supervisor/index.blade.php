@@ -1,5 +1,6 @@
 @extends('templates/principal')
 @section('titulo', 'Listagem de Supervisores')
+
 @section('conteudo')
 
     <div class="row">

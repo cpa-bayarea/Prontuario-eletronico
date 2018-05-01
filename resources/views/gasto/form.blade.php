@@ -6,7 +6,7 @@
 {{--// */--}}
 
 @extends('templates/principal')
-@section('titulo', 'Cadastro de Aluno')
+@section('titulo', 'Gastos')
 
 @section('conteudo')
     <div class="row">
@@ -32,7 +32,8 @@
                             <input type="submit" value="Salvar" id="salvar" name="salvar" onclick="EventAlert()"
                                    class="btn btn-success">
                             <a href="{{route('gasto.index')}}" class="btn red">Cancelar</a>
-                        </div></form>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

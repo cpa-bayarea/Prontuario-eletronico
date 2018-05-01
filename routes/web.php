@@ -37,7 +37,7 @@ Route::group(['prefix' => 'paciente'], function () {
 Route::group(['prefix' => 'triagem'], function () {
     Route::get('/', ['uses' => 'TriagemController@index', 'as' => 'triagem.index']);
     Route::get('/form', ['uses' => 'TriagemController@form', 'as' => 'triagem.form']);
-    Route::get('/form/{id}', ['uses' => 'TriagemController@form', 'as' => 'triagem.form']); 
+    Route::get('/form/{id}', ['uses' => 'TriagemController@form', 'as' => 'triagem.form']);
     Route::post('/salvar', ['uses' => 'TriagemController@salvar', 'as' => 'triagem.salvar']);
     Route::get('/alterar/{id}', ['uses' => 'TriagemController@alterar', 'as' => 'triagem.alterar']);
     Route::get('/deletar/{id}', ['uses' => 'TriagemController@deletar', 'as' => 'triagem.deletar']);

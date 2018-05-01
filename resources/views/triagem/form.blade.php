@@ -39,15 +39,15 @@
                                     <input type="number" name="id_triagem" id="id_triagem"
                                            value="{{$paciente['id_triagem'] or null}}"
                                            hidden>
-                                           
+
                                     <input type="number" name="fk_paciente" id="fk_paciente"
                                            value="{{$paciente['id_paciente'] or null}}"
                                            hidden>
-                                           
+
                                     <input type="text" name="tx_responsavel" id="tx_responsavel"
                                            value="{{$paciente->tx_nome_responsavel}}"
                                            hidden>
-                                           
+
                                     <input type="text" name="tp_grupo" id="tp_grupo"
                                            value='{{$paciente->tp_atendimento}}' hidden>
                                 </div>
@@ -118,9 +118,9 @@
                                         alguma doença mental ou
                                         transtorno mental? </label>
                                     <select active name="tp_deficiencia">
-                                    <option value="" active selected>Escolha uma opção</option>
-                                    <option name="tp_deficiencia" value="S">Sim</option>
-                                    <option name="tp_deficiencia" value="N">Não</option>
+                                        <option value="" active selected>Escolha uma opção</option>
+                                        <option name="tp_deficiencia" value="S">Sim</option>
+                                        <option name="tp_deficiencia" value="N">Não</option>
                                     </select>
                                 </div>
                                 <div class="input-field col s6">
@@ -178,7 +178,7 @@
                                     </select>
                                 </div>
                                 <div class="input-field col s12" align="left">
-                                    <label name='tx_relatorio_acolhimento' class="active">Relatório da Triagem :</label>
+                                    <label name="tx_relatorio_acolhimento" class="active">Relatório da Triagem :</label>
                                     <input class="validate" name="tx_relatorio_acolhimento"
                                            id="tx_relatorio_acolhimento"
                                            required

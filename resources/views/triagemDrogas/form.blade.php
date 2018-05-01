@@ -6,6 +6,8 @@
 <!-- */-->
 
 @extends('templates/principal')
+@section('titulo','Triagem de Drogas')
+
 <!-- Adicionando Javascript -->
 @section('conteudo')
     <div class="row">

@@ -6,6 +6,7 @@
 <!-- */-->
 
 @extends('templates/principal')
+@section('titulo','Programa Social')
 
 @section('conteudo')
 
@@ -14,7 +15,7 @@
         <div class="card">
             <div class="card-content">
                 <div>
-                    <h4 class="grey-text" align="center"></h4>
+                    <h4 class="grey-text" align="center">Programas Sociais</h4>
                 </div>
                 <table class="striped bordered">
                     <thead>
@@ -52,9 +53,10 @@
                 text: "Não podera recuperar esse arquivo novamente!",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Sim, apagar!",
-                cancelButtonText: "Não, cancele por favor!",
+                confirmButtonColor: "#0c3",
+                cancelButtonColor: "#b11",
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
                 closeOnConfirm: false,
                 closeOnCancel: false
             },
@@ -62,7 +64,7 @@
                 if (isConfirm) {
                     swal("Deletado!", "Supervisor deletado.", "success");
                 } else {
-                    swal("Cancelled", "Cancelado :)", "error");
+                    swal("Cancelled", "Cancelado", "error");
                 }
             });
     }

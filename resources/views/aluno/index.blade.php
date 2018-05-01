@@ -1,5 +1,6 @@
 @extends('templates/principal')
 @section('titulo', 'Listagem de Alunos')
+
 @section('conteudo')
 
     <div class="row">
@@ -13,7 +14,7 @@
                         <thead>
                         <tr>
                             <th>Ação</th>
-                            <th>Codigo</th>
+                            <th>Código</th>
                             <th>Nome</th>
                             <th>Fixo</th>
                             <th>Celular</th>
@@ -23,9 +24,11 @@
                         @foreach($dados as $dado)
                             <tr>
                                 <td>
-                                  
-                                <a href="{{url('aluno/deletar/'.$dado->id_aluno)}}" onclick=""><i class="material-icons left red-text">delete</i></a>
-                                  <a class="waves-effect waves-light" href="{{url('aluno/alterar/'.$dado->id_aluno)}}"><i class="material-icons left">mode_edit</i></a>
+
+                                    <a href="{{url('aluno/deletar/'.$dado->id_aluno)}}" onclick=""><i
+                                                class="material-icons left red-text">delete</i></a>
+                                    <a class="waves-effect waves-light"
+                                       href="{{url('aluno/alterar/'.$dado->id_aluno)}}"><i class="material-icons left">mode_edit</i></a>
                                 </td>
                                 <td>{{$dado['nu_codigo']}}</td>
                                 <td>{{$dado['tx_nome']}}</td>
@@ -53,26 +56,22 @@
                 text: "O Aluno irá ser apagado!",
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#00c853', // COR DO BOTÃO DE CONFIRMAR
+                confirmButtonColor: '#0c3', // COR DO BOTÃO DE CONFIRMAR
                 confirmButtonText: 'Sim',
-                cancelButtonColor: '#b71c1c',  // COR DO BOTÃO DE CANCELAR
+                cancelButtonColor: '#b11',  // COR DO BOTÃO DE CANCELAR
                 cancelButtonText: 'Não'
             }).then(function (result) {
                 if (result.value) {
                     window.open('/aluno/deletar/' + id, '_self');
                     swal(
-                        'Deletado!',
-                        'Apagado com sucesso !',
-                        'success'
-                    )
+                        'Deletado!', 'Apagado com sucesso !', 'success'
+                    );
                 } else if (result.dismiss === 'cancel') {
                     swal(
-                        'Operação Cancelada',
-                        'Cadastro salvo com sucesso',
-                        'error'
-                    )
+                        'Operação Cancelada', 'Cadastro salvo com sucesso', 'error'
+                    );
                 }
-            })
+            });
         }
     </script>
 

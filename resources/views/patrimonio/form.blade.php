@@ -1,5 +1,6 @@
 @extends('templates/principal')
 @section('titulo', 'Patrimônio')
+
 @section('conteudo')
 
     <div class="row">

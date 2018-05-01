@@ -11,7 +11,6 @@
                 $("#tx_bairro").val("");
                 $("#tx_cidade").val("");
                 $("#tx_uf").val("");
-                //   $("#ibge").val("");
             }
 
             //Quando o campo cep perde o foco.
@@ -29,7 +28,7 @@
                         $("#tx_bairro").val("...");
                         $("#tx_cidade").val("...");
                         $("#tx_uf").val("...");
-                        //    $("#ibge").val("...");
+
                         //Consulta o webservice viacep.com.br/
                         $.getJSON("//viacep.com.br/ws/" + nu_cep + "/json/?callback=?", function (dados) {
                             if (!("erro" in dados)) {
@@ -38,7 +37,6 @@
                                 $("#tx_bairro").val(dados.bairro);
                                 $("#tx_cidade").val(dados.localidade);
                                 $("#tx_uf").val(dados.uf);
-                                //      $("#ibge").val(dados.ibge);
                             } //end if.
                             else {
                                 //CEP pesquisado não foi encontrado.

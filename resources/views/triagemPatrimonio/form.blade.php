@@ -6,7 +6,7 @@
 {{--// */--}}
 
 @extends('templates/principal')
-@section('titulo', 'Cadastro de Aluno')
+@section('titulo', 'Triagem de Patrimônio')
 
 @section('conteudo')
     <div class="row">
@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-content">
                     <div>
-                        <h4 class="grey-text" align="center">Triagem patrimonio</h4>
+                        <h4 class="grey-text" align="center">Triagem de Patrimônio</h4>
                     </div>
                     <form method="post" action={{route('triagemPatrimonio.salvar')}}>
                         {{ csrf_field() }}
@@ -45,10 +45,10 @@
             </div>
         </div>
     </div>
-<script>
-    $(document).ready(function () {
-    $('select').material_select();
-    });
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+        });
 
     </script>
 

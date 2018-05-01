@@ -1,7 +1,7 @@
 @extends('templates/principal')
 @section('titulo', 'Cadastro Alunos')
 @section('conteudo')
-   
+
     <div class="row">
         <div class="col s10 offset-s1">
             <div class="card">
@@ -17,7 +17,8 @@
                                        value="{{$dados['id_aluno'] or null}}" hidden>
                             </div>
                             <div class="input-field col s12 l8">
-                                <input id="tx_nome" name="tx_nome" type="text" class="validate" required value="{{$dados['tx_nome'] or null}}">
+                                <input id="tx_nome" name="tx_nome" type="text" class="validate" required
+                                       value="{{$dados['tx_nome'] or null}}">
                                 <label for="tx_nome">Nome</label>
                             </div>
                             <div class="input-field col s5 l4">
@@ -65,21 +66,22 @@
                                        value="{{$dados['nu_fone2'] or null}}">
                                 <label for="nu_fone2">Celular</label>
                             </div>
-                            
+
                             <div class="input-field col s12 l4">
-                                
+
                                 <select name="fk_supervisor">
                                     @foreach($supervisores as $supervisor)
                                         {{--<option value="">Selecione supervisor</option>--}}
-                                        
+
                                         <option value="{{$supervisor['id_supervisor']}}">{{$supervisor['tx_nome']}}</option>
                                     @endforeach
                                 </select>
-                                
+
                                 <label for="supervisor" name="fk_supervisor">Supervisor:</label>
                             </div>
                             <div class="col s12 right-align">
-                             <a href="{{route('aluno.index')}}">  <input type="submit" value="Salvar" id="salvar" name="salvar" class="btn btn-success"></a>
+                                <a href="{{route('aluno.index')}}"> <input type="submit" value="Salvar" id="salvar"
+                                                                           name="salvar" class="btn btn-success"></a>
                                 <a href="{{route('aluno.index')}}" class="btn red">Cancelar</a>
                             </div>
                         </div>
@@ -94,17 +96,16 @@
         });
 
     </script>
-     <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
 
             function limpa_formulário_cep() {
-                
+
                 // Limpa valores do formulário de cep.
                 $("#tx_endereco").val("");
                 $("#tx_bairro").val("");
                 $("#tx_cidade").val("");
                 $("#tx_uf").val("");
-                //   $("#ibge").val("");
             }
 
             //Quando o campo cep perde o foco.
@@ -127,7 +128,6 @@
                         $("#tx_bairro").val("...");
                         $("#tx_cidade").val("...");
                         $("#tx_uf").val("...");
-                        //    $("#ibge").val("...");
 
                         //Consulta o webservice viacep.com.br/
                         $.getJSON("//viacep.com.br/ws/" + nu_cep + "/json/?callback=?", function (dados) {
@@ -138,7 +138,6 @@
                                 $("#tx_bairro").val(dados.bairro);
                                 $("#tx_cidade").val(dados.localidade);
                                 $("#tx_uf").val(dados.uf);
-                                //      $("#ibge").val(dados.ibge);
                             } //end if.
                             else {
                                 //CEP pesquisado não foi encontrado.

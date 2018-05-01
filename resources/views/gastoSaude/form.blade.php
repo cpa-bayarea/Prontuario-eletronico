@@ -6,7 +6,7 @@
 {{--// */--}}
 
 @extends('templates/principal')
-@section('titulo', 'Cadastro de Aluno')
+@section('titulo', 'Gasto Saúde')
 
 @section('conteudo')
     <div class="row">
@@ -45,10 +45,10 @@
             </div>
         </div>
     </div>
-<script>
-    $(document).ready(function () {
-    $('select').material_select();
-    });
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+        });
 
     </script>
 

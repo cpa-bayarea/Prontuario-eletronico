@@ -1,7 +1,7 @@
 @extends('templates/principal')
 @section('titulo', 'Listagem de Pacientes')
-@section('conteudo')
 
+@section('conteudo')
 
     <div class="row">
         <div class="col s10 offset-s1">
@@ -67,7 +67,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <script>

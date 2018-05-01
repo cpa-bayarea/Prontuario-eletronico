@@ -32,7 +32,8 @@
                             <input type="submit" value="Salvar" id="salvar" name="salvar" onclick="EventAlert()"
                                    class="btn btn-success">
                             <a href="{{route('Doenca')}}" class="btn red">Cancelar</a>
-                        </div></form>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 @extends('templates/principal')
+@section('titulo','Lista de Triagem')
 
 @section('conteudo')
 
@@ -39,4 +40,5 @@
             </div>
         </div>
     </div>
+
 @endsection

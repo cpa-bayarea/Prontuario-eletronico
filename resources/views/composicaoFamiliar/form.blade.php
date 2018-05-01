@@ -41,7 +41,7 @@
     </div>
     <script>
         function EventAlert() {
-            swal("Cadastro efetuado com sucesso!", "success")
+            swal("Cadastro efetuado com sucesso!", '', "success");
         }
 
         $(document).ready(function () {

@@ -6,8 +6,10 @@
 <!-- */-->
 
 @extends('templates/principal')
-<!-- Adicionando Javascript -->
+@section('titulo', 'Drogas')
+
 @section('conteudo')
+
     <div class="row">
         <div class="col s10 offset-s1">
             <div class="card">
@@ -34,4 +36,4 @@
             </div>
         </div>
     </div>
-    @endsection
+@endsection

@@ -6,7 +6,7 @@
 {{--// */--}}
 
 @extends('templates/principal')
-@section('titulo', 'Cadastro de Aluno')
+@section('titulo', 'Programa Social')
 
 @section('conteudo')
     <div class="row">
@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-content">
                     <div>
-                        <h4 class="grey-text" align="center">Patrimonio</h4>
+                        <h4 class="grey-text" align="center">Programa Social</h4>
                     </div>
                     <form method="post" action={{route('programaSocial.salvar')}}>
                         {{ csrf_field() }}
@@ -38,6 +38,5 @@
             </div>
         </div>
     </div>
-
 
 @endsection

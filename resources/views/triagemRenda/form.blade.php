@@ -6,6 +6,8 @@
 <!-- */-->
 
 @extends('templates/principal')
+@section('titulo','Triagem de Renda')
+
 <!-- Adicionando Javascript -->
 @section('conteudo')
     <div class="row">
@@ -13,7 +15,7 @@
             <div class="card">
                 <div class="card-content">
                     <div>
-                        <h4 class="grey-text" align="center">Triagem de drogas</h4>
+                        <h4 class="grey-text" align="center">Triagem de Renda</h4>
                     </div>
                     <form method="post" action={{route('triagemRenda.salvar')}}>
                         <div class="input-field col s6">
