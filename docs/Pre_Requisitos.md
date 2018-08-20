@@ -1,6 +1,6 @@
 # Pré Requisitos
 
-Segue lista dos pré-requisitos para rodar o projeto em sua máquina.
+Segue lista com os pré-requisitos para rodar o projeto em sua máquina.
 
 * [Composer](https://getcomposer.org/download/)
 * [Git](https://git-scm.com/downloads)
