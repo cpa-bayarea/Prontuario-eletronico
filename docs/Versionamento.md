@@ -63,12 +63,12 @@ teste dele e verificar se a funcionalidade ficoun como o mesmo havia solicitado.
 > Adicione um <b>Revisor</b> no Pull Request, <b>nunca aceite um PR criado por você mesmo</b>.
 
 
-#### Caso de Aprovação do Cliente
+### Caso de Aprovação do Cliente
 
 Após o cliente aprovar a demanda, siga os passos na parte de publicação em produção.
 
 
-#### Caso de Não Aprovação do Cliente
+### Caso de Não Aprovação do Cliente
 
 Caso o Cliente não tenha gostado de algo produzido, faça as devidas alterações e repita o fluxo até a aprovação dele.
 
