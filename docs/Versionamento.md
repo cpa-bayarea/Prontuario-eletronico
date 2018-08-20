@@ -19,7 +19,27 @@ Clone o Projeto.
 
 > git clone https://github.com/cpa-bayarea/Prontuario-eletronico.git
 
-Siga os passos abaixo.
+Atualize as dependências.
+
+> composer update
+
+Gere sua chave de configuração.
+
+> php artisan key:generate
+
+Faça a renomeação do arquivo `.env-example` para `.env` e configure sua base de dados.
+
+Execute o comando para migrar a base de dados do projeto e seus atributos.
+
+> php artisan migrate --seed
+
+Execute o comando para levantar o ambiente 
+
+> php artisan serve
+
+Acesse `localhost:8000` e verás a aplicação rodando.
+
+Siga os passos abaixo, para dar início ao versionamento.
 
 
 ## Criando uma branch a partir da branch Master
