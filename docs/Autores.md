@@ -11,7 +11,7 @@ O intuito desse arquivo é centralizar as informações dos autores do projeto, 
 
 ## Participantes
 
-Abaixo temos uma lista de pessoas que já participaram deste projeto.
+Abaixo temos uma lista de pessoas que já contribuiram com este projeto.
 
 Nome                              |  E-mail                          |  Cargo no Projeto         | 
 --------------------------------- | -------------------------------- | ------------------------- |
