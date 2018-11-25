@@ -16,6 +16,6 @@ Abaixo temos uma lista de pessoas que já contribuiram com este projeto.
 Nome                              |  E-mail                          |  Cargo no Projeto         | 
 --------------------------------- | -------------------------------- | ------------------------- |
 Douglas Santana                   | douglasantana007@gmail.com       | Analista Desenvolvedor	 |
-Ramon Canabarro                   | ramoncanabarro@gmail.com         |          ?                |
+João Vitor Lima                   |                ?                 | Desenvolvedor             | 
 
 

@@ -5,7 +5,7 @@ Segue lista com os pré-requisitos para rodar o projeto em sua máquina.
 * [Composer](https://getcomposer.org/download/)
 * [Git](https://git-scm.com/downloads)
 * [Variáveis de Ambiente](https://laravel.com/docs/5.6#installation)
-* [Laravel](https://laravel.com/docs/5.6#installation)
+* [Laravel](https://laravel.com/docs/5.7#installation)
 
 ## Instalação
 

@@ -1,29 +1,29 @@
 # Workflow do Kanban
 
-## Trello
+## Zenhub
 
-<https://trello.com>
+<https://app.zenhub.com/>
 
-Como ferramenta, utiliza-se o Trello, ferramenta que a equipe tem 
+Como ferramenta, utiliza-se o Zenhub, ferramenta que a equipe tem 
 mais afinidade e torna o processo mais ágil.
 
 
 ## Entendendo o processo
 
 No projeto Prontuário Eletrônico, as demandas estão baseadas no Escopo do Projeto. 
-Portanto, foi cadastrado as demandas no Trello de acordo com o documento.
+Portanto, foi cadastrado as demandas no Zenhub de acordo com o documento.
 
 
 ## Entendendo as prateleiras
 
-### Próxima Sprint
-
+### Prateleira
+Contém todas as demandas que serão atendidas no desenvolvimento do sistema.
 
 ### A Fazer
 
-Contém todas as demandas que o Time de Desenvolvimento atenderá!<br>
+Contém todas as demandas que o Time de Desenvolvimento atenderá na Sprint!<br>
 <b>Obs:</b> Quando algum membro do Time de Desenvolvimento for realizar a demanda,
-o mesmo deverá mover o card(Issue) para a prateleira de <b>Fazendo</b>!<br>
+o mesmo deverá mover o card(Issue) para a prateleira de <b>Fazendo</b> e dar um assign-yourself na issue!<br>
 
 
 ### Fazendo
