@@ -8,9 +8,8 @@ No projeto temos 2 ambientes;
 
 ## Branch's Principais
 
-* `Master` - Produto final, contida na url: 
-* `Develop` - Contém as demandas feitas, ou seja, novas funcionalidades demandadas pelo cliente.
-* `Homologa` - Contém as demandas que serão homologadas pelo cliente.
+* `Master`  - Produto final, contida na url: 
+* `Teste`   - Contém as demandas que serão testadas pelo time e homologadas pelo cliente.
 
 
 ## Requisitos
