@@ -1,0 +1,7 @@
+# Para não versionar o layout usado
+
+css/plugins/*
+css/plugins/
+
+js/plugins/*
+js/plugins/

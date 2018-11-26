@@ -36,4 +36,15 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Return the nu_matricula from user.
+     *  
+     * @return $nu_matricula
+     */
+    public function nu_matricula()
+    {
+        return 'nu_matricula';
+    }
+
 }

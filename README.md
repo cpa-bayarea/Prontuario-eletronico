@@ -21,7 +21,7 @@ Para rodar a atual versão do projeto, o sistema requer certas configurações d
 * [PHP](http://php.net/)
 * [Laravel](https://laravel.com/docs/5.4) 
 * [jQuery](https://jquery.com/)
-* [Materialize.css](http://archives.materializecss.com/0.100.2/getting-started.html)
+* [Bootstrap](https://getbootstrap.com/)
 * [MySql](https://www.mysql.com/)
 
 ## Autores

@@ -1,1 +1,3 @@
 *.sqlite
+migrations/
+seeds/
