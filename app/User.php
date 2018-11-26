@@ -20,7 +20,7 @@ class User extends Authenticatable
         'email',
         'password',
         'id_perfil',
-        'nu_matricula',
+        'username',
     ];
 
     /**

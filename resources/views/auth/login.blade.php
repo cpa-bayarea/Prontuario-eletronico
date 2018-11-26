@@ -34,15 +34,15 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="nu_matricula">{{ __('Matrícula') }}</label>
-                        <input type="number" id="nu_matricula"
-                            class="form-control{{ $errors->has('nu_matricula') ? ' is-invalid' : '' }}"
-                            name="nu_matricula" value="{{ old('nu_matricula') }}" required autofocus/>
-                        @if ($errors->has('nu_matricula'))
+                        <label for="username">{{ __('Matrícula') }}</label>
+                        <input type="number" id="username"
+                            class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                            name="username" value="{{ old('username') }}" required autofocus/>
+                        @if ($errors->has('username'))
                         <div class="col-lg 3">
                         <p class="alert alert-danger alert-dismissable" role="alert">
                             <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                            <strong>{{ $errors->first('nu_matricula') }}</strong>
+                            <strong>{{ $errors->first('username') }}</strong>
                         </p>
                         </div>
                         @endif

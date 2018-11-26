@@ -42,9 +42,9 @@ class LoginController extends Controller
      *  
      * @return $nu_matricula
      */
-    public function nu_matricula()
+    public function username()
     {
-        return 'nu_matricula';
+        return 'username';
     }
 
 }

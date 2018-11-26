@@ -15,7 +15,7 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="name">{{ __('Nome') }}</label>
+                            <label for="name">{{ __('Nome') }}<span class="obrigatorio">*</span></label>
                             <input id="name" type="text"
                                     class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                     name="name" value="{{ old('name') }}" required autofocus>
@@ -27,21 +27,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nu_matricula">{{ __('Matrícula') }}</label>
-                            <input id="nu_matricula" type="text"
-                                    class="form-control inteiro{{ $errors->has('nu_matricula') ? ' is-invalid' : '' }}"
-                                    name="nu_matricula" value="{{ old('nu_matricula') }}" required autofocus maxlenght="11">
-                            @if ($errors->has('nu_matricula'))
+                            <label for="username">{{ __('Matrícula') }} <span class="obrigatorio">*</span></label>
+                            <input id="username" type="text"
+                                    class="form-control inteiro{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                                    name="username" value="{{ old('username') }}" required autofocus>
+                            @if ($errors->has('username'))
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('nu_matricula') }}</strong>
+                                <strong>{{ $errors->first('username') }}</strong>
                             </span>
                             @endif
                         </div>
 
                         <div class="form-group">
-                            <label for="perfil">{{ __('Perfil') }}</label>
-                            <select name="id_perfil" class="form-control" id="perfil">
-                                <option disabled selected>Selecione o Perfil</option>
+                            <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
+                            <select name="id_perfil" class="form-control" id="id_perfil" required>
+                                <option disabled selected>Selecione o id_perfil</option>
                                 <option value="1">Administrador</option>
                                 <option value="2">Aluno</option>
                                 <option value="3">Supervisor</option>
@@ -49,9 +49,9 @@
                                 <option value="3">Terapeuta</option>
                             </select>
 
-                            @if ($errors->has('perfil'))
+                            @if ($errors->has('id_perfil'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('perfil') }}</strong>
+                                    <strong>{{ $errors->first('id_perfil') }}</strong>
                                 </span>
                             @endif
                         </div>
