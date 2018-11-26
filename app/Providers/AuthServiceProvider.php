@@ -30,12 +30,20 @@ class AuthServiceProvider extends ServiceProvider
             return $user->id_perfil == '1';
         });
 
-        $gate->define('Geren', function($user){
+        $gate->define('Aluno', function($user){
             return $user->id_perfil == '2';
         });
 
-        $gate->define('Func', function($user){
+        $gate->define('Supervisor', function($user){
             return $user->id_perfil == '3';
+        });
+
+        $gate->define('Secretaria', function($user){
+            return $user->id_perfil == '4';
+        });
+
+        $gate->define('Terapeuta', function($user){
+            return $user->id_perfil == '5';
         });
     }
 }
