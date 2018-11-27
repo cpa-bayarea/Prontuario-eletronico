@@ -96,7 +96,7 @@
                             </a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="../linha_teorica/index.php">Linha Teórica</a>
+                                    <a href="{{ route('linha.index') }}">Linha Teórica</a>
                                 </li>
                             </ul>
                         </li>

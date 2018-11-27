@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PerfilModel extends Model
+class LinhaTeoricaModel extends Model
 {
-    protected $table = 'tb_perfil';
+    protected $table = 'tb_theoretical_line';
     public $timestamps = FALSE;
-    protected $primaryKey = 'id_perfil';
+    protected $primaryKey = 'id_theoretical_line';
     protected $fillable = [
-        'tx_name',
+        'tx_nome',
         'tx_desc',
         'status',
     ];
