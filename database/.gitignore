@@ -2,7 +2,6 @@
 
 # Migrations of project
 2014_10_12_000000_create_perfil_table.php
-2014_10_12_100002_create_password_resets_table.php
 
 # Seeder's of project
 PerfisSeeder.php
