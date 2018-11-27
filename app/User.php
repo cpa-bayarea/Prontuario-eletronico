@@ -10,6 +10,13 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    # Constants of Perfi's
+    const PFL_ADM        = 1;
+    const PFL_ALUNO      = 2;
+    const PFL_SUPERVISOR = 3;
+    const PFL_SECRETARIA = 4;
+    const PFL_TERAPEUTA  = 5;
+
     /**
      * The attributes that are mass assignable.
      *

@@ -11,7 +11,7 @@
                     <a href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a>Gerencial</a>
+                    <a>Apoio</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>Linha Teórica</strong>
@@ -63,14 +63,5 @@
             </div>
         </div>
     </div>
-
-                                        <!-- <div class="col-lg-10 offset-lg-4">
-                                            <label for="tp_status">Status <span class="obrigatorio">*</span></label>
-                                            <input type="radio" class="form-control" name="status" id="tp_status"
-                                                   o </span>
-                                            <input type="radio" class="form-control" name="status" id="tp_status"
-                                                   o </span>
-                                            <br>
-                                        </div> -->
 
 @endsection

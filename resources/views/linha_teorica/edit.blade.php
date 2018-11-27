@@ -1,60 +1,90 @@
 @extends('layouts.layout')
 
+@section('title', 'Editar Linha Teórica')
 @section('content')
-    <div class="content">
-        <div class="row text-center">
-            <div class="col-lg-8 offset-2">
-                <div class="card card-stats">
-                    <div class="card-header">
-                        <div class="col-lg-12">
-                            <h5 class="text-center">Perfis</h5>
-                            <p>Edite aqui os perfis</p>
-                        </div>
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>Linha Teórica</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>Apoio</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <strong>Linha Teórica</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Dados Gerais</h5>
                     </div>
-                    <hr>
-                    <div class="card-body center">
-                        <div class="row text-center">
-                            <div class="content">
-                                <form method="post" action=" {{ route('perfil.store')  }} ">
-                                    <div class="row">
-                                        {{ csrf_field() }}
+                    <div class="ibox-content">
 
-                                        <div id="oculto">
-                                            <input type="number" name="id_perfil" value="{{ $perfis->id_perfil }}"
-                                                   hidden>
-                                        </div>
-
-                                        <div class="col-lg-10 offset-lg-4">
-                                            <label for="tx_nome">Nome <span class="obrigatorio">*</span></label>
-                                            <input type="text" class="form-control" name="nome" id="tx_nome"
-                                                   maxlength="30" value="{{ $perfis->nome }}" required/>
-                                        </div>
-                                        <div class="col-lg-10 offset-lg-4">
-                                            <label for="tp_status">Status <span class="obrigatorio">*</span> </label>
-                                            <input type="radio" name="status" class="form-control" id="tp_status"
-                                                   value="A" @php echo $checked = ($perfis->status == 'A') ? 'checked' : '' @endphp/>Ativo
-                                            <input type="radio" name="status" class="form-control" id="tp_status"
-                                                   value="I" @php echo $checked = ($perfis->status == 'I') ? 'checked' : '' @endphp/>Inativo
-                                            <br>
-                                        </div>
-                                        <div class="col-lg-12 offset-lg-3">
-                                            <button type="submit" class="btn btn-success">
-                                                <span class="fa fa-paper-plane"> </span>
-                                                Salvar
-                                            </button>
-                                            <a href="{{ route('linha.index') }}" class="btn btn-danger">
-                                                <span class="fa fa-reply"></span>
-                                                Voltar
-                                            </a>
-                                        </div>
-                                    </div>
-                                </form>
+                        <form class="form-horizontal" action="{{ route('linha.store') }}" method="post">
+                            @csrf
+                            <div id="oculto">
+                                <input type="number" name="id_theoretical_line"
+                                       value="{{ $linha->id_theoretical_line }}" hidden>
                             </div>
-                        </div>
+
+                            <div class="form-group">
+                                <label for="nome" class="col-sm-2 control-label">Nome <span class="obrigatorio">*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="nome" value="{{ $linha->tx_name }}" name="tx_name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dsc" class="col-sm-2 control-label">Descrição</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="dsc" value="{{ $linha->tx_desc }}" name="tx_desc">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sta" class="col-sm-2 control-label">Status</label>
+                                <div class="col-sm-10">
+                                    @php
+                                        $checked = ($linha->status == "A") ? 'checked' : '';
+                                    @endphp
+                                    <input type="checkbox" id="switchery" class="js-switch" @php echo $checked @endphp name="status" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-send"></span>
+                                        Salvar
+                                    </button>
+                                    <a href="{{ route('linha.index') }}" class="btn btn-danger">
+                                        <span class="fa fa-reply"></span>
+                                        Voltar
+                                    </a>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- <div class="col-lg-10 offset-lg-4">
+        <label for="status">Status <span class="obrigatorio">*</span></label>
+        <input type="radio" class="form-control" name="status" id="status"
+               o </span>
+        <input type="radio" class="form-control" name="status" id="status"
+               o </span>
+        <br>
+    </div> -->
 
 @endsection

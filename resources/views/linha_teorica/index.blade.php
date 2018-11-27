@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('title', 'Lista de Linha Teórica')
 @section('content')
-    
-<div class="row wrapper border-bottom white-bg page-heading">
+
+    <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2>Linha Teórica</h2>
             <ol class="breadcrumb">
@@ -10,7 +10,7 @@
                     <a href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a>Gerencial</a>
+                    <a>Apoio</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>Linha Teórica</strong>
@@ -33,35 +33,44 @@
                     </div>
                     <div class="ibox-content">
                         <div id="button-new">
-                            <a class="btn-small btn btn-success" href="{{ route('linha.create') }}" style="margin-left: 1em; ">
+                            <a class="btn-small btn btn-success" href="{{ route('linha.create') }}"
+                               style="margin-left: 1em; ">
                                 <span class="glyphicon glyphicon-plus"></span>Novo
                             </a>
                         </div>
                         <div class="dataTables_wrapper form-inline dt-bootstrap">
                             <table class="table table-striped table-bordered table-hover dataTables dataTable">
                                 <thead>
-                                    <tr>
-                                        <th width="5%">Ações</th>
-                                        <th>Nome</th>
-                                        <th>Descrição</th>
-                                        <th>Status</th>
-                                    </tr>
+                                <tr>
+                                    <th width="5%">Ações</th>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Status</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($linhas as $linha)
                                     <tr>
                                         <td align="center">
                                             <a href="edit/{{ $linha->id_theoretical_line }}"
-                                                class="glyphicon glyphicon-pencil"></a>
+                                               class="glyphicon glyphicon-pencil">
+                                            </a>
                                             &nbsp;&nbsp;&nbsp;
                                             <a href="destroy/{{ $linha->id_theoretical_line }}"
-                                                class="glyphicon glyphicon-trash"></a>
+                                               class="glyphicon glyphicon-trash">
+
+                                            </a>
                                         </td>
                                         <td> {{ $linha->tx_name }}</td>
                                         <td> {{ $linha->tx_desc }}</td>
-                                            <!-- @if( $linha->status == 'A')
-                                                $style = 'color: #0778ec; font-weight: bolder;'; -->
-                                        <td> {{ $linha->status }}</td>
+                                        @php
+                                            if( $linha->status == 'A'):
+                                                $style = 'color: #0778ec; font-weight: bolder;';
+                                            else:
+                                                $style = 'color: #ff0000; font-weight: bolder;';
+                                            endif
+                                        @endphp
+                                        <td style="{{$style}}"> {{ $linha->status }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

@@ -88,6 +88,7 @@
                                 </li>
                             </ul>
                         </li>
+                        @can('Admin')
                         <li>
                             <a href="#">
                                 <i class="fa fa-cube"></i>
@@ -100,6 +101,7 @@
                                 </li>
                             </ul>
                         </li>
+                        @endcan
                     </ul>
                 </div>
             </nav>
@@ -188,6 +190,13 @@
             var elem = document.querySelector('.js-switch');
             var switchery = new Switchery(elem, { color: '#1AB394' });
 
+            elem.onchange = function() {
+                if(elem.checked == true){
+                    $('#switchery').val('A');
+                }else{
+                    $('#switchery').val('I');
+                }
+            };
         });
     </script>
 </html>
