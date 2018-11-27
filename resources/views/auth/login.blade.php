@@ -35,8 +35,8 @@
 
                     <div class="form-group">
                         <label for="username">{{ __('Matrícula') }}</label>
-                        <input type="number" id="username"
-                            class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                        <input type="text" id="username"
+                            class="form-control inteiro{{ $errors->has('username') ? ' is-invalid' : '' }}"
                             name="username" value="{{ old('username') }}" required autofocus/>
                         @if ($errors->has('username'))
                         <div class="col-lg 3">

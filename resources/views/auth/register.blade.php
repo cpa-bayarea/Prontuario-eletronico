@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email">{{ __('E-Mail') }}</label>
+                            <label for="email">{{ __('E-Mail') }}<span class="obrigatorio">*</span></label>
                             <input id="email" type="email"
                                 class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
                                 name="email" value="{{ old('email') }}" required>
@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password">{{ __('Senha') }}</label>
+                            <label for="password">{{ __('Senha') }}<span class="obrigatorio">*</span></label>
                             <input id="password" type="password"
                                 class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                 name="password" required>
@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password-confirm">{{ __('Confirme a senha') }}</label>
+                            <label for="password-confirm">{{ __('Confirme a senha') }}<span class="obrigatorio">*</span></label>
                             <input id="password-confirm" type="password" class="form-control"
                                     name="password_confirmation" required>
                         </div>
