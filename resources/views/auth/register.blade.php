@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
                             <select name="id_perfil" class="form-control" id="id_perfil" required>
-                                <option disabled selected>Selecione o id_perfil</option>
+                                <option disabled selected>Selecione o Perfil</option>
                                 <option value="1">Administrador</option>
                                 <option value="2">Aluno</option>
                                 <option value="3">Supervisor</option>
