@@ -39,12 +39,12 @@
                             class="form-control inteiro{{ $errors->has('username') ? ' is-invalid' : '' }}"
                             name="username" value="{{ old('username') }}" required autofocus/>
                         @if ($errors->has('username'))
-                        <div class="col-lg 3">
-                        <p class="alert alert-danger alert-dismissable" role="alert">
-                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                            <strong>{{ $errors->first('username') }}</strong>
-                        </p>
-                        </div>
+                            <div class="col-lg 3">
+                                <p class="alert alert-danger alert-dismissable" role="alert">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    <strong>{{ $errors->first('username') }}</strong>
+                                </p>
+                            </div>
                         @endif
                     </div>
 
@@ -55,9 +55,9 @@
                             name="password" required/>
 
                         @if ($errors->has('password'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
+                            <span class="invalid-feedback alert alert-danger" role="alert">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
                         @endif
                     </div>
 

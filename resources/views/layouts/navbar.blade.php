@@ -50,11 +50,13 @@
         <script>
 
             $(function() {
-                // Faz validação se a matrícula informada existe.
-                $('#nu_matricula').keyup(function () {
-                    var mat = $('#nu_matricula').val();
+                $('#username').val('');
 
-                    if (mat != '') {
+                // Faz validação se a matrícula informada existe.
+                $('#username').keyup(function () {
+                    var mat = $(this).val();
+
+                    if (mat !== '') {
                         // Permite ao usuário informar sua senha.
                         $('#password').prop('disabled', false);
                     } else {
@@ -62,15 +64,14 @@
                     }
                 });
 
-                var mat = $('#nu_matricula').val();
-                if( mat != ''){
+                if( $('#username').val() !== ''){
                     $('#password').prop('disabled', false);
                 }else{
                     $('#password').prop('disabled', true);
                 }
 
                 $('#password').prop('title', 'Informe uma matrícula !');
-                // });
+
                 $('.inteiro').keyup(function () {
                     $($(this)).val($(this).val().replace(/[^0-9]/g, ''));
                 });
