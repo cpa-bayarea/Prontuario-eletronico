@@ -28,12 +28,21 @@ Route::group(['middleware' => 'auth'], function () {
         $this::get('/destroy/{id}', ['uses' => 'LinhaTeoricaController@destroy', 'as' => 'linha.destroy']);
     });
 
-    $this::group(['prefix' => 'demandantes'], function () {
-        $this::get('/index',        ['uses' => 'DemandantesController@index',   'as' => 'demandantes.index']);
-        $this::get('/form',         ['uses' => 'DemandantesController@create',  'as' => 'demandantes.create']);
-        $this::post('/store',       ['uses' => 'DemandantesController@store',   'as' => 'demandantes.store']);
-        $this::get('/edit/{id}',    ['uses' => 'DemandantesController@edit',    'as' => 'demandantes.edit']);
-        $this::get('/destroy/{id}', ['uses' => 'DemandantesController@destroy', 'as' => 'demandantes.destroy']);
+    $this::group(['prefix' => 'supervisor'], function () {
+        $this::get('/index',        ['uses' => 'SupervisorController@index',   'as' => 'supervisor.index']);
+        $this::get('/form',         ['uses' => 'SupervisorController@create',  'as' => 'supervisor.create']);
+        $this::post('/store',       ['uses' => 'SupervisorController@store',   'as' => 'supervisor.store']);
+        $this::get('/edit/{id}',    ['uses' => 'SupervisorController@edit',    'as' => 'supervisor.edit']);
+        $this::get('/destroy/{id}', ['uses' => 'SupervisorController@destroy', 'as' => 'supervisor.destroy']);
     });
 
 });
+//$this::get('/register', 'HomeController@reg')->name('reg');
+
+//$this::group(['prefix' => 'user'], function () {
+//    $this::get('/register',      ['uses' => 'UserController@create',   'as' => 'newuser']);
+//        $this::get('/form',         ['uses' => 'SupervisorController@create',  'as' => 'supervisor.create']);
+//        $this::post('/store',       ['uses' => 'SupervisorController@store',   'as' => 'supervisor.store']);
+//        $this::get('/edit/{id}',    ['uses' => 'SupervisorController@edit',    'as' => 'supervisor.edit']);
+//        $this::get('/destroy/{id}', ['uses' => 'SupervisorController@destroy', 'as' => 'supervisor.destroy']);
+//});

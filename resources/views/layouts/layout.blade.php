@@ -78,7 +78,7 @@
                                     <a href="../aluno/index.php">Aluno</a>
                                 </li>
                                 <li>
-                                    <a href="../supervisor/index.php">Supervisor</a>
+                                    <a href="{{ route('supervisor.index') }}">Supervisor</a>
                                 </li>
                                 <li>
                                     <a href="../pagina/index.php">Página</a>

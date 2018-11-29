@@ -7,15 +7,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Display a listing of the resource.
@@ -35,7 +26,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        dd($_SESSION);
+        echo 123;die;
     }
 
     /**

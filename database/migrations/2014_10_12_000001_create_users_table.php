@@ -15,14 +15,17 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email', 60)->unique();
+            $table->string('tx_name');
+            $table->string('tx_email', 100)->unique();
             $table->string('username', 11)->unique();
+            $table->string('nu_telephone', 15)->nullable();
+            $table->string('nu_cellphone', 15)->nullable();
+            $table->text('tx_justify')->nullable();
+            $table->char('status', 1)->default('P'); // options => [A, I, P] Active, Inative or Pending
 
             $table->integer('id_perfil')->unsigned();
             $table->foreign('id_perfil')->references('id_perfil')->on('tb_perfil');
 
-            $table->char('status', 1)->default('P'); // options => [A, I, P] Active, Inative or Pending
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

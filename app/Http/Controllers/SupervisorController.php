@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Access\Gate as Gate;
-use App\PerfilModel as Perfil;
+use App\SupervisorModel as Supervisor;
+use App\User as User;
+use App\LinhaTeoricaModel as Line;
 use Exception;
 
-class PerfilController extends Controller
+class SupervisorController extends Controller
 
 {
     /**
@@ -33,12 +35,22 @@ class PerfilController extends Controller
         }
 
         try {
-            // Retorna todos os Perfis que tem o status Ativo.
-            $perfis = Perfil::orderBy('nome', 'asc')->get();
+            // Retorna todos os Supervisors que tem o status Ativo.
+            $supervisors = Supervisor::all();
+            $id_line = $supervisors->id_theoretical_line;
+            dd($id_line);
+            $id_user = $supervisors->id_user;
 
-            return view('perfil.index', compact('perfis', $perfis));
+            $supervisor_user = User::find($id_user);
+
+            $line_supervisor = Line::find($id_line);
+
+            return view('supervisor.index', compact(['supervisors', 'supervisor_user', 'line_supervisor'],
+                [$supervisors, $supervisor_user, $line_supervisor])
+            );
         } catch (\Exception $e) {
-            throw new Exception('Não foi possível trazer os dados dos Perfis !');
+            echo $e; die;
+            throw new Exception('Não foi possível trazer os dados dos Supervisors !');
         }
     }
 
@@ -72,17 +84,17 @@ class PerfilController extends Controller
             if (!empty($request['id_perfil'])) {
                 try {
                     Perfil::find($request['id_perfil'])->update($request->input());
-                    return redirect()->route('perfil.index');
+                    return redirect()->route('supervisor.index');
                 } catch (Exception $e) {
-                    throw new exception('Não foi possível alterar o registro do Perfil ' . $request->nome . ' !');
+                    throw new exception('Não foi possível alterar o registro do Demandante ' . $request->nome . ' !');
                 }
             }
-            $perfis = new Perfil();
-            $perfis->nome = $request->nome;
-            $perfis->status = 'A';
-            $perfis->save();
+            $supervisors = new Perfil();
+            $supervisors->nome = $request->nome;
+            $supervisors->status = 'A';
+            $supervisors->save();
 
-            return redirect()->route('perfil.index');
+            return redirect()->route('supervisor.index');
         } catch (Exception $e) {
             throw new exception('Não foi possível salvar o Perfil' . $request->nome . ' !');
         }
@@ -113,11 +125,11 @@ class PerfilController extends Controller
         }
 
         try {
-            $perfis = Perfil::find($id);
-            return view('perfil.edit', compact('perfis', $perfis));
+            $supervisors = Perfil::find($id);
+            return view('perfil.edit', compact('supervisors', $supervisors));
 
         } catch (Exception $e) {
-            throw new exception('Não foi possível recuperar os dados do perfil ' . $perfis->tx_nome . ' !');
+            throw new exception('Não foi possível recuperar os dados do perfil ' . $supervisors->tx_nome . ' !');
         }
     }
 
@@ -147,12 +159,12 @@ class PerfilController extends Controller
         }
 
         try {
-            $perfis = Perfil::find($id);
-            $perfis->status = 'I';
-            $perfis->save();
-            return redirect()->route('perfil.index');
+            $supervisors = Perfil::find($id);
+            $supervisors->status = 'I';
+            $supervisors->save();
+            return redirect()->route('supervisor.index');
         } catch (Exception $e) {
-            throw new exception('Não foi possível excluir o registro do Perfil ' . $perfis->tx_nome . ' !');
+            throw new exception('Não foi possível excluir o registro do Perfil ' . $supervisors->tx_nome . ' !');
         }
     }
 }
