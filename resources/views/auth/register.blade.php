@@ -50,7 +50,7 @@
 
                         <div class="form-group">
                             <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
-                            <select name="id_perfil" class="form-control" id="id_perfil" required>
+                            <select name="id_perfil" class="form-control" id="id_perfilid" required>
                                 <option disabled selected>Selecione o Perfil</option>
                                 @foreach($perfis as $perfil)
                                     <option value="{{ $perfil->id_perfil }}">{{ $perfil->tx_name  }}</option>
@@ -130,9 +130,8 @@
 
                         <div class="form-group">
                             <label for="tx_justify" title="Motivo do acesso ao sistema">{{ __('Justificativa') }}</label>
-                            <input id="tx_justify" type="text"
-                                   class="form-control {{ $errors->has('tx_justify') ? ' is-invalid' : '' }}"
-                                   name="tx_justify" value="{{ old('tx_justify') }}"autofocus>
+                            <input id="tx_justify" type="text" class="form-control{{ $errors->has('tx_justify') ? ' is-invalid' : '' }}"
+                                   name="tx_justify" value="{{ old('tx_justify') }}" autofocus>
                             @if ($errors->has('tx_justify'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('tx_justify') }}</strong>

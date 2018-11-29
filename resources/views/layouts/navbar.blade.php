@@ -76,7 +76,22 @@
                     $($(this)).val($(this).val().replace(/[^0-9]/g, ''));
                 });
 
+                $('#id_perfilid').change( function (){
+                    var id = $(this).val();
+
+                    var pfl_sup = 3;
+                    var pfl_alu = 2;
+
+                    console.log(pfl);
+                    if(id === pfl_sup){
+                        formSuper();
+                    }
+                });
             });
+
+            function formSuper(){
+                $('')
+            }
         </script>
     </body>
 
