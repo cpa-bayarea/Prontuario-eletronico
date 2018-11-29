@@ -4,7 +4,9 @@
 2014_10_12_000000_create_perfil_table.php
 2015_10_12_100003_create_linha_teorica_table.php
 2015_10_12_100004_create_supervisor_table.php
+2015_10_12_100005_create_aluno_table.php
 
 # Seeder's of project
 PerfisSeeder.php
 UsersSeeder.php
+TheoreticalLineSeeder.php

@@ -7,7 +7,7 @@
         <div class="col-lg-10 col-lg-offset-1">
             <div class="ibox">
                 <div class="ibox-title">
-                    <h5>Olá, {{ Auth()->user()->name }}</h5>
+                    <h5>Olá, {{ Auth()->user()->tx_name }}</h5>
                 </div>
                 <div class="ibox-content">
 

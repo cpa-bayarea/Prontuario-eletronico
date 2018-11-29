@@ -116,8 +116,8 @@
                         <ul class="nav navbar-top-links navbar-right">
                             <li>
                                 @php
-                                # Pegando apenas o primeiro nome do usuário logado.
-                                $nome = explode(' ', ( Auth()->user()->name));
+                                    # Pegando apenas o primeiro nome do usuário logado.
+                                    $nome = explode(' ', ( Auth()->user()->tx_name));
                                 @endphp
                                 <span class="m-r-sm text-muted welcome-message">Seja bem vindo, @php echo $nome[0]; @endphp </span>
                             </li>

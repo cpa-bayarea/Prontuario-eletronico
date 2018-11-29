@@ -53,7 +53,7 @@
                             <select name="id_perfil" class="form-control" id="id_perfil" required>
                                 <option disabled selected>Selecione o Perfil</option>
                                 @foreach($perfis as $perfil)
-                                    <option value="{{ $perfil->id_perfil }}">{{ $perfil->nome  }}</option>
+                                    <option value="{{ $perfil->id_perfil }}">{{ $perfil->tx_name  }}</option>
                                 @endforeach
                             </select>
 
@@ -66,16 +66,16 @@
 
                         <div class="form-group">
                             <label for="id_theoretical_line">{{ __('Linha Teórica') }}<span class="obrigatorio">*</span></label>
-                            <select name="id_theoretical_line" class="form-control" id="id_theoretical_line" required>
+                            <select name="id_theoretical_line" class="form-control" id="id_theoretical_line">
                                 <option disabled selected>Selecione a Linha Teórica</option>
                                 @foreach($lines as $line)
                                     <option value="{{ $line->id_theoretical_line }}">{{ $line->tx_name  }}</option>
                                 @endforeach
                             </select>
 
-                            @if ($errors->has('id_perfil'))
+                            @if ($errors->has('id_theoretical_line'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('id_perfil') }}</strong>
+                                    <strong>{{ $errors->first('id_theoretical_line') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -96,7 +96,7 @@
                             <label for="nu_cellphone">{{ __('Nº Celular') }}</label>
                             <input id="nu_cellphone" type="text"
                                    class="form-control inteiro{{ $errors->has('nu_cellphone') ? ' is-invalid' : '' }}"
-                                   name="nu_cellphone" value="{{ old('nu_cellphone') }}" required autofocus>
+                                   name="nu_cellphone" value="{{ old('nu_cellphone') }}" autofocus>
                             @if ($errors->has('nu_cellphone'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('nu_cellphone') }}</strong>
@@ -105,14 +105,54 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="nu_crp">{{ __('Nº CRP') }}</label>
+                            <input id="nu_crp" type="text"
+                                   class="form-control inteiro{{ $errors->has('nu_crp') ? ' is-invalid' : '' }}"
+                                   name="nu_crp" value="{{ old('nu_crp') }}" autofocus>
+                            @if ($errors->has('nu_crp'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('nu_crp') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nu_half">{{ __('Semestre') }}</label>
+                            <input id="nu_half" type="text"
+                                   class="form-control inteiro{{ $errors->has('nu_half') ? ' is-invalid' : '' }}"
+                                   name="nu_half" value="{{ old('nu_half') }}" autofocus>
+                            @if ($errors->has('nu_half'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('nu_half') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
                             <label for="tx_justify" title="Motivo do acesso ao sistema">{{ __('Justificativa') }}</label>
                             <input id="tx_justify" type="text"
                                    class="form-control {{ $errors->has('tx_justify') ? ' is-invalid' : '' }}"
-                                   name="tx_justify" value="{{ old('tx_justify') }}" required autofocus>
+                                   name="tx_justify" value="{{ old('tx_justify') }}"autofocus>
                             @if ($errors->has('tx_justify'))
                                 <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('tx_justify') }}</strong>
-                            </span>
+                                    <strong>{{ $errors->first('tx_justify') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id_supervisor">{{ __('Supervisor') }}<span class="obrigatorio">*</span></label>
+                            <select name="id_supervisor" class="form-control" id="id_supervisor">
+                                <option disabled selected>Selecione o Supervisor</option>
+                                @foreach($supervisors as $supervisor)
+                                    <option value="{{ $supervisor->id_supervisor }}">{{ $supervisor->tx_name  }}</option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('id_supervisor'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('id_supervisor') }}</strong>
+                                </span>
                             @endif
                         </div>
 

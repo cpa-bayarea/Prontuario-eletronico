@@ -26,11 +26,11 @@ class User extends Authenticatable
         'tx_name',
         'username',
         'id_perfil',
-        'id_theoretical_line',
         'nu_telephone',
         'nu_cellphone',
         'tx_justify',
         'tx_email',
+        'status',
     ];
 
     /**

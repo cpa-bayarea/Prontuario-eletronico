@@ -6,6 +6,7 @@ use App\SupervisorModel;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use App\PerfilModel as Perfil;
 use App\LinhaTeoricaModel as Line;
 use App\SupervisorModel as Supervisor;
+use App\AlunoModel as Aluno;
 
 
 class RegisterController extends Controller
@@ -54,10 +56,24 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        $perfis = Perfil::all()->where('status', 'A');
-        $lines  = Line::all()->where('status', 'A');
+        $perfis = DB::table('tb_perfil')
+                ->where('status', 'A')
+                ->orderBy('tx_name', 'asc')
+                ->get();
 
-        return view('auth.register', compact(['perfis', 'lines'] ,[$perfis, $lines]));
+        $lines = DB::table('tb_theoretical_line')
+                ->where('status', 'A')
+                ->orderBy('tx_name', 'asc')
+                ->get();
+
+        $supervisors = User::query()
+                ->select('users.tx_name', 'sup.id_supervisor')
+                ->join('tb_supervisor as sup', 'sup.id_user', '=', 'users.id')
+                ->where('users.status', '=', 'A')
+                ->orderBy('users.tx_name', 'asc')
+                ->get();
+
+        return view('auth.register', compact(['perfis', 'lines', 'supervisors'] ,[$perfis, $lines, $supervisors]));
     }
 
     /**
@@ -68,11 +84,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-    //     echo 'validator';
-    //    dd($data);
+//         echo 'validator';
+//        dd($data);
         return Validator::make($data, [
             'tx_name'                => ['required', 'string', 'max:255'],
-            'tx_email'               => ['required', 'string', 'email', 'max:100', 'unique:users'],
+            'tx_email'               => ['required', 'email', 'max:100', 'unique:users'],
             'username'               => ['required', 'max:11', 'unique:users'],
             'id_perfil'              => ['required', 'max:1'],
             'id_theoretical_line'    => ['max:1'],
@@ -93,7 +109,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
+dd($data);
         if ($data['id_perfil'] == User::PFL_SUPERVISOR) {
 
             $user =
@@ -148,31 +164,69 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        //    dd($request->all());
-        //        dd($request['id_perfil'][0]);
-        $this->validator($request->all())->validate();
+//        var_dump($request->id_perfil == User::PFL_ALUNO);
+//dd($request);
+//
+//dd($request->tx_name);
+        $this->validator($request->all());
+//            dd($request->all());
+        if( $request->id_perfil == User::PFL_SUPERVISOR ){
 
-        if( $request->id_perfil == User::PFL_SUPERVISOR){
             $user = new User();
 
             $user->tx_name             = $request->tx_name;
             $user->username            = $request->username;
             $user->id_perfil           = $request->id_perfil;
-            // $user->id_theoretical_line = $request->id_theoretical_line;
             $user->nu_telephone        = $request->nu_telephone;
             $user->nu_cellphone        = $request->nu_cellphone;
             $user->tx_justify          = $request->tx_justify;
             $user->tx_email            = $request->tx_email;
             $user->password            = Hash::make($request->password);
 
-            echo 232;
-            $supervisor = $user->save();
-            dd($supervisor);
-        }
-        echo 404;
-        dd($request->all());
+            $user->save();
 
-        event(new Registered($user = $this->create($request->all())));
+            $usernew = User::where('username',$request->username)->first();
+
+            $supervisor = new Supervisor();
+
+            $supervisor->nu_crp              = $request->nu_crp;
+            $supervisor->id_user             = $usernew->id;
+            $supervisor->id_theoretical_line = $request->id_theoretical_line;
+
+            $supervisor->save();
+
+        }elseif ($request->id_perfil == User::PFL_ALUNO){
+
+            $user = new User();
+
+            $user->tx_name             = $request->tx_name;
+            $user->username            = $request->username;
+            $user->id_perfil           = $request->id_perfil;
+            $user->nu_telephone        = $request->nu_telephone;
+            $user->nu_cellphone        = $request->nu_cellphone;
+            $user->tx_justify          = $request->tx_justify;
+            $user->tx_email            = $request->tx_email;
+            $user->password            = Hash::make($request->password);
+
+            $user->save();
+
+            $usernew = User::where('username',$request->username)->first();
+
+            $aluno = new Aluno();
+
+            $aluno->nu_half       = $request->nu_half;
+            $aluno->id_user       = $usernew;
+            $aluno->id_supervisor = $request->id_supervisor;
+
+            $aluno->save();
+        }
+//        echo 404;
+//        dd($request->all());
+
+        event(new Registered($user = $usernew));
+
+
+//        event(new Registered($user = $this->create($request->all())));
 
         return redirect()->route('register')
             ->with(['registered' => 'Parabéns! Sua conta foi registrada com sucesso, a equipe de gestão do sistema irá avaliar suas credênciais.']);
