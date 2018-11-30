@@ -50,7 +50,7 @@
 
                         <div class="form-group">
                             <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
-                            <select name="id_perfil" class="form-control" id="id_perfilid" required>
+                            <select name="id_perfil" class="form-control" id="id_perfil" required>
                                 <option disabled selected>Selecione o Perfil</option>
                                 @foreach($perfis as $perfil)
                                     <option value="{{ $perfil->id_perfil }}">{{ $perfil->tx_name  }}</option>
@@ -64,7 +64,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-sup">
                             <label for="id_theoretical_line">{{ __('Linha Teórica') }}<span class="obrigatorio">*</span></label>
                             <select name="id_theoretical_line" class="form-control" id="id_theoretical_line">
                                 <option disabled selected>Selecione a Linha Teórica</option>
@@ -80,7 +80,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group all-profile">
                             <label for="nu_telephone">{{ __('Nº Telefone') }} <span class="obrigatorio">*</span></label>
                             <input id="nu_telephone" type="text"
                                    class="form-control inteiro{{ $errors->has('nu_telephone') ? ' is-invalid' : '' }}"
@@ -92,7 +92,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group all-profile">
                             <label for="nu_cellphone">{{ __('Nº Celular') }}</label>
                             <input id="nu_cellphone" type="text"
                                    class="form-control inteiro{{ $errors->has('nu_cellphone') ? ' is-invalid' : '' }}"
@@ -104,7 +104,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-sup">
                             <label for="nu_crp">{{ __('Nº CRP') }}</label>
                             <input id="nu_crp" type="text"
                                    class="form-control inteiro{{ $errors->has('nu_crp') ? ' is-invalid' : '' }}"
@@ -116,7 +116,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-alu">
                             <label for="nu_half">{{ __('Semestre') }}</label>
                             <input id="nu_half" type="text"
                                    class="form-control inteiro{{ $errors->has('nu_half') ? ' is-invalid' : '' }}"
@@ -128,7 +128,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label for="tx_justify" title="Motivo do acesso ao sistema">{{ __('Justificativa') }}</label>
                             <input id="tx_justify" type="text" class="form-control{{ $errors->has('tx_justify') ? ' is-invalid' : '' }}"
                                    name="tx_justify" value="{{ old('tx_justify') }}" autofocus>
@@ -139,7 +139,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-alu">
                             <label for="id_supervisor">{{ __('Supervisor') }}<span class="obrigatorio">*</span></label>
                             <select name="id_supervisor" class="form-control" id="id_supervisor">
                                 <option disabled selected>Selecione o Supervisor</option>
@@ -155,7 +155,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-all">
                             <label for="tx_email">{{ __('E-Mail') }}<span class="obrigatorio">*</span></label>
                             <input id="tx_email" type="email"
                                 class="form-control{{ $errors->has('tx_email') ? ' is-invalid' : '' }}"
@@ -167,7 +167,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-all">
                             <label for="password">{{ __('Senha') }}<span class="obrigatorio">*</span></label>
                             <input id="password" type="password"
                                 class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
@@ -180,7 +180,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group form-all">
                             <label for="password-confirm">{{ __('Confirme a senha') }}<span class="obrigatorio">*</span></label>
                             <input id="password-confirm" type="password" class="form-control"
                                     name="password_confirmation" required>
@@ -197,6 +197,5 @@
             </div>
         </div>
     </div>
-                    
 
 @endsection

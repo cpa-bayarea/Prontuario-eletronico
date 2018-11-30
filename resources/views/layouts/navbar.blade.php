@@ -49,7 +49,9 @@
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script>
 
-            $(function() {
+            $(document).ready(function () {
+
+                f();
                 $('#username').val('');
 
                 // Faz validação se a matrícula informada existe.
@@ -76,21 +78,37 @@
                     $($(this)).val($(this).val().replace(/[^0-9]/g, ''));
                 });
 
-                $('#id_perfilid').change( function (){
-                    var id = $(this).val();
-
-                    var pfl_sup = 3;
-                    var pfl_alu = 2;
-
-                    console.log(pfl);
-                    if(id === pfl_sup){
-                        formSuper();
-                    }
+                $( "select" ).change(function() {
+                    var str = $('option:selected').val();
+                    verificaCampos(str);
                 });
+
             });
 
-            function formSuper(){
-                $('')
+            function f() {
+                $('.form-all').hide('fast');
+                $('.form-alu').hide('fast');
+                $('.form-sup').hide('fast');
+                $('.all-profile').hide('fast');
+            }
+
+            function verificaCampos(str) {
+
+                if(str == 3){
+                    f();
+                    $('.form-sup').show('slow');
+                    $('.all-profile').show('slow');
+                    $('.form-all').show('slow');
+                }else if(str == 2){
+                    f();
+                    $('.all-profile').show('slow');
+                    $('.form-alu').show('slow');
+                    $('.form-all').show('slow');
+                }else {
+                    f();
+                    $('.all-profile').show('slow');
+                    $('.form-all').show('slow');
+                }
             }
         </script>
     </body>
