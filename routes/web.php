@@ -17,7 +17,6 @@ Route::group(['middleware' => 'auth'], function () {
     $this::get('/', 'HomeController@index')->name('home');
     $this::get('/home', 'HomeController@index')->name('home');
 
-    Route::resource('user', 'UserController');
 
     // Route::resource('linha_teorica', 'LinhaTeoricaController');
     $this::group(['prefix' => 'linha_teorica'], function () {
@@ -36,13 +35,12 @@ Route::group(['middleware' => 'auth'], function () {
         $this::get('/destroy/{id}', ['uses' => 'SupervisorController@destroy', 'as' => 'supervisor.destroy']);
     });
 
-});
-//$this::get('/register', 'HomeController@reg')->name('reg');
+    $this::group(['prefix' => 'user'], function () {
+        $this::get('/index',        ['uses' => 'UserController@index',   'as' => 'user.index']);
+        $this::get('/form',         ['uses' => 'UserController@create',  'as' => 'user.create']);
+        $this::post('/store',       ['uses' => 'UserController@store',   'as' => 'user.store']);
+        $this::get('/edit/{id}',    ['uses' => 'UserController@edit',    'as' => 'user.edit']);
+        $this::get('/destroy/{id}', ['uses' => 'UserController@destroy', 'as' => 'user.destroy']);
+    });
 
-//$this::group(['prefix' => 'user'], function () {
-//    $this::get('/register',      ['uses' => 'UserController@create',   'as' => 'newuser']);
-//        $this::get('/form',         ['uses' => 'SupervisorController@create',  'as' => 'supervisor.create']);
-//        $this::post('/store',       ['uses' => 'SupervisorController@store',   'as' => 'supervisor.store']);
-//        $this::get('/edit/{id}',    ['uses' => 'SupervisorController@edit',    'as' => 'supervisor.edit']);
-//        $this::get('/destroy/{id}', ['uses' => 'SupervisorController@destroy', 'as' => 'supervisor.destroy']);
-//});
+});

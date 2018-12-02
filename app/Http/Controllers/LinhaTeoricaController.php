@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\LinhaTeoricaModel as Linha;
 use App\User as Perfil;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class LinhaTeoricaController extends Controller
 {
@@ -26,17 +27,23 @@ class LinhaTeoricaController extends Controller
      */
     public function index()
     {
-        if(!\Gate::allows('Admin')){
-            abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
-        }
-        # Order case user is adm.
-        if(Auth()->user()->id === Perfil::PFL_ADM){
-            $linhas = DB::table('tb_theoretical_line')
+        try {
+
+            if(!\Gate::allows('Admin')){
+                abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
+            }
+
+            # Order case user is adm.
+            if(Auth()->user()->id_perfil === Perfil::PFL_ADM){
+                $linhas = DB::table('tb_theoretical_line')
                     ->orderBy('tx_name', 'asc')
                     ->get();
-        }
 
-        return view('linha_teorica.index', compact('linhas', $linhas));
+                return view('linha_teorica.index', compact('linhas', $linhas));
+            }
+        } catch (\Exception $e) {
+            return redirect()->back();
+        }
     }
 
     /**

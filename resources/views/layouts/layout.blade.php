@@ -89,18 +89,30 @@
                             </ul>
                         </li>
                         @can('Admin')
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-cube"></i>
-                                <span class="nav-label">Apoio</span>
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="nav nav-second-level collapse">
-                                <li>
-                                    <a href="{{ route('linha.index') }}">Linha Teórica</a>
-                                </li>
-                            </ul>
-                        </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-user"></i>
+                                    <span class="nav-label">Usuários</span>
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level collapse">
+                                    <li>
+                                        <a href="{{ route('user.index') }}">Gerenciar</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-cube"></i>
+                                    <span class="nav-label">Apoio</span>
+                                    <span class="fa arrow"></span>
+                                </a>
+                                <ul class="nav nav-second-level collapse">
+                                    <li>
+                                        <a href="{{ route('linha.index') }}">Linha Teórica</a>
+                                    </li>
+                                </ul>
+                            </li>
                         @endcan
                     </ul>
                 </div>

@@ -15,7 +15,24 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+
+        $users = User::orderBy('tx_name', 'asc')->get();
+
+        foreach ($users as $user) {
+            if ($user->id_perfil == 1) {
+                $user->id_perfil = 'Gestor';
+            } elseif ($user->id_perfil == 2) {
+                $user->id_perfil = 'Aluno';
+            } elseif ($user->id_perfil == 3) {
+                $user->id_perfil = 'Supervisor';
+            } elseif ($user->id_perfil == 4) {
+                $user->id_perfil = 'Secretária';
+            } elseif ($user->id_perfil == 5) {
+                $user->id_perfil = 'Terapeuta';
+            }
+        }
+
+        return view('user.index', compact('users', $users));
 
     }
 
@@ -26,14 +43,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        dd($_SESSION);
-        echo 123;die;
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -55,7 +71,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,21 +82,21 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
-        $user = Auth()->user();
-        return view('auth.profile', compact('user'));
+        $user = User::find($id)->first();
+        dd($user);
+        return view('user.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -91,11 +107,25 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        if(!\Gate::allows('Admin')){
+            abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
+        }
+
+        try {
+            $user = User::where('id', $id)->first();
+            $user->status = 'I';
+            $user->save();
+
+            return redirect()->route('user.index');
+        } catch (\Exception $e) {
+            throw new \exception('Não foi possível excluir o registro do ' . $user->tx_name . ' !');
+        }
+
+
     }
 }

@@ -32,7 +32,7 @@
     <nav class="navbar navbar-expand-md navbar-light navbar-laravel" style="background-color: transparent;">
         <div class="container">
             <a class="navbar-brand text-black-50" href="{{  url('/') }}">
-                <h5>Prontuário Eletrônico</h1>
+                <h5>Prontuário Eletrônico</h5>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
