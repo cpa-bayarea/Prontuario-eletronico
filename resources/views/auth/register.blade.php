@@ -105,7 +105,7 @@
                         </div>
 
                         <div class="form-group form-sup">
-                            <label for="nu_crp">{{ __('Nº CRP') }}</label>
+                            <label for="nu_crp">{{ __('Nº CRP') }}<span class="obrigatorio">*</span> </label>
                             <input id="nu_crp" type="text"
                                    class="form-control inteiro{{ $errors->has('nu_crp') ? ' is-invalid' : '' }}"
                                    name="nu_crp" value="{{ old('nu_crp') }}" autofocus>
@@ -188,7 +188,7 @@
 
                         <div class="form-group mb-0 right">
                             <button type="submit" class="btn btn-primary block full-width m-b">
-                                {{ __('Cadastre-se') }}
+                                <i class="fa fa-send">&nbsp; {{ __('Cadastre-se') }}</i>
                             </button>
                         </div>
 

@@ -84,8 +84,6 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-//         echo 'validator';
-//        dd($data);
         return Validator::make($data, [
             'tx_name'                => ['required', 'string', 'max:255'],
             'tx_email'               => ['required', 'email', 'max:100', 'unique:users'],
@@ -102,61 +100,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-dd($data);
-        if ($data['id_perfil'] == User::PFL_SUPERVISOR) {
-
-            $user =
-                User::create([
-                    'tx_name'      => $data['tx_name'],
-                    'username'     => $data['username'],
-                    'id_perfil'    => $data['id_perfil'],
-                    'nu_telephone' => $data['nu_telephone'],
-                    'nu_cellphone' => $data['nu_cellphone'],
-                    'tx_justify'   => $data['tx_justify'],
-                    'password'     => bcrypt($data['password']),
-                    'tx_email'     => $data['tx_email'],
-            ]);
-            Supervisor::create([
-                'id_user'             => $user->id_user,
-                'id_theoretical_line' => $data['id_theoretical_line'],
-                'nu_crp'              => $data['nu_crp'],
-            ]);
-            return $user;
-
-        }elseif ($data['id_perfil'] == User::PFL_ALUNO){
-
-            $user = User::create([
-                        'tx_name'             => $data['tx_name'],
-                        'username'            => $data['username'],
-                        'id_perfil'           => $data['id_perfil'],
-                        'nu_telephone'        => $data['nu_telephone'],
-                        'nu_cellphone'        => $data['nu_cellphone'],
-                        'tx_justify'          => $data['tx_justify'],
-                        'tx_email'            => $data['tx_email'],
-                        'password'            => Hash::make($data['password']),
-            ]);
-        }else{
-            return User::create([
-                'tx_name'             => $data['tx_name'],
-                'username'            => $data['username'],
-                'id_perfil'           => $data['id_perfil'],
-                'nu_telephone'        => $data['nu_telephone'],
-                'nu_cellphone'        => $data['nu_cellphone'],
-                'tx_justify'          => $data['tx_justify'],
-                'tx_email'            => $data['tx_email'],
-                'password'            => Hash::make($data['password']),
-            ]);
-        }
-    }
-
-    /**
      * Register a new user by returning the message on the form.
      *
      * @param Request $request
@@ -164,71 +107,111 @@ dd($data);
      */
     public function register(Request $request)
     {
-//        var_dump($request->id_perfil == User::PFL_ALUNO);
-//dd($request);
-//
-//dd($request->tx_name);
         $this->validator($request->all());
-//            dd($request->all());
+
         if( $request->id_perfil == User::PFL_SUPERVISOR ){
 
-            $user = new User();
-
-            $user->tx_name             = $request->tx_name;
-            $user->username            = $request->username;
-            $user->id_perfil           = $request->id_perfil;
-            $user->nu_telephone        = $request->nu_telephone;
-            $user->nu_cellphone        = $request->nu_cellphone;
-            $user->tx_justify          = $request->tx_justify;
-            $user->tx_email            = $request->tx_email;
-            $user->password            = Hash::make($request->password);
-
-            $user->save();
-
-            $usernew = User::where('username',$request->username)->first();
-
-            $supervisor = new Supervisor();
-
-            $supervisor->nu_crp              = $request->nu_crp;
-            $supervisor->id_user             = $usernew->id;
-            $supervisor->id_theoretical_line = $request->id_theoretical_line;
-
-            $supervisor->save();
+            $usernew = $this->createSupervisor($request);
 
         }elseif ($request->id_perfil == User::PFL_ALUNO){
 
-            $user = new User();
-
-            $user->tx_name             = $request->tx_name;
-            $user->username            = $request->username;
-            $user->id_perfil           = $request->id_perfil;
-            $user->nu_telephone        = $request->nu_telephone;
-            $user->nu_cellphone        = $request->nu_cellphone;
-            $user->tx_justify          = $request->tx_justify;
-            $user->tx_email            = $request->tx_email;
-            $user->password            = Hash::make($request->password);
-
-            $user->save();
-
-            $usernew = User::where('username',$request->username)->first();
-
-            $aluno = new Aluno();
-
-            $aluno->nu_half       = $request->nu_half;
-            $aluno->id_user       = $usernew;
-            $aluno->id_supervisor = $request->id_supervisor;
-
-            $aluno->save();
+            $usernew = $this->createAluno($request);
+        }else{
+            $usernew = $this->createOthers($request);
         }
-//        echo 404;
-//        dd($request->all());
 
         event(new Registered($user = $usernew));
 
-
-//        event(new Registered($user = $this->create($request->all())));
-
         return redirect()->route('register')
             ->with(['registered' => 'Parabéns! Sua conta foi registrada com sucesso, a equipe de gestão do sistema irá avaliar suas credênciais.']);
+    }
+
+    /**
+     * Cria um novo usuário caso o perfil dele seja supervisor.
+     * @param Request $request
+     * @return mixed
+     * @since 01/12/2018
+     */
+    public function createSupervisor(Request $request)
+    {
+        $user = new User();
+
+        $user->tx_name      = $request->tx_name;
+        $user->username     = $request->username;
+        $user->id_perfil    = $request->id_perfil;
+        $user->nu_telephone = $request->nu_telephone;
+        $user->nu_cellphone = $request->nu_cellphone;
+        $user->tx_justify   = $request->tx_justify;
+        $user->tx_email     = $request->tx_email;
+        $user->password     = Hash::make($request->password);
+
+        $user->save();
+
+        $usernew = User::where('username',$request->username)->first();
+
+        $supervisor = new Supervisor();
+
+        $supervisor->nu_crp              = $request->nu_crp;
+        $supervisor->id_user             = $usernew->id;
+        $supervisor->id_theoretical_line = $request->id_theoretical_line;
+
+        $supervisor->save();
+
+        return $usernew;
+    }
+
+    /**
+     * Cria um novo usuário do perfil de aluno.
+     * @param Request $request
+     * @return mixed
+     * @since 01/12/2018
+     */
+    public function createAluno(Request $request)
+    {
+        $user = new User();
+
+        $user->tx_name      = $request->tx_name;
+        $user->username     = $request->username;
+        $user->id_perfil    = $request->id_perfil;
+        $user->nu_telephone = $request->nu_telephone;
+        $user->nu_cellphone = $request->nu_cellphone;
+        $user->tx_justify   = $request->tx_justify;
+        $user->tx_email     = $request->tx_email;
+        $user->password     = Hash::make($request->password);
+
+        $user->save();
+
+        $usernew = User::where('username', $request->username)->first();
+
+        $aluno = new Aluno();
+
+        $aluno->nu_half       = $request->nu_half;
+        $aluno->id_user       = $usernew->id;
+        $aluno->id_supervisor = $request->id_supervisor;
+
+        $aluno->save();
+
+        return $usernew;
+    }
+
+    /**
+     * Cria um novo usuário caso o perfil dele não seja Aluno ou Supervisor
+     * @param Request $request
+     * @since 01/12/2018
+     */
+    public function createOthers(Request $request)
+    {
+        $user = new User();
+
+        $user->tx_name      = $request->tx_name;
+        $user->username     = $request->username;
+        $user->id_perfil    = $request->id_perfil;
+        $user->nu_telephone = $request->nu_telephone;
+        $user->nu_cellphone = $request->nu_cellphone;
+        $user->tx_justify   = $request->tx_justify;
+        $user->tx_email     = $request->tx_email;
+        $user->password     = Hash::make($request->password);
+
+        $user->save();
     }
 }

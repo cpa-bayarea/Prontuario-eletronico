@@ -48,10 +48,42 @@
         <script src="{{ asset('js/jquery-2.1.1.js')}}"></script>
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script>
+            /**
+             * Hide all form for anyone profile.
+             * @since 01/12/2018
+             */
+            function hideAll()
+            {
+                $('.form-all').hide('fast');
+                $('.form-alu').hide('fast');
+                $('.form-sup').hide('fast');
+                $('.all-profile').hide('fast');
+            }
+
+            function verificaCampos(str)
+            {
+
+                if(str == 3){
+                    hideAll();
+                    $('.form-sup').show('slow');
+                    $('.all-profile').show('slow');
+                    $('.form-all').show('slow');
+                }else if(str == 2){
+                    hideAll();
+                    $('.all-profile').show('slow');
+                    $('.form-alu').show('slow');
+                    $('.form-all').show('slow');
+                }else {
+                    hideAll();
+                    $('.all-profile').show('slow');
+                    $('.form-all').show('slow');
+                }
+            }
 
             $(document).ready(function () {
 
-                f();
+                hideAll();
+
                 $('#username').val('');
 
                 // Faz validação se a matrícula informada existe.
@@ -78,38 +110,13 @@
                     $($(this)).val($(this).val().replace(/[^0-9]/g, ''));
                 });
 
-                $( "select" ).change(function() {
-                    var str = $('option:selected').val();
-                    verificaCampos(str);
+                $("#id_perfil").change(function(){
+                    var pfl = $(this).val();
+                    verificaCampos(pfl);
                 });
 
             });
 
-            function f() {
-                $('.form-all').hide('fast');
-                $('.form-alu').hide('fast');
-                $('.form-sup').hide('fast');
-                $('.all-profile').hide('fast');
-            }
-
-            function verificaCampos(str) {
-
-                if(str == 3){
-                    f();
-                    $('.form-sup').show('slow');
-                    $('.all-profile').show('slow');
-                    $('.form-all').show('slow');
-                }else if(str == 2){
-                    f();
-                    $('.all-profile').show('slow');
-                    $('.form-alu').show('slow');
-                    $('.form-all').show('slow');
-                }else {
-                    f();
-                    $('.all-profile').show('slow');
-                    $('.form-all').show('slow');
-                }
-            }
         </script>
     </body>
 
