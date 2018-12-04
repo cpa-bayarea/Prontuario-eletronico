@@ -43,7 +43,7 @@
                             <table class="table table-striped table-bordered table-hover dataTables dataTable">
                                 <thead>
                                 <tr>
-                                    <th width="5%">Ações</th>
+                                    <th style="text-align:center; width:10%;" >Ações</th>
                                     <th>Nome</th>
                                     <th>Perfil</th>
                                     <th>Status</th>

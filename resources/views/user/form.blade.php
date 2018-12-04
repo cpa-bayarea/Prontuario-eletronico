@@ -1,11 +1,13 @@
 @extends('layouts.layout')
 
-@section('title', 'Cadastro de Linha Teórica')
+@section('title', 'Cadastro de Usuários')
 @section('content')
-    
+
+<script src="{{ asset('js/user-form.js')}}"></script>
+
 <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Linha Teórica</h2>
+            <h2>Usuários</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}">Home</a>
@@ -14,7 +16,7 @@
                     <a>Apoio</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong>Linha Teórica</strong>
+                    <strong>Usuários</strong>
                 </li>
             </ol>
         </div>
@@ -28,35 +30,8 @@
                         <h5>Dados Gerais</h5>
                     </div>
                     <div class="ibox-content">
-
-                        <form class="form-horizontal" action="{{ route('linha.store') }}" method="post">
-                            @csrf
-                            <div class="form-group">
-                                <label for="nome" class="col-sm-2 control-label">Nome <span class="obrigatorio">*</span></label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="nome" name="tx_name" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="dsc" class="col-sm-2 control-label">Descrição</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="dsc" name="tx_desc">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-success">
-                                        <span class="glyphicon glyphicon-send"></span>
-                                        Salvar
-                                    </button>
-                                    <a href="{{ route('linha.index') }}" class="btn btn-danger">
-                                        <span class="fa fa-reply"></span>
-                                        Voltar
-                                    </a>
-                                </div>
-                            </div>
-
+                        <form class="m-t" role="form" method="POST" action="{{ route('user.store') }}">
+                            @include('user/user-form')
                         </form>
                     </div>
                 </div>

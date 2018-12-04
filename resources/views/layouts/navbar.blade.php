@@ -27,6 +27,9 @@
     </head>
 
     <body class="gray-bg">
+        <script src="{{ asset('js/jquery-2.1.1.js')}}"></script>
+        <script src="{{ asset('js/bootstrap.min.js')}}"></script>
+
         <div class="loginColumns animated fadeInDown">
             @yield('content')
             <hr/>
@@ -45,8 +48,6 @@
             </footer>
         </div>
 
-        <script src="{{ asset('js/jquery-2.1.1.js')}}"></script>
-        <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script>
             /**
              * Hide all form for anyone profile.

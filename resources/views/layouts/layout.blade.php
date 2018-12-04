@@ -26,6 +26,22 @@
         </style>
     </head>
     <body id="x">
+        <!-- Mainly scripts -->
+        <script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+        <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+        <!-- Data Tables -->
+        <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="{{ asset('js/inspinia.js') }}"></script>
+        <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
+
+        <!-- Switchery -->
+        <script src="{{ asset('js/plugins/switchery/switchery.js') }}"></script>
+
         <div id="wrapper">
             <nav class="navbar-default navbar-static-side" role="navigation" style="position: fixed;">
                 <div class="sidebar-collapse">
@@ -162,53 +178,5 @@
             </div>
         </div>
 
-        <!-- Mainly scripts -->
-        <script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-        <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-
-        <!-- Data Tables -->
-        <script src="{{ asset('js/plugins/dataTables/datatables.min.js') }}"></script>
-
-        <!-- Custom and plugin javascript -->
-        <script src="{{ asset('js/inspinia.js') }}"></script>
-        <script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
-
-        <!-- Switchery -->
-        <script src="{{ asset('js/plugins/switchery/switchery.js') }}"></script>
-
     </body>
-    <script>
-
-        $(document).ready(function(){
-        });
-
-        $(function(){
-            // Mostar a navbar oculta ao carregar o navegador.
-            // $('#x').addClass('mini-navbar');
-
-            // Datatables iniciar por marcador 10.
-            $('.dataTables').DataTable({
-                pageLength: 10,
-                responsive: true,
-            });
-
-            // Permite que seja incluído apenas números inteiros no input
-            $('.inteiro').keyup(function () {
-                $($(this)).val($(this).val().replace(/[^0-9]/g, ''));
-            });
-
-            var elem = document.querySelector('.js-switch');
-            var switchery = new Switchery(elem, { color: '#1AB394' });
-
-            elem.onchange = function() {
-                if(elem.checked == true){
-                    $('#switchery').val('A');
-                }else{
-                    $('#switchery').val('I');
-                }
-            };
-        });
-    </script>
 </html>
