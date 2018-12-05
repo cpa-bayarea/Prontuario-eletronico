@@ -81,7 +81,7 @@
 </div>
 
 <div class="form-group form-sup">
-    <label for="nu_crp">{{ __('Nº CRP') }}<span class="obrigatorio">*</span> </label>
+    <label for="nu_crp">{{ __('Nº CRP') }}<span class="obrigatorio">*</span></label>
     <input id="nu_crp" type="text"
             class="form-control inteiro{{ $errors->has('nu_crp') ? ' is-invalid' : '' }}"
             name="nu_crp" value="{{ old('nu_crp') }}" autofocus>
@@ -93,7 +93,7 @@
 </div>
 
 <div class="form-group form-alu">
-    <label for="nu_half">{{ __('Semestre') }}</label>
+    <label for="nu_half">{{ __('Semestre') }}<span class="obrigatorio">*</span></label>
     <input id="nu_half" type="text"
             class="form-control inteiro{{ $errors->has('nu_half') ? ' is-invalid' : '' }}"
             name="nu_half" value="{{ old('nu_half') }}" autofocus>

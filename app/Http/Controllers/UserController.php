@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\AlunoModel as Aluno;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -42,6 +44,7 @@ class UserController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \exception
      */
     public function create()
     {
@@ -70,7 +73,7 @@ class UserController extends Controller
             return view('user.form', compact(['perfis', 'lines', 'supervisors'], [$perfis, $lines, $supervisors]));
 
         } catch (\Exception $e) {
-            throw new \exception('Não foi possível excluir o registro do ' . $user->tx_name . ' !');
+            throw new \exception('Não foi possível atender a sua solicitação! ');
         }
 
     }
@@ -80,6 +83,7 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \exception
      */
     public function store(Request $request)
     { 
@@ -89,22 +93,43 @@ class UserController extends Controller
 
         try {
             if((int)$request->id_perfil === User::PFL_ALUNO){
-                $return = $this->validatorAluno($request->all());
-dd($return);
-                // if(){
+                $error = $this->validatorAluno($request->all());
+                if($error >= 1){
+                    return redirect()->back();
+                }else{
+                    $user = new User();
 
-                // }
+                    $user->tx_name = $request->tx_name;
+                    $user->tx_email = $request->tx_email;
+                    $user->username = $request->username;
+                    $user->nu_telephone = $request->nu_telephone;
+                    $user->nu_cellphone = $request->nu_cellphone;
+                    $user->tx_justify = $request->tx_justify;
+                    $user->id_perfil = $request->id_perfil;
+                    $user->password = Hash::make($request->password);
+
+                    $user->save();
+
+                    $al = User::find($request->username);
+                    dd($al);
+
+                    $aluno = new Aluno();
+
+                    $aluno->nu_half = $request->nu_half;
+                    $aluno->id_user = $al->id_user;
+                    $aluno->id_supervisor = $request->id_supervisor;
+
+                    $aluno->save();
+                }
+
             }elseif((int)$request->id_perfil === User::PFL_SUPERVISOR){
                 $this->validatorSupervisor($request->all());
             }else{
                 $this->validatorOthers($request->all());
             }
-
-            dd($request);
-            return view('user.form', compact(['perfis', 'lines', 'supervisors'], [$perfis, $lines, $supervisors]));
+            return view('user.form');
 
         } catch (\Exception $e) {
-            echo $e;die;
             throw new \exception('Não foi possível adicionar o registro do ' . $request->tx_name . ' !');
         }
     }
@@ -150,6 +175,7 @@ dd($return);
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
+     * @throws \exception
      */
     public function destroy($id)
     {
@@ -170,46 +196,51 @@ dd($return);
     }
 
     /**
-     * 
+     * Check if the $request is valid, verifying data size and mandatory.
+     *
+     * @param $request => Data of user form.
+     * @since 05/12/2018
+     * @return bool
      */
     protected function validatorAluno($request)
     {
-        echo '<pre>'; print_r($request); echo '</pre>';
-
-        $name                  = $request['tx_name'] ? $request['tx_name'] : false;
-        $username              = $request['username'] ? $request['username'] : false;
-        $id_perfil             = $request['id_perfil'] ? $request['id_perfil'] : false;
-        $nu_telephone          = $request['nu_telephone'] ? $request['nu_telephone'] : false;
+        $return = 0;
+        $name                  = $request['tx_name'] ? $request['tx_name'] : '';
+        $username              = $request['username'] ? $request['username'] : '';
+        $id_perfil             = $request['id_perfil'] ? $request['id_perfil'] : '';
+        $nu_telephone          = $request['nu_telephone'] ? $request['nu_telephone'] : '';
         $nu_cellphone          = $request['nu_cellphone'] ? $request['nu_cellphone'] : NULL;
-        $nu_half               = $request['nu_half'] ? $request['nu_half'] : false;
+        $nu_half               = $request['nu_half'] ? $request['nu_half'] : '';
         $tx_justify            = $request['tx_justify'] ? $request['tx_justify'] : NULL;
-        $id_supervisor         = $request['id_supervisor'] ? $request['id_supervisor'] : false;
-        $tx_email              = $request['tx_email'] ? $request['tx_email'] : false;
-        $password              = $request['password'] ? $request['password'] : false;
-        $password_confirmation = $request['password_confirmation'] ? $request['password_confirmation'] : false;
-        
+        $id_supervisor         = $request['id_supervisor'] ? $request['id_supervisor'] : '';
+        $tx_email              = $request['tx_email'] ? $request['tx_email'] : '';
+        $password              = $request['password'] ? $request['password'] : '';
+        $password_confirmation = $request['password_confirmation'] ? $request['password_confirmation'] : '';
+
         if( ((int)$password_confirmation) === ((int)$password) ) {
-            if($name !== false){
-                $return = 1;
-            }elseif($username !== false){
+
+            if( (strlen($name) > 100) || ( !($name == null) && ($name == '') ) ){
                 $return += 1;
-            }elseif($id_perfil !== false){
+            }elseif( (strlen($username) > 11) || ( !($username == null)  && ($username == '') )){
                 $return += 1;
-            }elseif($nu_telephone !== false){
+            }elseif( ($id_perfil == null) || ($id_perfil == '') ){
                 $return += 1;
-            }elseif($id_supervisor !== false){
+            }elseif( (strlen($nu_telephone) > 11) || ( !($nu_telephone == null) && ($nu_telephone == '') )){
                 $return += 1;
-            }elseif($tx_email !== false){
+            }elseif( (strlen($nu_cellphone) > 11) ){
                 $return += 1;
-            }elseif($nu_half !== false){
+            }elseif( ($id_supervisor == null) || ($id_supervisor == '') ){
+                $return += 1;
+            }elseif( (strlen($tx_email) > 100) || ( !($tx_email == null) && ($tx_email == '') )){
+                $return += 1;
+            }elseif( (strlen($nu_half) > 2) || ( !($nu_half == null) && ($nu_half == '') )){
                 $return += 1;
             }
-
         }else{
-            $return = 0;
+            $return = 1;
         }
 
-        return $return;
+        return (int)$return;
     }
 
     /**

@@ -18,6 +18,23 @@ function hideAll()
 }
 
 /**
+ *
+ */
+function requiredForAluno() {
+    $('#nu_half').attr('required', true);
+    $('#id_supervisor').attr('required', true);
+    $("#nu_half").attr('maxlength', '2');
+}
+
+/**
+ *
+ */
+function requiredForSupervisor() {
+    $('#id_theoretical_line').attr('required', true);
+    $('#nu_crp').attr('required', true);
+    $("#nu_crp").attr('maxlength', '7');
+}
+/**
  * Check all fields for each profile.
  * @param {*} pfl => profile selected 
  * @since 03/12/2018
@@ -26,17 +43,18 @@ function checkFields(pfl)
 {
 
     if(pfl == 3){
-        // requiredForAluno();
         hideAll();
         $('.form-sup').show('slow');
         $('.all-profile').show('slow');
         $('.form-all').show('slow');
+        requiredForSupervisor();
+
     }else if(pfl == 2){
-        // requiredForSupervisor();
         hideAll();
         $('.all-profile').show('slow');
         $('.form-alu').show('slow');
         $('.form-all').show('slow');
+        requiredForAluno();
     }else {
         // requiredForOthers();
         hideAll();
@@ -48,7 +66,7 @@ function checkFields(pfl)
 $(document).ready(function(){
     hideAll();
 
-    $('#username').val('');
+    $('#username').attr('maxlength', 11);
 
     // Faz validação se a matrícula informada existe.
     $('#username').keyup(function () {
@@ -87,5 +105,5 @@ $(document).ready(function(){
         // Validate that all forms have been successfully completed
         $('.btn-register').prop('disabled', false);
     });
-    
+
 });
