@@ -5,7 +5,7 @@
 
 <script src="{{ asset('js/user-form.js')}}"></script>
 
-<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2>Usuários</h2>
             <ol class="breadcrumb">

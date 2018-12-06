@@ -4,6 +4,17 @@
  * @author Douglasx <douglasantana007@gmail.com>
  */
 
+/**
+ * Assign values for all the form.
+ * @since 05/12/2018
+ */
+function assignValue()
+{
+    $('#username').attr('maxlength', 11);
+    $('#nu_telephone').attr('maxlength', 15);
+    $('#nu_cellphone').attr('maxlength', 15);
+    $('#id_perfil').attr('required', true);
+}
 
 /**
  * Hide all form for anyone profile.
@@ -66,7 +77,7 @@ function checkFields(pfl)
 $(document).ready(function(){
     hideAll();
 
-    $('#username').attr('maxlength', 11);
+    assignValue();
 
     // Faz validação se a matrícula informada existe.
     $('#username').keyup(function () {
@@ -106,4 +117,11 @@ $(document).ready(function(){
         $('.btn-register').prop('disabled', false);
     });
 
+    $('#id-user').val(function () {
+
+        if( ($(this).val() != null) || ($(this).val() != '')){
+            // implements here.
+            // set the value of all the fields of the current user.
+        }
+    })
 });

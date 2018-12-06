@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\AlunoModel as Aluno;
+use App\SupervisorModel as Super;
 use App\User;
+use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -99,37 +100,68 @@ class UserController extends Controller
                 }else{
                     $user = new User();
 
-                    $user->tx_name = $request->tx_name;
-                    $user->tx_email = $request->tx_email;
-                    $user->username = $request->username;
+                    $user->tx_name      = $request->tx_name;
+                    $user->tx_email     = $request->tx_email;
+                    $user->username     = $request->username;
                     $user->nu_telephone = $request->nu_telephone;
                     $user->nu_cellphone = $request->nu_cellphone;
-                    $user->tx_justify = $request->tx_justify;
-                    $user->id_perfil = $request->id_perfil;
-                    $user->password = Hash::make($request->password);
+                    $user->tx_justify   = $request->tx_justify;
+                    $user->id_perfil    = $request->id_perfil;
+                    $user->password     = Hash::make($request->password);
 
                     $user->save();
 
-                    $al = User::find($request->username);
-                    dd($al);
+                    $al = User::where('username', $request->username)->first();
 
                     $aluno = new Aluno();
 
                     $aluno->nu_half = $request->nu_half;
-                    $aluno->id_user = $al->id_user;
+                    $aluno->id_user = $al->id;
                     $aluno->id_supervisor = $request->id_supervisor;
 
                     $aluno->save();
+
+                    return $this->index();
                 }
 
             }elseif((int)$request->id_perfil === User::PFL_SUPERVISOR){
-                $this->validatorSupervisor($request->all());
+                $error = $this->validatorSupervisor($request->all());
+                if($error >= 1){
+                    return redirect()->back();
+                }else {
+                    $user = new User();
+
+                    $user->tx_name      = $request->tx_name;
+                    $user->tx_email     = $request->tx_email;
+                    $user->username     = $request->username;
+                    $user->nu_telephone = $request->nu_telephone;
+                    $user->nu_cellphone = $request->nu_cellphone;
+                    $user->tx_justify   = $request->tx_justify;
+                    $user->id_perfil    = $request->id_perfil;
+                    $user->password     = Hash::make($request->password);
+
+                    $user->save();
+
+                    $sup = User::where('username', $request->username)->first();
+
+                    $supervisor = new Super();
+
+                    $supervisor->nu_crp              = $request->nu_crp;
+                    $supervisor->id_user             = $sup->id;
+                    $supervisor->id_theoretical_line = $request->id_theoretical_line;
+
+                    $supervisor->save();
+
+                    return $this->index();
+                }
             }else{
                 $this->validatorOthers($request->all());
             }
-            return view('user.form');
+
+            return view('user.index');
 
         } catch (\Exception $e) {
+            echo $e;die;
             throw new \exception('Não foi possível adicionar o registro do ' . $request->tx_name . ' !');
         }
     }
@@ -153,8 +185,24 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id)->first();
-        dd($user);
+        $user = User::where('id', $id)->first();
+
+        if((int)$user->id_perfil === User::PFL_SUPERVISOR){
+            $lines = DB::table('tb_theoretical_line')
+                ->where('status', 'A')
+                ->orderBy('tx_name', 'asc')
+                ->get();
+
+            $supervisors = User::query()
+                ->select('users.tx_name', 'sup.id_supervisor')
+                ->join('tb_supervisor as sup', 'sup.id_user', '=', 'users.id')
+                ->where('users.status', '=', 'A')
+                ->orderBy('users.tx_name', 'asc')
+                ->get();
+
+            return view('user.edit', compact(['user', 'lines', 'supervisors'], [$user, $lines, $supervisors]));
+        }
+
         return view('user.edit', compact('user'));
     }
 
@@ -167,7 +215,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -244,22 +292,51 @@ class UserController extends Controller
     }
 
     /**
-     * 
+     * Check if the $request is valid, verifying data size and mandatory.
+     *
+     * @param $request => Data of user form.
+     * @since 06/12/2018
+     * @return bool
      */
-    protected function validatorSupervisor(array $data)
+    protected function validatorSupervisor($request)
     {
-        return Validator::make($data, [
-            'tx_name'                => ['required', 'string', 'max:100'],
-            'tx_email'               => ['required', 'email', 'max:100'],
-            'username'               => ['required', 'max:11', 'unique:users'],
-            'id_perfil'              => ['required', 'max:1'],
-            'id_theoretical_line'    => ['required', 'max:1'],
-            'nu_telephone'           => ['required', 'string', 'max:15'],
-            'nu_cellphone'           => ['string', 'max:15'],
-            'tx_justify'             => ['string', 'max:255'],
-            'password'               => ['required', 'string', 'min:6', 'confirmed'],
-            'nu_crp'                 => ['required', 'string', 'max:7'],
-        ]);
+        $return = 0;
+        $name                  = $request['tx_name'] ? $request['tx_name'] : '';
+        $username              = $request['username'] ? $request['username'] : '';
+        $id_perfil             = $request['id_perfil'] ? $request['id_perfil'] : '';
+        $nu_telephone          = $request['nu_telephone'] ? $request['nu_telephone'] : '';
+        $nu_cellphone          = $request['nu_cellphone'] ? $request['nu_cellphone'] : NULL;
+        $id_theoretical_line   = $request['id_theoretical_line'] ? $request['id_theoretical_line'] : '';
+        $nu_crp                = $request['nu_crp'] ? $request['nu_crp'] : '';
+        $tx_justify            = $request['tx_justify'] ? $request['tx_justify'] : NULL;
+        $tx_email              = $request['tx_email'] ? $request['tx_email'] : '';
+        $password              = $request['password'] ? $request['password'] : '';
+        $password_confirmation = $request['password_confirmation'] ? $request['password_confirmation'] : '';
+
+        if( ((int)$password_confirmation) === ((int)$password) ) {
+
+            if( (strlen($name) > 100) || ( !($name == null) && ($name == '') ) ){
+                $return += 1;
+            }elseif( (strlen($username) > 11) || ( !($username == null)  && ($username == '') )){
+                $return += 1;
+            }elseif( ($id_perfil == null) || ($id_perfil == '') ){
+                $return += 1;
+            }elseif( (strlen($nu_telephone) > 11) || ( !($nu_telephone == null) && ($nu_telephone == '') )){
+                $return += 1;
+            }elseif( (strlen($nu_cellphone) > 11) ){
+                $return += 1;
+            }elseif( ($id_theoretical_line == null) || ($id_theoretical_line == '') ){
+                $return += 1;
+            }elseif( (strlen($tx_email) > 100) || ( !($tx_email == null) && ($tx_email == '') )){
+                $return += 1;
+            }elseif( (strlen($nu_crp) > 7) || ( !($nu_crp == null) && ($nu_crp == '') )){
+                $return += 1;
+            }
+        }else{
+            $return = 1;
+        }
+
+        return (int)$return;
     }
 
     /**
