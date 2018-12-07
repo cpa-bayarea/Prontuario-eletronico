@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\AlunoModel as Aluno;
+use App\PerfilModel as PFL;
 use App\SupervisorModel as Super;
 use App\User;
-use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -186,7 +186,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-
+//var_dump((int)$user->id_perfil === User::PFL_SUPERVISOR);die;
         if((int)$user->id_perfil === User::PFL_SUPERVISOR){
             $lines = DB::table('tb_theoretical_line')
                 ->where('status', 'A')
@@ -200,9 +200,19 @@ class UserController extends Controller
                 ->orderBy('users.tx_name', 'asc')
                 ->get();
 
-            return view('user.edit', compact(['user', 'lines', 'supervisors'], [$user, $lines, $supervisors]));
+            $perfis = PFL::where('status','=', 'A')->get();
+
+            $perfil = User::query()
+                ->select('pfl.tx_name', 'pfl.id_perfil')
+                ->join('tb_perfil as pfl', 'pfl.id_perfil', '=', 'users.id_perfil')
+                ->where('users.id', '=', $user->id)
+                ->orderBy('users.tx_name', 'asc')
+                ->get();
+
+            return view('user.edit', compact(['user', 'perfil', 'perfis','lines', 'supervisors'], [$perfil, $perfis , $user, $lines, $supervisors]));
         }
 
+        echo 234;die;
         return view('user.edit', compact('user'));
     }
 

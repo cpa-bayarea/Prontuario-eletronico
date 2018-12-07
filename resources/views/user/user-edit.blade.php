@@ -1,63 +1,45 @@
 @csrf
 
-<input id="id-user" type="text" name="id" value="{{ $user->id }}">
+{{ $user }}<br><br>
+{{ $supervisors }}
+{{ $perfil }}
+<input id="id_user" type="hidden" name="id" value="{{ $user->id }}">
 
 <div class="form-group">
     <label for="tx_name">{{ __('Nome') }}<span class="obrigatorio">*</span></label>
-    <input id="tx_name" type="text"
-            class="form-control{{ $errors->has('tx_name') ? ' is-invalid' : '' }}"
-            name="tx_name" value="{{ old('tx_name') }}" required autofocus>
-    @if ($errors->has('tx_name'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('tx_name') }}</strong>
-    </span>
-    @endif
+    <input id="tx_name" type="text" class="form-control" name="tx_name"
+           value="{{ $user->tx_name }}" required autofocus>
 </div>
 
 <div class="form-group">
     <label for="username">{{ __('Matrícula') }} <span class="obrigatorio">*</span></label>
-    <input id="username" type="text"
-            class="form-control inteiro{{ $errors->has('username') ? ' is-invalid' : '' }}"
-            name="username" value="{{ old('username') }}" required autofocus>
-    @if ($errors->has('username'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('username') }}</strong>
-    </span>
-    @endif
+    <input id="username" type="text" class="form-control inteiro" name="username"
+           value="{{ $user->username }}" required autofocus>
 </div>
+@can('Admin')
+    <input type="hidden" id="val-pfl" value="{{ $user->id_perfil }}">
+    <div class="form-group">
+        <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
+        <select name="id_perfil" class="form-control" id="id_perfil" required>
+            <option selected value="{{ $user->id_perfil }}">{{ $perfil[0]['tx_name'] }}</option>
+            @foreach($perfis as $pfl)
+                <option value="{{ $pfl->id_perfil }}">{{ $pfl->tx_name }}</option>
+            @endforeach
+        </select>
+    </div>
+@endcan
 
-<div class="form-group">
-    <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
-    <select name="id_perfil" class="form-control" id="id_perfil" required>
-        <option disabled selected>Selecione o Perfil</option>
-        {{--@foreach($perfis as $perfil)
-            <option value="{{ $perfil->id_perfil }}">{{ $perfil->tx_name  }}</option>
-        @endforeach--}}
-    </select>
-
-    @if ($errors->has('id_perfil'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('id_perfil') }}</strong>
-        </span>
-    @endif
-</div>
-
-<div class="form-group form-sup">
-    <label for="id_theoretical_line">{{ __('Linha Teórica') }}<span class="obrigatorio">*</span></label>
-    <select name="id_theoretical_line" class="form-control" id="id_theoretical_line">
-        <option disabled selected>Selecione a Linha Teórica</option>
-        @foreach($lines as $line)
-            <option value="{{ $line->id_theoretical_line }}">{{ $line->tx_name  }}</option>
-        @endforeach
-    </select>
-
-    @if ($errors->has('id_theoretical_line'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('id_theoretical_line') }}</strong>
-        </span>
-    @endif
-</div>
-
+@can('Admin')
+    <div class="form-group form-sup">
+        <label for="id_theoretical_line">{{ __('Linha Teórica') }}<span class="obrigatorio">*</span></label>
+        <select name="id_theoretical_line" class="form-control" id="id_theoretical_line">
+            <option disabled selected>Selecione a Linha Teórica</option>
+            @foreach($lines as $line)
+                <option value="{{ $line->id_theoretical_line }}">{{ $line->tx_name  }}</option>
+            @endforeach
+        </select>
+    </div>
+@endcan
 <div class="form-group all-profile">
     <label for="nu_telephone">{{ __('Nº Telefone') }} <span class="obrigatorio">*</span></label>
     <input id="nu_telephone" type="text"

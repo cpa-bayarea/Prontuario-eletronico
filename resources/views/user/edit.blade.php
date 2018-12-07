@@ -3,7 +3,7 @@
 @section('title', 'Cadastro de Usuários')
 @section('content')
 
-    <script src="{{ asset('js/user-form.js')}}"></script>
+    <script src="{{ asset('js/user-edit.js')}}"></script>
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
