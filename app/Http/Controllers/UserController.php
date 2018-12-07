@@ -186,7 +186,12 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-//var_dump((int)$user->id_perfil === User::PFL_SUPERVISOR);die;
+
+        $user = User::query()
+            ->select('')
+        ;
+
+
         if((int)$user->id_perfil === User::PFL_SUPERVISOR){
             $lines = DB::table('tb_theoretical_line')
                 ->where('status', 'A')

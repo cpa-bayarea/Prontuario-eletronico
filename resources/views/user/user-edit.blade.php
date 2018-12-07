@@ -42,61 +42,32 @@
 @endcan
 <div class="form-group all-profile">
     <label for="nu_telephone">{{ __('Nº Telefone') }} <span class="obrigatorio">*</span></label>
-    <input id="nu_telephone" type="text"
-            class="form-control inteiro{{ $errors->has('nu_telephone') ? ' is-invalid' : '' }}"
-            name="nu_telephone" value="{{ old('nu_telephone') }}" required autofocus>
-    @if ($errors->has('nu_telephone'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('nu_telephone') }}</strong>
-        </span>
-    @endif
+    <input id="nu_telephone" type="text" class="form-control inteiro" name="nu_telephone"
+           value="{{ $user->nu_telephone }}" required autofocus>
 </div>
 
 <div class="form-group all-profile">
     <label for="nu_cellphone">{{ __('Nº Celular') }}</label>
-    <input id="nu_cellphone" type="text"
-            class="form-control inteiro{{ $errors->has('nu_cellphone') ? ' is-invalid' : '' }}"
-            name="nu_cellphone" value="{{ old('nu_cellphone') }}" autofocus>
-    @if ($errors->has('nu_cellphone'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('nu_cellphone') }}</strong>
-        </span>
-    @endif
+    <input id="nu_cellphone" type="text" class="form-control inteiro" name="nu_cellphone"
+           value="{{ $user->nu_cellphone }}" autofocus>
 </div>
 
 <div class="form-group form-sup">
     <label for="nu_crp">{{ __('Nº CRP') }}<span class="obrigatorio">*</span></label>
-    <input id="nu_crp" type="text"
-            class="form-control inteiro{{ $errors->has('nu_crp') ? ' is-invalid' : '' }}"
-            name="nu_crp" value="{{ old('nu_crp') }}" autofocus>
-    @if ($errors->has('nu_crp'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('nu_crp') }}</strong>
-        </span>
-    @endif
+    <input id="nu_crp" type="text" class="form-control inteiro" name="nu_crp"
+           value="{{ $user->nu_crp }}" autofocus>
 </div>
 
 <div class="form-group form-alu">
     <label for="nu_half">{{ __('Semestre') }}<span class="obrigatorio">*</span></label>
-    <input id="nu_half" type="text"
-            class="form-control inteiro{{ $errors->has('nu_half') ? ' is-invalid' : '' }}"
-            name="nu_half" value="{{ old('nu_half') }}" autofocus>
-    @if ($errors->has('nu_half'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('nu_half') }}</strong>
-        </span>
-    @endif
+    <input id="nu_half" type="text" class="form-control inteiro" name="nu_half"
+           value="{{ $user->nu_half }}" autofocus>
 </div>
 
 <div class="form-group" style="display: none;">
     <label for="tx_justify" title="Motivo do acesso ao sistema">{{ __('Justificativa') }}</label>
-    <input id="tx_justify" type="text" class="form-control{{ $errors->has('tx_justify') ? ' is-invalid' : '' }}"
-            name="tx_justify" value="{{ old('tx_justify') }}" autofocus>
-    @if ($errors->has('tx_justify'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('tx_justify') }}</strong>
-        </span>
-    @endif
+    <input id="tx_justify" type="text" class="form-control" name="tx_justify"
+           value="{{ $user->tx_justify }}" autofocus>
 </div>
 
 <div class="form-group form-alu">
@@ -107,38 +78,21 @@
             <option value="{{ $supervisor->id_supervisor }}">{{ $supervisor->tx_name  }}</option>
         @endforeach
     </select>
-
-    @if ($errors->has('id_supervisor'))
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first('id_supervisor') }}</strong>
-        </span>
-    @endif
 </div>
 
 <div class="form-group form-all">
     <label for="tx_email">{{ __('E-Mail') }}<span class="obrigatorio">*</span></label>
-    <input id="tx_email" type="email"
-        class="form-control{{ $errors->has('tx_email') ? ' is-invalid' : '' }}"
-        name="tx_email" value="{{ old('tx_email') }}" required>
-    @if ($errors->has('tx_email'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('tx_email') }}</strong>
-    </span>
-    @endif
+    <input id="tx_email" type="email" class="form-control" name="tx_email"
+           value="{{ $user->tx_email }}" required>
 </div>
 
-<div class="form-group form-all">
-    <label for="password">{{ __('Senha') }}<span class="obrigatorio">*</span></label>
-    <input id="password" type="password"
-        class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-        name="password" required>
-
-    @if ($errors->has('password'))
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $errors->first('password') }}</strong>
-    </span>
-    @endif
-</div>
+{{-- Checks if user logged is owner of record or manager of system --}}
+@if ( ( ((int)Auth()->user()->id) === $user->id ) || ( Auth()->user()->id_perfil === \App\User::PFL_ADM ) )
+    <div class="form-group form-all">
+        <label for="password">{{ __('Senha') }}<span class="obrigatorio">*</span></label>
+        <input id="password" type="password" class="form-control" name="password" required>
+    </div>
+@endif
 
 <div class="form-group form-all">
     <label for="password-confirm">{{ __('Confirme a senha') }}<span class="obrigatorio">*</span></label>
