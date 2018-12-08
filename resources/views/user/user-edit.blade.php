@@ -49,7 +49,7 @@
 <div class="form-group all-profile">
     <label for="nu_cellphone">{{ __('Nº Celular') }}</label>
     <input id="nu_cellphone" type="text" class="form-control inteiro" name="nu_cellphone"
-           value="{{ $user->nu_cellphone }}" autofocus>
+           value="{{ $user->nu_cellphone ? $user->nu_cellphone : '-'}}" autofocus>
 </div>
 
 <div class="form-group form-sup">
@@ -92,13 +92,13 @@
         <label for="password">{{ __('Senha') }}<span class="obrigatorio">*</span></label>
         <input id="password" type="password" class="form-control" name="password" required>
     </div>
-@endif
 
-<div class="form-group form-all">
-    <label for="password-confirm">{{ __('Confirme a senha') }}<span class="obrigatorio">*</span></label>
-    <input id="password-confirm" type="password" class="form-control"
-            name="password_confirmation" required>
-</div>
+    <div class="form-group form-all">
+        <label for="password-confirm">{{ __('Confirme a senha') }}<span class="obrigatorio">*</span></label>
+        <input id="password-confirm" type="password" class="form-control"
+                name="password_confirmation" required>
+    </div>
+@endif
 
 <div class="form-group mb-0 right">
     <button type="submit" class="btn btn-primary block full-width m-b btn-register">
