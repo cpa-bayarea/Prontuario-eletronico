@@ -185,36 +185,52 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::where('id', $id)->first();
+        $edit = User::where('id', $id)->first();
 
-        $user = User::query()
-            ->select('')
-        ;
+        if((int)$edit->id_perfil === User::PFL_SUPERVISOR){
 
+            $user = User::query()
+                ->select('users.id',
+                                 'users.tx_name',
+                                 'users.username',
+                                 'pfl.id_perfil',
+                                 'pfl.tx_name as perfil',
+                                 'su.id_theoretical_line as linha_teorica',
+                                 'lt.tx_name as lteorica',
+                                 'users.nu_telephone',
+                                 'users.nu_cellphone',
+                                 'su.nu_crp',
+                                 'users.tx_justify',
+                                 'users.tx_email',
+                                 'users.status',
+                                 'users.created_at',
+                                 'users.updated_at'
+                )
+                ->join('tb_supervisor as su', 'su.id_user', '=', 'users.id')
+                ->join('tb_theoretical_line AS lt', 'lt.id_theoretical_line', '=', 'su.id_theoretical_line')
+                ->join('tb_perfil AS pfl', 'pfl.id_perfil', '=', 'users.id_perfil')
+                ->where('users.username' , '=', $edit->username)
+                ->first();
 
-        if((int)$user->id_perfil === User::PFL_SUPERVISOR){
             $lines = DB::table('tb_theoretical_line')
-                ->where('status', 'A')
+                ->where('status', '=', 'A')
+                ->where('id_theoretical_line', '<>', $user->linha_teorica)
                 ->orderBy('tx_name', 'asc')
                 ->get();
 
-            $supervisors = User::query()
-                ->select('users.tx_name', 'sup.id_supervisor')
-                ->join('tb_supervisor as sup', 'sup.id_user', '=', 'users.id')
-                ->where('users.status', '=', 'A')
-                ->orderBy('users.tx_name', 'asc')
+            $perfis = DB::table('tb_perfil')
+                ->where('status', '=', 'A')
+                ->where('id_perfil', '<>', $user->id_perfil)
+                ->orderBy('tx_name', 'asc')
                 ->get();
 
-            $perfis = PFL::where('status','=', 'A')->get();
+            return view('user.edit', compact(['perfis', 'lines', 'user'], [$perfis, $lines, $user]));
 
-            $perfil = User::query()
-                ->select('pfl.tx_name', 'pfl.id_perfil')
-                ->join('tb_perfil as pfl', 'pfl.id_perfil', '=', 'users.id_perfil')
-                ->where('users.id', '=', $user->id)
-                ->orderBy('users.tx_name', 'asc')
-                ->get();
+        }elseif ((int)$edit->id_perfil === User::PFL_ALUNO){
+            echo 234;die;
 
-            return view('user.edit', compact(['user', 'perfil', 'perfis','lines', 'supervisors'], [$perfil, $perfis , $user, $lines, $supervisors]));
+            return view('user.edit', compact(['perfis', 'lines', 'user'], [$perfis, $lines, $user]));
+
         }
 
         echo 234;die;

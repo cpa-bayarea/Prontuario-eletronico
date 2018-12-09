@@ -22,6 +22,9 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
+                <a class="btn-small btn btn-success" href="{{ route('linha.create') }}">
+                    <span class="glyphicon glyphicon-plus"></span>Novo
+                </a>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Lista de Linhas Teóricas</h5>
@@ -32,17 +35,11 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div id="button-new">
-                            <a class="btn-small btn btn-success" href="{{ route('linha.create') }}"
-                               style="margin-left: 1em; ">
-                                <span class="glyphicon glyphicon-plus"></span>Novo
-                            </a>
-                        </div>
                         <div class="dataTables_wrapper form-inline dt-bootstrap">
                             <table class="table table-striped table-bordered table-hover dataTables dataTable">
                                 <thead>
                                 <tr>
-                                    <th width="5%">Ações</th>
+                                    <th width="10%">Ações</th>
                                     <th>Nome</th>
                                     <th>Descrição</th>
                                     <th>Status</th>

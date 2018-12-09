@@ -1,4 +1,11 @@
-function showForm(pfl)
+/**
+ * Arquivo de script da página de edição do usuário.
+ *
+ * @author Douglas <douglasantana007@gmail.com>
+ * @since 09/12/2018
+ * @param pfl => perfil
+ */
+function mostraCampos(pfl)
 {
     // when user is supervisor.
     if(pfl == 3){
@@ -18,7 +25,7 @@ function showForm(pfl)
 $(document).ready(function () {
 
     var pfl = $('#val-pfl').val();
-    showForm(pfl);
+    mostraCampos(pfl);
 
     $('#id_perfil').val(pfl);
 
