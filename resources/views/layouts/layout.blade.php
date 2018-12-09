@@ -21,7 +21,7 @@
             }
 
             #button-new{
-                margin-left: -15px;
+                margin-left: 20px;
             }
         </style>
     </head>
@@ -164,6 +164,17 @@
                     </nav>
                 </div>
                 <!-- end of navbar/sidebar  -->
+                <script>
+                    $(document).ready(function () {
+
+                        // Datatables iniciar por marcador 10.
+                        $('.dataTables').DataTable({
+                            pageLength: 10,
+                            responsive: true,
+                        });
+
+                    });
+                </script>
 
                 @yield('content')
 

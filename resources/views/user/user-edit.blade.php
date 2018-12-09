@@ -1,8 +1,5 @@
 @csrf
 
-{{ $user }}<br><br>
-{{ $supervisors }}
-{{ $perfil }}
 <input id="id_user" type="hidden" name="id" value="{{ $user->id }}">
 
 <div class="form-group">
@@ -21,7 +18,7 @@
     <div class="form-group">
         <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
         <select name="id_perfil" class="form-control" id="id_perfil" required>
-            <option selected value="{{ $user->id_perfil }}">{{ $perfil[0]['tx_name'] }}</option>
+            <option selected value="{{ $user->id_perfil }}">{{ $user->perfil }}</option>
             @foreach($perfis as $pfl)
                 <option value="{{ $pfl->id_perfil }}">{{ $pfl->tx_name }}</option>
             @endforeach
@@ -33,13 +30,14 @@
     <div class="form-group form-sup">
         <label for="id_theoretical_line">{{ __('Linha Teórica') }}<span class="obrigatorio">*</span></label>
         <select name="id_theoretical_line" class="form-control" id="id_theoretical_line">
-            <option disabled selected>Selecione a Linha Teórica</option>
-            @foreach($lines as $line)
+            <option selected value="{{ $user->linha_teorica }}">{{ $user->lteorica }}</option>
+        @foreach($lines as $line)
                 <option value="{{ $line->id_theoretical_line }}">{{ $line->tx_name  }}</option>
             @endforeach
         </select>
     </div>
 @endcan
+
 <div class="form-group all-profile">
     <label for="nu_telephone">{{ __('Nº Telefone') }} <span class="obrigatorio">*</span></label>
     <input id="nu_telephone" type="text" class="form-control inteiro" name="nu_telephone"
@@ -64,21 +62,23 @@
            value="{{ $user->nu_half }}" autofocus>
 </div>
 
-<div class="form-group" style="display: none;">
+<div class="form-group">
     <label for="tx_justify" title="Motivo do acesso ao sistema">{{ __('Justificativa') }}</label>
     <input id="tx_justify" type="text" class="form-control" name="tx_justify"
            value="{{ $user->tx_justify }}" autofocus>
 </div>
 
-<div class="form-group form-alu">
-    <label for="id_supervisor">{{ __('Supervisor') }}<span class="obrigatorio">*</span></label>
-    <select name="id_supervisor" class="form-control" id="id_supervisor">
-        <option disabled selected>Selecione o Supervisor</option>
+@if ($user->id == \App\User::PFL_ALUNO)
+    <div class="form-group form-alu">
+        <label for="id_supervisor">{{ __('Supervisor') }}<span class="obrigatorio">*</span></label>
+        <select name="id_supervisor" class="form-control" id="id_supervisor">
+            <option selected value="{{ $user->id_sup }}">{{ $user->supervisor }}</option>
         @foreach($supervisors as $supervisor)
-            <option value="{{ $supervisor->id_supervisor }}">{{ $supervisor->tx_name  }}</option>
-        @endforeach
-    </select>
-</div>
+                <option value="{{ $user->id_supervisor }}">{{ $user->tx_name  }}</option>
+            @endforeach
+        </select>
+    </div>
+@endif
 
 <div class="form-group form-all">
     <label for="tx_email">{{ __('E-Mail') }}<span class="obrigatorio">*</span></label>
@@ -95,8 +95,7 @@
 
     <div class="form-group form-all">
         <label for="password-confirm">{{ __('Confirme a senha') }}<span class="obrigatorio">*</span></label>
-        <input id="password-confirm" type="password" class="form-control"
-                name="password_confirmation" required>
+        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
     </div>
 @endif
 

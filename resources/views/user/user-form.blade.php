@@ -13,8 +13,8 @@
 </div>
 
 <div class="form-group">
-    <label for="username">{{ __('Matrícula') }} <span class="obrigatorio">*</span></label>
-    <input id="username" type="text"
+    <label for="matricula">{{ __('Matrícula') }} <span class="obrigatorio">*</span></label>
+    <input id="matricula" type="text"
             class="form-control inteiro{{ $errors->has('username') ? ' is-invalid' : '' }}"
             name="username" value="{{ old('username') }}" required autofocus>
     @if ($errors->has('username'))

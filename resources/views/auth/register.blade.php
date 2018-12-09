@@ -4,6 +4,8 @@
 
 @section('content')
 
+    <script src="{{ asset('js/register.js')}}"></script>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">

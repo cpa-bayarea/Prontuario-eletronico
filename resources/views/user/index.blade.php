@@ -23,6 +23,9 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
+                <a class="btn-small btn btn-success" href="{{ route('user.create') }}">
+                    <span class="glyphicon glyphicon-plus"></span>Novo
+                </a>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Lista de Usuários</h5>
@@ -33,12 +36,6 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div id="button-new">
-                            <a class="btn-small btn btn-success" href="{{ route('user.create') }}"
-                               style="margin-left: 1em; ">
-                                <span class="glyphicon glyphicon-plus"></span>Novo
-                            </a>
-                        </div>
                         <div class="dataTables_wrapper form-inline dt-bootstrap">
                             <table class="table table-striped table-bordered table-hover dataTables dataTable">
                                 <thead>

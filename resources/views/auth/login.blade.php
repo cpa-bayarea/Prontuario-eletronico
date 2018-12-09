@@ -1,8 +1,11 @@
 @extends('layouts.navbar')
 
-@section('titulo', 'login')
+@section('titulo', 'Login')
 
 @section('content')
+
+    <script src="{{ asset('js/login.js')}}"></script>
+
 
     <div class="row">
         <div class="col-lg-6">
@@ -34,7 +37,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="username">{{ __('Matrícula') }}</label>
+                        <label for="username">{{ __('Matrícula') }}<span class="obrigatorio">*</span> </label>
                         <input type="text" id="username"
                             class="form-control inteiro{{ $errors->has('username') ? ' is-invalid' : '' }}"
                             name="username" value="{{ old('username') }}" required autofocus/>
@@ -49,7 +52,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password">{{ __('Senha') }}</label>
+                        <label for="password">{{ __('Senha') }}<span class="obrigatorio">*</span> </label>
                         <input type="password" id="password"
                             class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                             name="password" required/>
