@@ -14,7 +14,7 @@
            value="{{ $user->username }}" required autofocus>
 </div>
 
-    <input type="text" id="val-pfl" value="{{ $user->id_perfil }}">
+    <input type="hidden" id="val-pfl" value="{{ $user->id_perfil }}">
 @if ($user->id_perfil == !\App\User::PFL_ALUNO)
     <div class="form-group">
         <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
@@ -95,6 +95,6 @@
 
 <div class="form-group mb-0 right">
     <button type="submit" class="btn btn-primary block full-width m-b btn-register">
-        <i class="fa fa-send">&nbsp; {{ __('Cadastre-se') }}</i>
+        <i class="fa fa-send">&nbsp; {{ __('Salvar') }}</i>
     </button>
 </div>

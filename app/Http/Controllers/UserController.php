@@ -276,10 +276,12 @@ class UserController extends Controller
 
             return view('user.edit', compact(['supervisors', 'user'], [$supervisors, $user]));
 
+        }else{
+            $user = $edit;
+
+            return view('user.edit', compact('user', $user));
         }
 
-        echo 234;die;
-        return view('user.edit', compact('user'));
     }
 
     /**
@@ -295,7 +297,7 @@ class UserController extends Controller
         if( (int)$user->id_perfil === User::PFL_ALUNO ){
             self::updateAluno($user, $request);
 
-        }elseif ( (int)$request->id_perfil === User::PFL_SUPERVISOR ){
+        }elseif ( (int)$user->id_perfil === User::PFL_SUPERVISOR ){
             self::updateSupervisor($user, $request);
 
         }else{
@@ -455,6 +457,8 @@ class UserController extends Controller
 
         $alu = Aluno::where('id_user', $user->id)->first();
 
+        $sup = Super::where('id_user', $request->id_supervisor)->first();
+
         $user->tx_name      = $request->tx_name;
         $user->username     = $request->username;
         $user->id_perfil    = $request->id_perfil ? $request->id_perfil : $user->id_perfil;
@@ -467,10 +471,7 @@ class UserController extends Controller
         $user->save();
 
         $alu->nu_half       = $request->nu_half;
-
-        /*if(isset( $request->id_supervisor )){
-            $alu->id_supervisor = $request->id_supervisor;
-        }*/
+        $alu->id_supervisor = (int)$sup->id_supervisor ? (int)$sup->id_supervisor : (int)$alu->id_supervisor;
 
         $alu->save();
 
@@ -492,7 +493,7 @@ class UserController extends Controller
 
         $user->tx_name      = $request->tx_name;
         $user->username     = $request->username;
-        $user->id_perfil    = $request->id_perfil;
+        $user->id_perfil    = $request->id_perfil ? $request->id_perfil : $user->id_perfil;
         $user->nu_telephone = $request->nu_telephone;
         $user->nu_cellphone = $request->nu_cellphone;
         $user->tx_justify   = $request->tx_justify;
@@ -505,7 +506,7 @@ class UserController extends Controller
         $user->save();
 
         $super->nu_crp              = $request->nu_crp;
-        $super->id_theoretical_line = $request->id_theoretical_line;
+        $super->id_theoretical_line = $request->id_theoretical_line ? $request->id_theoretical_line : $super->id_theoretical_line;
 
         $super->save();
 
@@ -521,6 +522,17 @@ class UserController extends Controller
      */
     public static function updateOutros($user, $request)
     {
-        dd($user);
+
+        $user->tx_name      = $request->tx_name;
+        $user->username     = $request->username;
+        $user->id_perfil    = $request->id_perfil ? $request->id_perfil : $user->id_perfil;
+        $user->nu_telephone = $request->nu_telephone;
+        $user->nu_cellphone = $request->nu_cellphone;
+        $user->tx_justify   = $request->tx_justify;
+        $user->tx_email     = $request->tx_email;
+        $user->status       = $request->status ? $request->status : 'A';
+        $user->password     = $request->password ? Hash::make($request->password) : $user->password;
+
+        $user->save();
     }
 }
