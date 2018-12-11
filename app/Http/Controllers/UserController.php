@@ -6,6 +6,7 @@ use App\AlunoModel as Aluno;
 use App\PerfilModel as PFL;
 use App\SupervisorModel as Super;
 use App\User;
+use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -235,9 +236,45 @@ class UserController extends Controller
             return view('user.edit', compact(['perfis', 'lines', 'user'], [$perfis, $lines, $user]));
 
         }elseif ((int)$edit->id_perfil === User::PFL_ALUNO){
-            echo 234;die;
 
-            return view('user.edit', compact(['perfis', 'lines', 'user'], [$perfis, $lines, $user]));
+            $user = User::query()
+                ->select('users.id',
+                                  'users.id AS id_user_aluno',
+                                  'users.tx_name AS tx_name',
+                                  'users.username',
+                                  'users.nu_telephone AS nu_telephone',
+                                  'users.nu_cellphone AS nu_cellphone',
+                                  'users.tx_email AS tx_email',
+                                  'users.status AS status',
+                                  'users.tx_justify as tx_justify',
+                                  'users.id_perfil',
+                                  'pfl.tx_name as perfil',
+                                  'al.nu_half AS nu_half',
+                                  'usr_su.tx_name AS tx_nome_supervisor',
+                                  'usr_su.id AS id_user_supervisor'
+                )
+                ->join('tb_aluno AS al', 'users.id', '=', 'al.id_user')
+                ->join('tb_supervisor AS su', 'al.id_supervisor', '=', 'su.id_supervisor')
+                ->join('users AS usr_su', 'su.id_user', '=', 'usr_su.id')
+                ->join('tb_perfil AS pfl', 'pfl.id_perfil', '=', 'users.id_perfil')
+                ->where('users.username' , '=', $edit->username)
+                ->first();
+
+            /*$lines = DB::table('tb_theoretical_line')
+                ->where('status', '=', 'A')
+                ->where('id_theoretical_line', '<>', $user->linha_teorica)
+                ->orderBy('tx_name', 'asc')
+                ->get();*/
+
+            $supervisors = DB::table('users as usr')
+                ->select('usr.id as id_supervisor', 'usr.tx_name')
+                ->join('tb_supervisor as sup', 'sup.id_user','=','usr.id')
+                ->where('usr.status', '=', 'A')
+                ->where('usr.id', '<>', $user->id_user_supervisor)
+                ->orderBy('usr.tx_name', 'asc')
+                ->get();
+
+            return view('user.edit', compact(['supervisors', 'user'], [$supervisors, $user]));
 
         }
 
@@ -255,7 +292,7 @@ class UserController extends Controller
         // Busca o registro do usuário passado via request.
         $user = User::where('id', $request->id)->first();
 
-        if( (int)$request->id_perfil === User::PFL_ALUNO ){
+        if( (int)$user->id_perfil === User::PFL_ALUNO ){
             self::updateAluno($user, $request);
 
         }elseif ( (int)$request->id_perfil === User::PFL_SUPERVISOR ){
@@ -410,12 +447,33 @@ class UserController extends Controller
      *
      * @author Douglas <douglasantana007@gmail.com>
      * @since 10/12/2018
-     * @param $aluno
+     * @param $user
      * @param $request
      */
-    public static function updateAluno($aluno, $request)
+    public static function updateAluno($user, $request)
     {
-        dd($aluno);
+
+        $alu = Aluno::where('id_user', $user->id)->first();
+
+        $user->tx_name      = $request->tx_name;
+        $user->username     = $request->username;
+        $user->id_perfil    = $request->id_perfil ? $request->id_perfil : $user->id_perfil;
+        $user->nu_telephone = $request->nu_telephone;
+        $user->nu_cellphone = $request->nu_cellphone;
+        $user->tx_justify   = $request->tx_justify;
+        $user->tx_email     = $request->tx_email;
+        $user->status       = $request->status ? $request->status : 'A';
+
+        $user->save();
+
+        $alu->nu_half       = $request->nu_half;
+
+        /*if(isset( $request->id_supervisor )){
+            $alu->id_supervisor = $request->id_supervisor;
+        }*/
+
+        $alu->save();
+
     }
 
 
@@ -439,6 +497,7 @@ class UserController extends Controller
         $user->nu_cellphone = $request->nu_cellphone;
         $user->tx_justify   = $request->tx_justify;
         $user->tx_email     = $request->tx_email;
+        $user->status       = $request->status ? $request->status : 'A';
         if($request->password){
             $user->password = Hash::make($request->password);
         }

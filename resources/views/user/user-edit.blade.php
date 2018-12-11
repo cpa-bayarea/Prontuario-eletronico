@@ -8,14 +8,14 @@
            value="{{ $user->tx_name }}" required autofocus>
 </div>
 
-@can('Admin')
-    <div class="form-group">
-        <label for="username">{{ __('Matrícula') }} <span class="obrigatorio">*</span></label>
-        <input id="username" type="text" class="form-control inteiro" name="username"
-               value="{{ $user->username }}" required autofocus>
-    </div>
+<div class="form-group">
+    <label for="username">{{ __('Matrícula') }} <span class="obrigatorio">*</span></label>
+    <input id="username" type="text" class="form-control inteiro" name="username"
+           value="{{ $user->username }}" required autofocus>
+</div>
 
-    <input type="hidden" id="val-pfl" value="{{ $user->id_perfil }}">
+    <input type="text" id="val-pfl" value="{{ $user->id_perfil }}">
+@if ($user->id_perfil == !\App\User::PFL_ALUNO)
     <div class="form-group">
         <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
         <select name="id_perfil" class="form-control" id="id_perfil" required>
@@ -25,9 +25,7 @@
             @endforeach
         </select>
     </div>
-@endcan
 
-@can('Admin')
     <div class="form-group form-sup">
         <label for="id_theoretical_line">{{ __('Linha Teórica') }}<span class="obrigatorio">*</span></label>
         <select name="id_theoretical_line" class="form-control" id="id_theoretical_line">
@@ -37,7 +35,7 @@
             @endforeach
         </select>
     </div>
-@endcan
+@endif
 
 <div class="form-group all-profile">
     <label for="nu_telephone">{{ __('Nº Telefone') }} <span class="obrigatorio">*</span></label>
@@ -69,13 +67,13 @@
            value="{{ $user->tx_justify }}" autofocus>
 </div>
 
-@if ($user->id == \App\User::PFL_ALUNO)
+@if ($user->id_perfil == \App\User::PFL_ALUNO)
     <div class="form-group form-alu">
         <label for="id_supervisor">{{ __('Supervisor') }}<span class="obrigatorio">*</span></label>
         <select name="id_supervisor" class="form-control" id="id_supervisor">
-            <option selected value="{{ $user->id_sup }}">{{ $user->supervisor }}</option>
-        @foreach($supervisors as $supervisor)
-                <option value="{{ $user->id_supervisor }}">{{ $user->tx_name  }}</option>
+            <option selected value="{{ $user->id_user_supervisor }}">{{ $user->tx_nome_supervisor }}</option>
+            @foreach($supervisors as $supervisor)
+                <option value="{{ $supervisor->id_supervisor }}">{{ $supervisor->tx_name  }}</option>
             @endforeach
         </select>
     </div>
@@ -87,7 +85,7 @@
            value="{{ $user->tx_email }}" required>
 </div>
 
-{{-- Checks if user logged is owner of record or manager of system --}}
+{{-- Verifica se o usuário logado é dono do registro a ser alterado ou se o perfil é de Gestor.  --}}
 @if ( ( ((int)Auth()->user()->id) === $user->id ) || ( Auth()->user()->id_perfil === \App\User::PFL_ADM ) )
     <div class="form-group form-all">
         <label for="password">{{ __('Senha') }}<span class="obrigatorio">*</span></label>
