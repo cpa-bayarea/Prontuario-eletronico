@@ -8,12 +8,13 @@
            value="{{ $user->tx_name }}" required autofocus>
 </div>
 
-<div class="form-group">
-    <label for="username">{{ __('Matrícula') }} <span class="obrigatorio">*</span></label>
-    <input id="username" type="text" class="form-control inteiro" name="username"
-           value="{{ $user->username }}" required autofocus>
-</div>
 @can('Admin')
+    <div class="form-group">
+        <label for="username">{{ __('Matrícula') }} <span class="obrigatorio">*</span></label>
+        <input id="username" type="text" class="form-control inteiro" name="username"
+               value="{{ $user->username }}" required autofocus>
+    </div>
+
     <input type="hidden" id="val-pfl" value="{{ $user->id_perfil }}">
     <div class="form-group">
         <label for="id_perfil">{{ __('Perfil') }}<span class="obrigatorio">*</span></label>
@@ -90,12 +91,7 @@
 @if ( ( ((int)Auth()->user()->id) === $user->id ) || ( Auth()->user()->id_perfil === \App\User::PFL_ADM ) )
     <div class="form-group form-all">
         <label for="password">{{ __('Senha') }}<span class="obrigatorio">*</span></label>
-        <input id="password" type="password" class="form-control" name="password" required>
-    </div>
-
-    <div class="form-group form-all">
-        <label for="password-confirm">{{ __('Confirme a senha') }}<span class="obrigatorio">*</span></label>
-        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+        <input id="password" type="password" class="form-control" name="password">
     </div>
 @endif
 

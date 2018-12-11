@@ -93,6 +93,14 @@ class UserController extends Controller
         }
 
         try {
+
+            if ($request->id) {
+                $this->update($request);
+
+                return redirect()->route('user.index')
+                    ->with(['success' => 'Ação realizada com sucesso!']);
+            }
+
             if((int)$request->id_perfil === User::PFL_ALUNO){
                 $error = $this->validatorAluno($request->all());
                 if($error >= 1){
@@ -241,12 +249,22 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($request)
     {
-        dd($id);
+        // Busca o registro do usuário passado via request.
+        $user = User::where('id', $request->id)->first();
+
+        if( (int)$request->id_perfil === User::PFL_ALUNO ){
+            self::updateAluno($user, $request);
+
+        }elseif ( (int)$request->id_perfil === User::PFL_SUPERVISOR ){
+            self::updateSupervisor($user, $request);
+
+        }else{
+            self::updateOutros($user, $request);
+        }
+
     }
 
     /**
@@ -385,5 +403,65 @@ class UserController extends Controller
             'tx_justify'             => ['string', 'max:255'],
             'password'               => ['required', 'string', 'min:6', 'confirmed'],
         ]);
+    }
+
+    /**
+     * Atualiza o registro do Aluno informado no fomulário.
+     *
+     * @author Douglas <douglasantana007@gmail.com>
+     * @since 10/12/2018
+     * @param $aluno
+     * @param $request
+     */
+    public static function updateAluno($aluno, $request)
+    {
+        dd($aluno);
+    }
+
+
+    /**
+     * Atualiza o registro do Supervisor informado no fomulário.
+     *
+     * @author Douglas <douglasantana007@gmail.com>
+     * @since 10/12/2018
+     * @param $user
+     * @param $request
+     */
+    public static function updateSupervisor($user, $request)
+    {
+
+        $super = Super::where('id_user', $user->id)->first();
+
+        $user->tx_name      = $request->tx_name;
+        $user->username     = $request->username;
+        $user->id_perfil    = $request->id_perfil;
+        $user->nu_telephone = $request->nu_telephone;
+        $user->nu_cellphone = $request->nu_cellphone;
+        $user->tx_justify   = $request->tx_justify;
+        $user->tx_email     = $request->tx_email;
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        $super->nu_crp              = $request->nu_crp;
+        $super->id_theoretical_line = $request->id_theoretical_line;
+
+        $super->save();
+
+    }
+
+    /**
+     * Atualiza o registro usuário comum informado no fomulário.
+     *
+     * @author Douglas <douglasantana007@gmail.com>
+     * @since 10/12/2018
+     * @param $user
+     * @param $request
+     */
+    public static function updateOutros($user, $request)
+    {
+        dd($user);
     }
 }
