@@ -96,6 +96,9 @@ class UserController extends Controller
         try {
 
             if ($request->id) {
+                # Verifica se o status foi adicionado no formulário.
+                $request->status = $request->status ? $request->status : 'I';
+
                 $this->update($request);
 
                 return redirect()->route('user.index')
@@ -233,7 +236,9 @@ class UserController extends Controller
                 ->orderBy('tx_name', 'asc')
                 ->get();
 
-            return view('user.edit', compact(['perfis', 'lines', 'user'], [$perfis, $lines, $user]));
+            $checked = $user->status == 'A' ? 'checked="checked"' : '';
+
+            return view('user.edit', compact(['perfis', 'lines', 'user', 'checked'], [$perfis, $lines, $user, $checked]));
 
         }elseif ((int)$edit->id_perfil === User::PFL_ALUNO){
 
@@ -275,7 +280,9 @@ class UserController extends Controller
         }else{
             $user = $edit;
 
-            return view('user.edit', compact('user', $user));
+            $checked = $user->status == 'A' ? 'checked="checked"' : '';
+
+            return view('user.edit', compact(['user', 'checked'], [$user, $checked]));
         }
 
     }
@@ -526,7 +533,7 @@ class UserController extends Controller
         $user->nu_cellphone = $request->nu_cellphone;
         $user->tx_justify   = $request->tx_justify;
         $user->tx_email     = $request->tx_email;
-        $user->status       = $request->status ? $request->status : 'A';
+        $user->status       = $request->status;
         $user->password     = $request->password ? Hash::make($request->password) : $user->password;
 
         $user->save();

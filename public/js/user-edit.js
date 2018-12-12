@@ -7,20 +7,6 @@
  */
 
 /**
- * Verifica o status do usuário.
- */
-function verificaSwitchery() {
-
-    if(status == 'A'){
-        $('#status').attr('checked', true);
-        console.log(elem.checked);
-    }else if(status == 'I'){
-        $('#status').attr('checked', false);
-        console.log(elem.checked);
-    }
-
-}
-/**
  * Define o tamanho de cada campo na hora da edição.
  */
 function defineMaxlength() {
@@ -54,12 +40,8 @@ function mostraCampos(pfl)
 }
 
 $(function () {
-    var elem = document.querySelector('.js-switch');
-    var switchery = new Switchery(elem, { color: '#1AB394' });
 
-    var status = $('#status').val();
 
-    verificaSwitchery();
 
 });
 /**
@@ -68,6 +50,11 @@ $(function () {
 $(document).ready(function () {
 
     var pfl = $('#val-pfl').val();
+    var status = $('#status').val();
+
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+
     var status = $('#status').val();
 
     defineMaxlength();
@@ -84,4 +71,5 @@ $(document).ready(function () {
         }
 
     });
+
 });
