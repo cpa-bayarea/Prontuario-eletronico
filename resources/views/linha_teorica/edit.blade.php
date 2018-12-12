@@ -3,6 +3,8 @@
 @section('title', 'Editar Linha Teórica')
 @section('content')
 
+    <script src="{{ asset('js/linha-teorica.js')}}"></script>
+
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2>Linha Teórica</h2>
