@@ -6,7 +6,6 @@ use App\AlunoModel as Aluno;
 use App\PerfilModel as PFL;
 use App\SupervisorModel as Super;
 use App\User;
-use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -21,6 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        if(!\Gate::allows('Admin')){
+            abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
+        }
 
         $users = User::orderBy('tx_name', 'asc')->get();
 
@@ -173,7 +175,6 @@ class UserController extends Controller
             return view('user.index');
 
         } catch (\Exception $e) {
-            echo $e;die;
             throw new \exception('Não foi possível adicionar o registro do ' . $request->tx_name . ' !');
         }
     }
@@ -197,6 +198,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if(!\Gate::allows('Admin')){
+            abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
+        }
+
         $edit = User::where('id', $id)->first();
 
         if((int)$edit->id_perfil === User::PFL_SUPERVISOR){
