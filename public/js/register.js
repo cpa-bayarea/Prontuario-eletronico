@@ -5,7 +5,14 @@
  * @author Douglas <douglasantana007@gmail.com>
  */
 
-
+/**
+ * Limpa os campos do formulário.
+ */
+function limpaCampos()
+{
+    $('#password').val('');
+    $('#password-confirm').val('');
+}
 /**
  * Esconde o formulário toodo para qualquer perfil.
  *
@@ -56,16 +63,17 @@ $(document).ready(function () {
     escondeTodos();
 
     $('#matricula').attr('maxlength', 11);
-
+    $('#password').prop('disabled', true);
     // Faz validação se a matrícula informada existe.
-    $('#username').keyup(function () {
+    $('#matricula').keyup(function () {
         var mat = $(this).val();
 
-        if (mat !== '') {
+        if (mat === '' || mat === null) {
             // Permite ao usuário informar sua senha.
-            $('#password').prop('disabled', false);
+            $('#password').prop('title', 'Informe uma matrícula !');
+
         } else {
-            $('#password').prop('disabled', true);
+            $('#password').prop('disabled', false);
         }
     });
 
@@ -86,6 +94,9 @@ $(document).ready(function () {
             if(confirm === password){
                 $('.btn-register').prop('disabled', false);
             }else{
+                // @todo adicionar swall aqui.
+                alert('Confirmação de senha inválida');
+                limpaCampos();
                 $('.btn-register').prop('disabled', true);
                 return false;
             }

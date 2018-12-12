@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,7 +16,7 @@
 
         <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        
+
         <style>
             .obrigatorio {
                 color: #ff0000;
@@ -29,6 +28,9 @@
     <body class="gray-bg">
         <script src="{{ asset('js/jquery-2.1.1.js')}}"></script>
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
+
+        {{-- Arquivo global de script do sistema. --}}
+        <script src="{{ asset('js/prontuario.js')}}"></script>
 
         <div class="loginColumns animated fadeInDown">
             @yield('content')
@@ -42,7 +44,7 @@
                         </p>
                     </div>
                     <div class="col-lg-6 text-right">
-                    <small>© 2017-2018</small>
+                    <small>© 2017-<?= date('Y') ?></small>
                     </div>
                 </div>
             </footer>

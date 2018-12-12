@@ -175,7 +175,7 @@
 
                     });
                 </script>
-
+                <script src="{{ asset('js/prontuario.js')}}"></script>
                 @yield('content')
 
                 <div class="footer">

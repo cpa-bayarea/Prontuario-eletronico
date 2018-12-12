@@ -1,26 +1,27 @@
 /**
- * Script of the user registration page
+ * Script da página de registro de usuário.
  * @since 03/12/2018
  * @author Douglasx <douglasantana007@gmail.com>
  */
 
 /**
- * Assign values for all the form.
+ * Atribui tamanho e obrigatoriedade ao formulario.
  * @since 05/12/2018
  */
-function assignValue()
+function defineRequired()
 {
-    $('#username').attr('maxlength', 11);
+    $('#matricula').attr('maxlength', 11);
     $('#nu_telephone').attr('maxlength', 15);
     $('#nu_cellphone').attr('maxlength', 15);
+    $('#tx_email').attr('maxlength', 100);
     $('#id_perfil').attr('required', true);
 }
 
 /**
- * Hide all form for anyone profile.
+ * Esconde todos os campos do formulário independente do perfil.
  * @since 01/12/2018
  */
-function hideAll()
+function escondeTodos()
 {
     $('.form-all').hide('fast');
     $('.form-alu').hide('fast');
@@ -31,7 +32,7 @@ function hideAll()
 /**
  *
  */
-function requiredForAluno() {
+function requiredAluno() {
     $('#nu_half').attr('required', true);
     $('#id_supervisor').attr('required', true);
     $("#nu_half").attr('maxlength', '2');
@@ -40,44 +41,44 @@ function requiredForAluno() {
 /**
  *
  */
-function requiredForSupervisor() {
+function requiredSupervisor() {
     $('#id_theoretical_line').attr('required', true);
     $('#nu_crp').attr('required', true);
     $("#nu_crp").attr('maxlength', '7');
 }
 /**
- * Check all fields for each profile.
- * @param {*} pfl => profile selected 
+ * Verifica todos os campos de acordo com o perfil selecionado.
+ * @param {*} pfl => Perfil Selecionado
  * @since 03/12/2018
  */
 function checkFields(pfl)
 {
 
     if(pfl == 3){
-        hideAll();
+        escondeTodos();
         $('.form-sup').show('slow');
         $('.all-profile').show('slow');
         $('.form-all').show('slow');
-        requiredForSupervisor();
+        requiredSupervisor();
 
     }else if(pfl == 2){
-        hideAll();
+        escondeTodos();
         $('.all-profile').show('slow');
         $('.form-alu').show('slow');
         $('.form-all').show('slow');
-        requiredForAluno();
+        requiredAluno()();
     }else {
         // requiredForOthers();
-        hideAll();
+        escondeTodos();
         $('.all-profile').show('slow');
         $('.form-all').show('slow');
     }
 }
 
 $(document).ready(function(){
-    hideAll();
+    escondeTodos();
 
-    assignValue();
+    defineRequired();
 
     // Faz validação se a matrícula informada existe.
     $('#username').keyup(function () {
@@ -117,11 +118,4 @@ $(document).ready(function(){
         $('.btn-register').prop('disabled', false);
     });
 
-    $('#id-user').val(function () {
-
-        if( ($(this).val() != null) || ($(this).val() != '')){
-            // implements here.
-            // set the value of all the fields of the current user.
-        }
-    })
 });
