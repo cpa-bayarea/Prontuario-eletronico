@@ -7,6 +7,6 @@
 2015_10_12_100005_create_aluno_table.php
 
 # Seeder's of project
+LinhaTeoricaSeeder.php
 PerfisSeeder.php
 UsersSeeder.php
-TheoreticalLineSeeder.php
