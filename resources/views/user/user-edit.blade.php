@@ -79,6 +79,16 @@
     </div>
 @endif
 
+@can('Admin')
+    <input type="text" value="{{$user->status }}">
+    <div class="form-group form-all">
+        <label for="status">{{ __('Status') }}</label>
+        <div class="ibox float-e-margins">
+            <input type="checkbox" class="js-switch" id="status" {{ $checked }} style="display: none;" data-switchery="true" name="status" value="{{ $user->status }}">
+        </div>
+    </div>
+@endcan
+
 <div class="form-group form-all">
     <label for="tx_email">{{ __('E-Mail') }}<span class="obrigatorio">*</span></label>
     <input id="tx_email" type="email" class="form-control" name="tx_email"

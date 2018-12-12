@@ -260,11 +260,7 @@ class UserController extends Controller
                 ->where('users.username' , '=', $edit->username)
                 ->first();
 
-            /*$lines = DB::table('tb_theoretical_line')
-                ->where('status', '=', 'A')
-                ->where('id_theoretical_line', '<>', $user->linha_teorica)
-                ->orderBy('tx_name', 'asc')
-                ->get();*/
+            $checked = $user->status == 'A' ? 'checked="checked"' : '';
 
             $supervisors = DB::table('users as usr')
                 ->select('usr.id as id_supervisor', 'usr.tx_name')
@@ -274,7 +270,7 @@ class UserController extends Controller
                 ->orderBy('usr.tx_name', 'asc')
                 ->get();
 
-            return view('user.edit', compact(['supervisors', 'user'], [$supervisors, $user]));
+            return view('user.edit', compact(['supervisors', 'user', 'checked'], [$supervisors, $user, $checked]));
 
         }else{
             $user = $edit;
