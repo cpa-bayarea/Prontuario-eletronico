@@ -7,6 +7,7 @@
 
 $(document).ready(function () {
 
+    $('#username').attr('maxlength', 11);
     var matricula = $('#username').val();
 
     $('#password').prop('title', 'Informe uma matrícula !');

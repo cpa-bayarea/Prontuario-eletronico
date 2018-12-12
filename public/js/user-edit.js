@@ -45,9 +45,13 @@ function mostraCampos(pfl)
 $(document).ready(function () {
 
     var pfl = $('#val-pfl').val();
+    var status = $('#status').val();
+
     defineMaxlength();
     mostraCampos(pfl);
 
     $('#id_perfil').val(pfl);
 
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
 });
