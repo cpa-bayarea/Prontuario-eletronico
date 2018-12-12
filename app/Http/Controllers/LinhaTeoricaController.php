@@ -72,23 +72,23 @@ class LinhaTeoricaController extends Controller
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
         try{
-             if(!empty($request['id_theoretical_line'])){
-                 try{
-                     # Verify the status of theoretical line.
-                     $check = $request->status ? $request->status : 'I';
-                     # Search of theoretical line.
-                     $linha = Linha::find($request['id_theoretical_line']);
+            # Verifica o status da Linha teorica.
+            $request->status = $request->status ? $request->status : 'I';
+            if (!empty($request['id_theoretical_line'])) {
+                try {
+                    # Procura pela linha teórica.
+                    $linha = Linha::find($request['id_theoretical_line']);
 
-                     $linha->tx_name = $request->tx_name;
-                     $linha->tx_desc = $request->tx_desc;
-                     $linha->status = $check;
-                     $linha->save();
+                    $linha->tx_name = $request->tx_name;
+                    $linha->tx_desc = $request->tx_desc;
+                    $linha->status = $request->status;
+                    $linha->save();
 
-                     return redirect()->route('linha.index');
-                 } catch(\Exception $e){
-                     throw new exception('Não foi possível alterar o registro da Linha Teórica '.$request->nome.' !');
-                 }
-             }
+                    return redirect()->route('linha.index');
+                } catch (\Exception $e) {
+                    throw new exception('Não foi possível alterar o registro da Linha Teórica ' . $request->nome . ' !');
+                }
+            }
             $linha = new Linha();
             $linha->tx_name = $request->tx_name;
             $linha->tx_desc = $request->tx_desc;
@@ -96,7 +96,7 @@ class LinhaTeoricaController extends Controller
             $linha->save();
             return redirect()->route('linha.index');
         } catch (\Exception $e ){
-            throw new \exception('Não foi possível salvar a Linha Teórica'.$request->nome.' !');
+            throw new \exception('Não foi possível salvar a Linha Teórica '.$request->nome.' !');
         }
     }
 
@@ -123,8 +123,9 @@ class LinhaTeoricaController extends Controller
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
         $linha = Linha::find($id);
+        $checked = ($linha->status == "A") ? 'checked' : '';
 
-        return view('linha_teorica.edit', compact('linha', $linha));
+        return view('linha_teorica.edit', compact(['linha', 'checked'], [$linha, $checked]));
     }
 
     /**

@@ -50,12 +50,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="sta" class="col-sm-2 control-label">Status</label>
+                                <label for="status" class="col-sm-2 control-label">Status</label>
                                 <div class="col-sm-10">
-                                    @php
-                                        $checked = ($linha->status == "A") ? 'checked' : '';
-                                    @endphp
-                                    <input type="checkbox" id="switchery" class="js-switch" @php echo $checked @endphp name="status" value="">
+                                    <input type="checkbox" id="status" class="js-switch" {{ $checked }} name="status" value="{{ $linha->status }}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -77,14 +74,5 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="col-lg-10 offset-lg-4">
-        <label for="status">Status <span class="obrigatorio">*</span></label>
-        <input type="radio" class="form-control" name="status" id="status"
-               o </span>
-        <input type="radio" class="form-control" name="status" id="status"
-               o </span>
-        <br>
-    </div> -->
 
 @endsection
