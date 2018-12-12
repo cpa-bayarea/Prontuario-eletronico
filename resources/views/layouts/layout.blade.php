@@ -164,17 +164,7 @@
                     </nav>
                 </div>
                 <!-- end of navbar/sidebar  -->
-                <script>
-                    $(document).ready(function () {
 
-                        // Datatables iniciar por marcador 10.
-                        $('.dataTables').DataTable({
-                            pageLength: 10,
-                            responsive: true,
-                        });
-
-                    });
-                </script>
                 <script src="{{ asset('js/prontuario.js')}}"></script>
                 @yield('content')
 
