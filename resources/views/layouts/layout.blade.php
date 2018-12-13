@@ -11,6 +11,9 @@
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
         <script src="{{ asset('js/plugins/sweetalert/sweetalert.min.js') }}"></script>
 
+        <link href="{{ asset('css/plugins/nouslider/jquery.nouislider.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
+
         <link href="{{ asset('css/plugins/switchery/switchery.css') }}" rel="stylesheet">
         <style>
             /* todo => Adicionar template do estilo abaixo em um arquivo de css
@@ -41,6 +44,10 @@
 
         <!-- Switchery -->
         <script src="{{ asset('js/plugins/switchery/switchery.js') }}"></script>
+        {{-- Date Picker --}}
+        <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
+        {{-- NouSlider --}}
+        <script src="{{ asset('js/plugins/nouslider/jquery.nouislider.min.js') }}"></script>
 
         <div id="wrapper">
             <nav class="navbar-default navbar-static-side" role="navigation" style="position: fixed;">
@@ -80,7 +87,7 @@
                                 <span class="fa arrow"></span>
                             </a>
                             <ul class="nav nav-second-level">
-                                <li><a href="#">Acolhimento</a></li>
+                                <li><a href="{{ route('acolhimento.index') }}">Acolhimento</a></li>
                             </ul>
                         </li>
                         <li>

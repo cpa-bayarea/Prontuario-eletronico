@@ -43,4 +43,12 @@ Route::group(['middleware' => 'auth'], function () {
         $this::get('/destroy/{id}', ['uses' => 'UserController@destroy', 'as' => 'user.destroy']);
     });
 
+    $this::group(['prefix' => 'acolhimento'], function () {
+        $this::get('/index',        ['uses' => 'AcolhimentoController@index',   'as' => 'acolhimento.index']);
+        $this::get('/form',         ['uses' => 'AcolhimentoController@create',  'as' => 'acolhimento.create']);
+        $this::post('/store',       ['uses' => 'AcolhimentoController@store',   'as' => 'acolhimento.store']);
+        $this::get('/edit/{id}',    ['uses' => 'AcolhimentoController@edit',    'as' => 'acolhimento.edit']);
+        $this::get('/destroy/{id}', ['uses' => 'AcolhimentoController@destroy', 'as' => 'acolhimento.destroy']);
+    });
+
 });
