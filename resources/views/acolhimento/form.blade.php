@@ -45,43 +45,99 @@
 
                                         <div class="form-group"></div>
                                         <div class="form-group">
-                                            <label for="dsc" class="col-sm-2 control-label">Nome Completo<span class="obrigatorio">*</span></label>
+                                            <label for="name" class="col-sm-2 control-label">Nome Completo<span class="obrigatorio">*</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="dsc" name="tx_desc">
+                                                <input type="text" class="form-control" id="name" name="tx_name_c">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="dsc" class="col-sm-2 control-label">Nome Social<span class="obrigatorio">*</span></label>
+                                            <label for="soc" class="col-sm-2 control-label">Nome Social<span class="obrigatorio">*</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="dsc" name="tx_desc">
+                                                <input type="text" class="form-control" id="soc" name="tx_name_s">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="dsc" class="col-sm-2 control-label">Responsável<span class="obrigatorio">*</span></label>
+                                            <label for="resp" class="col-sm-2 control-label">Responsável<span class="obrigatorio">*</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="dsc" name="tx_desc">
+                                                <input type="text" class="form-control" id="resp" name="tx_resp">
                                             </div>
                                         </div>
                                         <div class="form-group" id="data_1">
-                                            <label for="date" class="col-sm-3 col-md-3 col-lg-2 control-label">Data:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
-                                            <div class="col-sm-9 col-md-9 col-lg-10 date">
+                                            <label for="date" class="col-sm-3 col-md-3 col-lg-2 control-label">Nascimento:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
+                                            <div class="col-sm-4 col-md-4 col-lg-5 date">
                                                 <div class="input-group date">
                                                     <span class="input-group-addon">
                                                         <span class="fa fa-calendar"></span>
                                                     </span>
-                                                    <input name="janfim" id="date" type="text" value="" class="form-control" required="required">
+                                                    <input name="dt_nasc" id="date" type="text" class="form-control" required="required">
                                                 </div>
+                                            </div>
+                                            <label for="idade" class="col-sm-3 col-md-3 col-lg-2 control-label">Idade:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
+                                            <div class="col-sm-4 col-md-4 col-lg-3">
+                                                <input name="idade" id="idade" type="text" class="form-control" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cpf" class="col-sm-3 col-md-3 col-lg-2 control-label">CPF:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
+                                            <div class="col-sm-4 col-md-4 col-lg-5">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <span class="fa fa-bars"></span>
+                                                    </span>
+                                                    <input name="dt_nasc" id="cpf" type="text" class="form-control" required="required">
+                                                </div>
+                                            </div>
+                                            <label for="rg" class="col-sm-3 col-md-3 col-lg-2 control-label">RG:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
+                                            <div class="col-sm-4 col-md-4 col-lg-3">
+                                                <input name="dt_nasc" id="rg" type="text" class="form-control" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="end" class="col-sm-2 control-label">Endereço:<span class="obrigatorio">*</span></label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <span class="fa fa-home"></span>
+                                                    </span>
+                                                    <input name="tx_end" id="end" type="text" class="form-control" required="required">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cide" class="col-sm-3 col-md-3 col-lg-2 control-label">Cidade:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
+                                            <div class="col-sm-4 col-md-4 col-lg-7">
+                                                <input name="tx_cid" id="cide" type="text" class="form-control" required="required">
+                                            </div>
+                                            <label for="uf" class="col-sm-3 col-md-3 col-lg-1 control-label">UF:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
+                                            <div class="col-sm-4 col-md-4 col-lg-2">
+                                                <input name="tx_uf" id="uf" type="text" class="form-control" required="required">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="dsc" class="col-sm-2 control-label">Nome</label>
+                                            <label for="tel_fixo" class="col-sm-3 col-md-3 col-lg-2 control-label">Telefone Fixo:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
+                                            <div class="col-sm-4 col-md-4 col-lg-2">
+                                                <input name="tx_cid" id="tel_fixo" type="text" class="form-control" required="required">
+                                            </div>
+                                            <label for="cel" class="col-sm-3 col-md-3 col-lg-2 control-label">Celular:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
+                                            <div class="col-sm-4 col-md-4 col-lg-2">
+                                                <input name="nu_cel" id="cel" type="text" class="form-control" required="required">
+                                            </div>
+                                            <label for="tel_rec" class="col-sm-3 col-md-3 col-lg-2 control-label">Tel. Recado:<span class="obrigatorio" title="Campo obrigatório">*</span></label>
+                                            <div class="col-sm-4 col-md-4 col-lg-2">
+                                                <input name="nu_cel" id="tel_rec" type="text" class="form-control" required="required">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ema" class="col-sm-2 control-label">E-mail:<span class="obrigatorio">*</span></label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="dsc" name="tx_desc">
+                                                <input type="text" class="form-control" id="ema" name="tx_email">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div id="tab-7" class="tab-pane">
                                     <div class="panel-body">
                                         <strong>Donec quam felis</strong>
