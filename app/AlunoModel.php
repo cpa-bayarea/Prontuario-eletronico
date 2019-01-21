@@ -10,8 +10,13 @@ class AlunoModel extends Model
     public $timestamps = FALSE;
     protected $primaryKey = 'id_aluno';
     protected $fillable = [
-        'nu_half',
-        'id_user',
+        'tx_nome',
+        'nu_semestre',
+        'nu_matricula',
+        'nu_telefone',
+        'nu_celular',
+        'tx_email',
+        'status',
         'id_supervisor',
     ];
 }

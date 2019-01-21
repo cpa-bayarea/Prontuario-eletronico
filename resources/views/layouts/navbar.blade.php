@@ -30,7 +30,7 @@
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
 
         {{-- Arquivo global de script do sistema. --}}
-        <script src="{{ asset('js/prontuario.js')}}"></script>
+        {{--<script src="{{ asset('js/prontuario.js')}}"></script>--}}
 
         <div class="loginColumns animated fadeInDown">
             @yield('content')
@@ -49,7 +49,5 @@
                 </div>
             </footer>
         </div>
-
     </body>
-
 </html>

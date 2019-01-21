@@ -26,24 +26,24 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        $gate->define('Admin', function($user){
-            return $user->id_perfil == '1';
+        $gate->define('Gestor', function($user){
+            return $user->tx_perfil == 'Gestor';
         });
 
         $gate->define('Aluno', function($user){
-            return $user->id_perfil == '2';
+            return $user->tx_perfil == 'Aluno';
         });
 
         $gate->define('Supervisor', function($user){
-            return $user->id_perfil == '3';
+            return $user->tx_perfil == 'Supervisor';
         });
 
         $gate->define('Secretaria', function($user){
-            return $user->id_perfil == '4';
+            return $user->tx_perfil == 'Secretaria';
         });
 
         $gate->define('Terapeuta', function($user){
-            return $user->id_perfil == '5';
+            return $user->tx_perfil == 'Terapeuta';
         });
     }
 }

@@ -4,19 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SupervisorModel extends Model
+class UsuarioSistemaModel extends Model
 {
-    protected $table = 'tb_supervisor';
+    protected $table = 'tb_usuario_sistema';
     public $timestamps = FALSE;
-    protected $primaryKey = 'id_supervisor';
+    protected $primaryKey = 'id_usu_sis';
     protected $fillable = [
         'tx_nome',
         'nu_matricula',
-        'nu_crp',
         'nu_telefone',
         'nu_celular',
         'tx_email',
+        'tx_cargo',
         'status',
-        'id_linha_teorica',
     ];
 }

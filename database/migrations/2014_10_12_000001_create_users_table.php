@@ -14,15 +14,13 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id_users');
-            $table->string('tx_nome', 100);
-            $table->string('tx_email', 100);
-            $table->string('username', 11)->unique(); // Matrícula
-            $table->text('tx_justificativa')->nullable();
-            $table->string('tp_perfil', 20)->nullable();
-            $table->char('status', 1)->default('P'); // opções => [A, I, P] Activo, Inativo or Pendente
-            $table->string('password');
+            $table->increments('id');
+            $table->string('username', 11); // Matrícula
+            $table->char('status', 1)->default('A'); // opções => [A,I] Ativo, Inativo
+            $table->string('password',100);
+            $table->string('tx_perfil', 20);
             $table->timestamps();
+            $table->rememberToken();
         });
     }
 
@@ -36,4 +34,3 @@ class CreateUsersTable extends Migration
         Schema::dropIfExists('users');
     }
 }
-

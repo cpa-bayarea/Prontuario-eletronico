@@ -95,7 +95,7 @@
 </div>
 
 {{-- Verifica se o usuário logado é dono do registro a ser alterado ou se o perfil é de Gestor.  --}}
-@if ( ( ((int)Auth()->user()->id) === $user->id ) || ( Auth()->user()->id_perfil === \App\User::PFL_ADM ) )
+@if ( ( ((int)Auth()->user()->id) === $user->id ) || ( Auth()->user()->id_perfil === \App\User::PFL_GESTOR ) )
     <div class="form-group form-all">
         <label for="password">{{ __('Senha') }}</label>
         <input id="password" type="password" class="form-control" name="password">

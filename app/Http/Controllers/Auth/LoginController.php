@@ -49,6 +49,12 @@ class LoginController extends Controller
         return 'username';
     }
 
+    /**
+     * Credenciais de acesso ao sistema.
+     *
+     * @param Request $request
+     * @return array
+     */
     protected function credentials(Request $request) {
         return array_merge($request->only($this->username(), 'password'), ['status' => 'A']);
     }

@@ -49,16 +49,16 @@
                                 @foreach($linhas as $linha)
                                     <tr>
                                         <td align="center">
-                                            <a href="edit/{{ $linha->id_theoretical_line }}"
+                                            <a href="edit/{{ $linha->id_linha }}"
                                                class="glyphicon glyphicon-pencil">
                                             </a>
                                             &nbsp;&nbsp;&nbsp;
-                                            <a href="destroy/{{ $linha->id_theoretical_line }}"
+                                            <a href="destroy/{{ $linha->id_linha }}"
                                                class="glyphicon glyphicon-trash">
 
                                             </a>
                                         </td>
-                                        <td> {{ $linha->tx_name }}</td>
+                                        <td> {{ $linha->tx_nome }}</td>
                                         <td> {{ $linha->tx_desc }}</td>
                                         @php
                                             if( $linha->status == 'A'):

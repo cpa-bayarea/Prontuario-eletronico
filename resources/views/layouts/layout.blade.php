@@ -98,20 +98,11 @@
                             </a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="../aluno/index.php">Aluno</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('supervisor.index') }}">Supervisor</a>
-                                </li>
-                                <li>
-                                    <a href="../pagina/index.php">Página</a>
-                                </li>
-                                <li>
-                                    <a href="../perfil/index.php">Perfis</a>
+                                    <a href="#">Aluno</a>
                                 </li>
                             </ul>
                         </li>
-                        @can('Admin')
+                        @can('Gestor')
                             <li>
                                 <a href="#">
                                     <i class="fa fa-user"></i>
@@ -151,10 +142,10 @@
                         <ul class="nav navbar-top-links navbar-right">
                             <li>
                                 @php
-                                    # Pegando apenas o primeiro nome do usuário logado.
-                                    $nome = explode(' ', ( Auth()->user()->tx_name));
+                                    # Pega apenas o primeiro nome do usuário logado.
+                                    $nome = explode(' ', ( \App\Http\Controllers\UserController::getNome(Auth()->user()->username, Auth()->user()->tx_perfil)));
                                 @endphp
-                                <span class="m-r-sm text-muted welcome-message">Seja bem vindo, @php echo $nome[0]; @endphp </span>
+                                <span class="m-r-sm text-muted welcome-message">Seja bem vindo, {{ $nome[0] }} </span>
                             </li>
                             <li>
                                 <a href="{{ route('logout') }}"

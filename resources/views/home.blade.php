@@ -1,13 +1,15 @@
 @extends('layouts.layout')
 
-@section('title', 'Home Page')
+@section('title', 'Página Inicial')
 @section('content')
 
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1">
             <div class="ibox">
                 <div class="ibox-title">
-                    <h5>Olá, {{ Auth()->user()->tx_name }}</h5>
+                    <h5>
+                        Olá, {{ \App\Http\Controllers\UserController::getNome(Auth()->user()->username, Auth()->user()->tx_perfil) }}
+                    </h5>
                 </div>
                 <div class="ibox-content">
 

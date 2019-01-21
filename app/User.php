@@ -10,12 +10,12 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    # Constants of Perfi's
-    const PFL_ADM        = 1;
-    const PFL_ALUNO      = 2;
-    const PFL_SUPERVISOR = 3;
-    const PFL_SECRETARIA = 4;
-    const PFL_TERAPEUTA  = 5;
+    # Constantes dos Perfi's
+    const PFL_GESTOR     = 'Gestor';
+    const PFL_ALUNO      = 'Aluno';
+    const PFL_SUPERVISOR = 'Supervisor';
+    const PFL_SECRETARIA = 'Secretaria';
+    const PFL_TERAPEUTA  = 'Terapeuta';
 
     /**
      * The attributes that are mass assignable.
@@ -23,12 +23,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id_users',
-        'tx_nome',
-        'tx_email',
+        'id',
         'username',
-        'tx_justificativa',
-        'tp_perfil',
+        'status',
+        'tx_perfil',
+        'email_verified_at'
     ];
 
     /**

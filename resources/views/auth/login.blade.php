@@ -6,7 +6,6 @@
 
     <script src="{{ asset('js/login.js')}}"></script>
 
-
     <div class="row">
         <div class="col-lg-6">
             <div class="panel panel-success">
@@ -14,17 +13,14 @@
                     Bem vindo ao Prontuário
                 </div>
                 <div class="panel-body">
-                    <p>
-                        <i class="fa fa-university"></i>
+                    <p><i class="fa fa-university"></i>
                             Desenvolvido pelos alunos do curso de Análise e Desenvolvimento de Sistemas.
                     </p>
-                    <p>
-                        <i class="fa fa-book"></i>
+                    <p><i class="fa fa-book"></i>
                         Um sistema simples e fácil para auxiliar e gerenciar seu trabalho na clínica de Psicologia do IESB-OESTE.
                     </p>
 
-                    <p>
-                        <i class="fa fa-comments"></i>
+                    <p><i class="fa fa-comments"></i>
                             Tem Dúvida ou problema ? Entre em contato conosco
                         <a target="_blank" href="https://github.com/cpa-bayarea/Prontuario-eletronico/issues">Aqui</a> ou por email : <b>Implementar e-mail aqui</b>
                     </p>
@@ -35,7 +31,6 @@
             <div class="ibox-content">
                 <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
                     @csrf
-
                     <div class="form-group">
                         <label for="username">{{ __('Matrícula') }}<span class="obrigatorio">*</span> </label>
                         <input type="text" id="username"
@@ -50,7 +45,6 @@
                             </div>
                         @endif
                     </div>
-
                     <div class="form-group">
                         <label for="password">{{ __('Senha') }}<span class="obrigatorio">*</span> </label>
                         <input type="password" id="password"
@@ -63,7 +57,6 @@
                             </span>
                         @endif
                     </div>
-
                     <div class="form-group row mb-0 right">
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-primary block full-width m-b">
@@ -72,14 +65,15 @@
                             </button>
                         </div>
                     </div>
-
-                    <p class="text-muted text-center">
-                        <small>Você não tem uma conta?</small>
-                    </p>
-                    <a class="btn btn-sm btn-white btn-block" href="{{ route('register') }}">
-                        <i class="fa fa-user-plus"></i>
-                        Solicitar acessso
-                    </a>
+                    <div>
+                        <p class="text-muted text-center">
+                            <small>Você não tem uma conta?</small>
+                        </p>
+                        <p style="text-align: center">
+                            <i class="fa fa-check"></i>
+                            Entre em contato com seu Supervisor.
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\AlunoModel as Aluno;
-use App\PerfilModel as PFL;
+use App\SupervisorModel as Supervisor;
+use App\UsuarioSistemaModel as UsuSis;
 use App\SupervisorModel as Super;
 use App\User;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class UserController extends Controller
         $users = User::orderBy('tx_name', 'asc')->get();
 
         foreach ($users as $user) {
-            if ($user->id_perfil == User::PFL_ADM) {
+            if ($user->id_perfil == User::PFL_GESTOR) {
                 $user->id_perfil = 'Gestor';
             } elseif ($user->id_perfil == User::PFL_ALUNO) {
                 $user->id_perfil = 'Aluno';
@@ -542,5 +543,33 @@ class UserController extends Controller
         $user->password     = $request->password ? Hash::make($request->password) : $user->password;
 
         $user->save();
+    }
+
+    /**
+     * Recupera o nome do Usuário Logado.
+     * @param $username
+     * @param $perfil
+     * @return mixed
+     */
+    public static function getNome($username, $perfil)
+    {
+        if ($perfil === 'Aluno') {
+            $user = Aluno::where('nu_matricula', $username)->first();
+            $return = $user->tx_nome;
+        } elseif ($perfil === 'Gestor') {
+            $user = UsuSis::where('nu_matricula', $username)->first();
+            $return = $user->tx_nome;
+        } elseif ($perfil === 'Secretaria') {
+            $user = UsuSis::where('nu_matricula', $username)->first();
+            $return = $user->tx_nome;
+        } elseif ($perfil === 'Supervisor') {
+            $user = Supervisor::where('nu_matricula', $username)->first();
+            $return = $user->tx_nome;
+        } elseif ($perfil === 'Terapeuta') {
+            $user = UsuSis::where('nu_matricula', $username)->first();
+            $return = $user->tx_nome;
+        }
+
+        return $return ? $return : null;
     }
 }
