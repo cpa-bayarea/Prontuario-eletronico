@@ -570,6 +570,6 @@ class UserController extends Controller
             $return = $user->tx_nome;
         }
 
-        return $return ? $return : null;
+        return isset($return) ? $return : '';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use App\LinhaTeoricaModel as Linha;
 use App\User as Perfil;
@@ -35,6 +36,7 @@ class LinhaTeoricaController extends Controller
         try {
 
             $linhas = DB::table('tb_linha_teorica')
+                ->where('status', 'A')
                 ->orderBy('tx_nome', 'asc')
                 ->get();
 
@@ -78,14 +80,15 @@ class LinhaTeoricaController extends Controller
         try{
             # Verifica o status da Linha teorica.
             $request->status = $request->status ? $request->status : 'I';
-            if (!empty($request['id_theoretical_line'])) {
+
+            if (!empty($request['id_linha'])) {
                 try {
                     # Procura pela linha teórica.
-                    $linha = Linha::find($request['id_theoretical_line']);
+                    $linha = Linha::where('id_linha', $request['id_linha'])->first();
 
-                    $linha->tx_name = $request->tx_name;
+                    $linha->tx_nome = $request->tx_nome;
                     $linha->tx_desc = $request->tx_desc;
-                    $linha->status = $request->status;
+                    $linha->status  = $request->status;
                     $linha->save();
 
                     return redirect()->route('linha.index');
@@ -94,7 +97,7 @@ class LinhaTeoricaController extends Controller
                 }
             }
             $linha = new Linha();
-            $linha->tx_name = $request->tx_name;
+            $linha->tx_nome = $request->tx_nome;
             $linha->tx_desc = $request->tx_desc;
             $linha->status = 'A';
             $linha->save();
@@ -128,8 +131,7 @@ class LinhaTeoricaController extends Controller
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
         try {
-
-            $linha = Linha::find($id);
+            $linha = Linha::where('id_linha', $id)->first();
             $checked = ($linha->status == "A") ? 'checked' : '';
 
             return view('linha_teorica.edit', compact(['linha', 'checked'], [$linha, $checked]));

@@ -102,7 +102,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @can('Gestor')
+                        @canany(['Gestor', 'Dev'])
                             <li>
                                 <a href="#">
                                     <i class="fa fa-user"></i>

@@ -34,14 +34,12 @@
                         <form class="form-horizontal" action="{{ route('linha.store') }}" method="post">
                             @csrf
                             <div id="oculto">
-                                <input type="number" name="id_linha_teorica"
-                                       value="{{ $linha->id_linha_teorica }}" hidden>
+                                <input type="hidden" name="id_linha" value="{{ $linha->id_linha }}">
                             </div>
-
                             <div class="form-group">
                                 <label for="nome" class="col-sm-2 control-label">Nome <span class="obrigatorio">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="nome" value="{{ $linha->tx_nome }}" name="tx_name" required>
+                                    <input type="text" class="form-control" id="nome" value="{{ $linha->tx_nome }}" name="tx_nome" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -50,7 +48,6 @@
                                     <input type="text" class="form-control" id="dsc" value="{{ $linha->tx_desc }}" name="tx_desc">
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label for="status" class="col-sm-2 control-label">Status</label>
                                 <div class="col-sm-10">
@@ -69,7 +66,6 @@
                                     </a>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>

@@ -34,14 +34,13 @@
                             <div class="form-group">
                                 <label for="nome" class="col-sm-2 control-label">Nome <span class="obrigatorio">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="nome" name="tx_name" required>
+                                    <input type="text" class="form-control" id="nome" name="tx_nome" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="dsc" class="col-sm-2 control-label">Descrição</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="dsc" name="tx_desc"
-                                    value="{{ (isset($linha->tx_nome) ? $linha->tx_nome : null) }}">
+                                    <input type="text" class="form-control" id="dsc" name="tx_desc">
                                 </div>
                             </div>
 
