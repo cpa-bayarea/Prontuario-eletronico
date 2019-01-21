@@ -102,7 +102,7 @@
                                 </li>
                             </ul>
                         </li>
-                        @canany(['Gestor', 'Dev'])
+                        @canany('Gestor')
                             <li>
                                 <a href="#">
                                     <i class="fa fa-user"></i>
@@ -110,9 +110,8 @@
                                     <span class="fa arrow"></span>
                                 </a>
                                 <ul class="nav nav-second-level collapse">
-                                    <li>
-                                        <a href="{{ route('user.index') }}">Gerenciar</a>
-                                    </li>
+                                    <li><a href="{{ route('supervisor.index') }}">Supervisor</a></li>
+                                    <li><a href="{{ route('user.index') }}">Aluno</a></li>
                                 </ul>
                             </li>
                             <li>

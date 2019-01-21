@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Access\Gate as Gate;
 use App\SupervisorModel as Supervisor;
-use App\User as User;
-use App\LinhaTeoricaModel as Line;
+use App\LinhaTeoricaModel as Linha;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class SupervisorController extends Controller
 
@@ -30,26 +30,22 @@ class SupervisorController extends Controller
      */
     public function index()
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
         try {
-            // Retorna todos os Supervisors que tem o status Ativo.
-            $supervisors = Supervisor::all();
-            $id_line = $supervisors->id_theoretical_line;
-            dd($id_line);
-            $id_user = $supervisors->id_user;
+            # Retorna todos os Supervisores que tem o status Ativo.
+            $supervisores = Supervisor::query()
+                ->select('tb_supervisor.*', 'lte.tx_nome as nome_linha')
+                ->join('tb_linha_teorica as lte', 'lte.id_linha', '=', 'tb_supervisor.id_linha_teorica')
+                ->where('tb_supervisor.status', '=', 'A')
+                ->where('lte.status', '=', 'A')
+                ->orderBy('tb_supervisor.tx_nome', 'asc')
+                ->get();
 
-            $supervisor_user = User::find($id_user);
-
-            $line_supervisor = Line::find($id_line);
-
-            return view('supervisor.index', compact(['supervisors', 'supervisor_user', 'line_supervisor'],
-                [$supervisors, $supervisor_user, $line_supervisor])
-            );
+            return view('supervisor.index', compact('supervisores', $supervisores));
         } catch (\Exception $e) {
-            echo $e; die;
             throw new Exception('Não foi possível trazer os dados dos Supervisors !');
         }
     }
@@ -61,7 +57,7 @@ class SupervisorController extends Controller
      */
     public function create()
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
@@ -77,7 +73,7 @@ class SupervisorController extends Controller
      */
     public function store(Request $request)
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
         try {
@@ -89,10 +85,10 @@ class SupervisorController extends Controller
                     throw new exception('Não foi possível alterar o registro do Demandante ' . $request->nome . ' !');
                 }
             }
-            $supervisors = new Perfil();
-            $supervisors->nome = $request->nome;
-            $supervisors->status = 'A';
-            $supervisors->save();
+            $supervisor = new Perfil();
+            $supervisor->nome = $request->nome;
+            $supervisor->status = 'A';
+            $supervisor->save();
 
             return redirect()->route('supervisor.index');
         } catch (Exception $e) {
@@ -120,16 +116,26 @@ class SupervisorController extends Controller
      */
     public function edit($id)
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
         try {
-            $supervisors = Perfil::find($id);
-            return view('perfil.edit', compact('supervisors', $supervisors));
+            $supervisor = Supervisor::query()
+                ->select('tb_supervisor.*', 'lte.tx_nome as nome_linha')
+                ->join('tb_linha_teorica as lte', 'lte.id_linha', '=', 'tb_supervisor.id_linha_teorica')
+                ->where('tb_supervisor.id_supervisor', '=', $id)
+                ->where('tb_supervisor.status', '=', 'A')
+                ->where('lte.status', '=', 'A')
+                ->orderBy('tb_supervisor.tx_nome', 'asc')
+                ->get();
+            $linhas = Linha::where('status', 'A')->get();
+
+            return view('supervisor.edit', compact(['supervisor', 'linhas'], [$supervisor, $linhas]));
 
         } catch (Exception $e) {
-            throw new exception('Não foi possível recuperar os dados do perfil ' . $supervisors->tx_nome . ' !');
+            echo $e;die;
+            throw new exception('Não foi possível recuperar os dados do perfil ' . $supervisor[0]['tx_nome'] . ' !');
         }
     }
 
@@ -154,17 +160,17 @@ class SupervisorController extends Controller
      */
     public function destroy($id)
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
         try {
-            $supervisors = Perfil::find($id);
-            $supervisors->status = 'I';
-            $supervisors->save();
+            $supervisor = Perfil::find($id);
+            $supervisor->status = 'I';
+            $supervisor->save();
             return redirect()->route('supervisor.index');
         } catch (Exception $e) {
-            throw new exception('Não foi possível excluir o registro do Perfil ' . $supervisors->tx_nome . ' !');
+            throw new exception('Não foi possível excluir o registro do Perfil ' . $supervisor->tx_nome . ' !');
         }
     }
 }

@@ -45,12 +45,12 @@
                                 <tr>
                                     <th width="5%">Ações</th>
                                     <th>Nome</th>
-                                    <th>Descrição</th>
+                                    <th>Linha Teórica</th>
                                     <th>Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($supervisors as $supervisor)
+                                @foreach($supervisores as $supervisor)
                                     <tr>
                                         <td align="center">
                                             <a href="edit/{{ $supervisor->id_supervisor }}"
@@ -62,8 +62,8 @@
 
                                             </a>
                                         </td>
-                                        <td> {{ $supervisor->tx_name }}</td>
-                                        <td> {{ $supervisor->tx_desc }}</td>
+                                        <td> {{ $supervisor->tx_nome }}</td>
+                                        <td> {{ $supervisor->nome_linha }}</td>
                                         @php
                                             if( $supervisor->status == 'A'):
                                                 $style = 'color: #0778ec; font-weight: bolder;';
