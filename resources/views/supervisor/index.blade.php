@@ -11,7 +11,7 @@
                     <a href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a>Apoio</a>
+                    <a>Usuários</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <strong>Supervisor</strong>
@@ -23,6 +23,9 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
+                <a class="btn-small btn btn-success" href="{{ route('supervisor.create') }}">
+                    <span class="glyphicon glyphicon-plus"></span>Novo
+                </a>
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Lista de Supervisores</h5>
@@ -33,12 +36,6 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <div id="button-new">
-                            <a class="btn-small btn btn-success" href="{{ route('supervisor.create') }}"
-                               style="margin-left: 1em; ">
-                                <span class="glyphicon glyphicon-plus"></span>Novo
-                            </a>
-                        </div>
                         <div class="dataTables_wrapper form-inline dt-bootstrap">
                             <table class="table table-striped table-bordered table-hover dataTables dataTable">
                                 <thead>
@@ -46,7 +43,6 @@
                                     <th width="5%">Ações</th>
                                     <th>Nome</th>
                                     <th>Linha Teórica</th>
-                                    <th>Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -64,14 +60,6 @@
                                         </td>
                                         <td> {{ $supervisor->tx_nome }}</td>
                                         <td> {{ $supervisor->nome_linha }}</td>
-                                        @php
-                                            if( $supervisor->status == 'A'):
-                                                $style = 'color: #0778ec; font-weight: bolder;';
-                                            else:
-                                                $style = 'color: #ff0000; font-weight: bolder;';
-                                            endif
-                                        @endphp
-                                        <td style="{{$style}}"> {{ $supervisor->status }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

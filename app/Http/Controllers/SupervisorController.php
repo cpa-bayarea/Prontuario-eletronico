@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Access\Gate as Gate;
 use App\SupervisorModel as Supervisor;
+use App\User;
 use App\LinhaTeoricaModel as Linha;
 use Exception;
-use Illuminate\Support\Facades\DB;
 
 class SupervisorController extends Controller
 
@@ -61,7 +61,13 @@ class SupervisorController extends Controller
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
-        return view('perfil.form');
+        $linhas = Linha::query()
+            ->select('*')
+            ->where('status', '=', 'A')
+            ->orderBy('tx_nome', 'asc')
+            ->get();
+
+        return view('supervisor.form', compact('linhas', $linhas));
     }
 
     /**
@@ -77,22 +83,55 @@ class SupervisorController extends Controller
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
         try {
-            if (!empty($request['id_perfil'])) {
+            if (!empty($request->id_supervisor)) {
                 try {
-                    Perfil::find($request['id_perfil'])->update($request->input());
+                    $supervisor = Supervisor::where('id_supervisor', $request->id_supervisor)->first();
+
+                    # Salva a variável do Supervisor editado para atualizar os dados nas duas tabelas.
+                    $user_edit = $supervisor->nu_matricula;
+                    $supervisor->tx_nome = $request->tx_nome;
+                    $supervisor->nu_matricula = $request->nu_matricula;
+                    $supervisor->nu_crp = $request->nu_crp;
+                    $supervisor->nu_telefone = $request->nu_telefone;
+                    $supervisor->nu_celular = $request->nu_celular;
+                    $supervisor->tx_email = $request->tx_email;
+                    $supervisor->id_linha_teorica = $request->id_linha;
+                    $supervisor->save();
+
+                    $user = User::where('username', $user_edit)->first();
+                    $user->username = $request->nu_matricula;
+                    if( isset($request->tx_senha) ){
+                        $user->password = bcrypt($request->tx_senha);
+                    }
+                    $user->save();
+
                     return redirect()->route('supervisor.index');
                 } catch (Exception $e) {
                     throw new exception('Não foi possível alterar o registro do Demandante ' . $request->nome . ' !');
                 }
             }
-            $supervisor = new Perfil();
-            $supervisor->nome = $request->nome;
-            $supervisor->status = 'A';
+            $supervisor = new Supervisor();
+            $supervisor->tx_nome          = $request->tx_nome;
+            $supervisor->nu_matricula     = $request->nu_matricula;
+            $supervisor->nu_crp           = $request->nu_crp;
+            $supervisor->nu_telefone      = $request->nu_telefone;
+            $supervisor->nu_celular       = $request->nu_celular;
+            $supervisor->tx_email         = $request->tx_email;
+            $supervisor->status           = 'A';
+            $supervisor->id_linha_teorica = $request->id_linha;
             $supervisor->save();
 
+            $user = new User();
+            $user->username  = $request->nu_matricula;
+            $user->status    = 'A';
+            $user->password  = bcrypt($request->tx_senha);
+            $user->tx_perfil = 'Supervisor';
+            $user->save();
+
             return redirect()->route('supervisor.index');
+
         } catch (Exception $e) {
-            throw new exception('Não foi possível salvar o Perfil' . $request->nome . ' !');
+            throw new exception('Não foi possível salvar o Supervisor' . $request->nome . ' !');
         }
     }
 
@@ -122,20 +161,25 @@ class SupervisorController extends Controller
 
         try {
             $supervisor = Supervisor::query()
-                ->select('tb_supervisor.*', 'lte.tx_nome as nome_linha')
-                ->join('tb_linha_teorica as lte', 'lte.id_linha', '=', 'tb_supervisor.id_linha_teorica')
+                ->select(
+            'tb_supervisor.*',
+                    'tb_linha_teorica.tx_nome as nome_linha'
+                )
+                ->join('tb_linha_teorica', 'id_linha', '=', 'id_linha_teorica')
+                ->where('tb_linha_teorica.status', '=', 'A')
                 ->where('tb_supervisor.id_supervisor', '=', $id)
-                ->where('tb_supervisor.status', '=', 'A')
-                ->where('lte.status', '=', 'A')
-                ->orderBy('tb_supervisor.tx_nome', 'asc')
+                ->first();
+
+            $linhas = Linha::query()
+                ->select('*')
+                ->where('status', '=', 'A')
+                ->orderBy('tx_nome', 'asc')
                 ->get();
-            $linhas = Linha::where('status', 'A')->get();
 
             return view('supervisor.edit', compact(['supervisor', 'linhas'], [$supervisor, $linhas]));
 
         } catch (Exception $e) {
-            echo $e;die;
-            throw new exception('Não foi possível recuperar os dados do perfil ' . $supervisor[0]['tx_nome'] . ' !');
+            throw new exception('Não foi possível recuperar os dados do supervisor ' . $supervisor[0]['tx_nome'] . ' !');
         }
     }
 
@@ -165,12 +209,12 @@ class SupervisorController extends Controller
         }
 
         try {
-            $supervisor = Perfil::find($id);
+            $supervisor = Supervisor::find($id);
             $supervisor->status = 'I';
             $supervisor->save();
             return redirect()->route('supervisor.index');
         } catch (Exception $e) {
-            throw new exception('Não foi possível excluir o registro do Perfil ' . $supervisor->tx_nome . ' !');
+            throw new exception('Não foi possível excluir o registro do Supervisor ' . $supervisor->tx_nome . ' !');
         }
     }
 }
