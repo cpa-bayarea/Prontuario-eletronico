@@ -217,4 +217,27 @@ class SupervisorController extends Controller
             throw new exception('Não foi possível excluir o registro do Supervisor ' . $supervisor->tx_nome . ' !');
         }
     }
+
+    /**
+     * Valida se o Crp informado pode ser usado.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function validaCrp(Request $request)
+    {
+        $sup = Supervisor::where('nu_crp', $request->crp)->get();
+        if( count($sup) >= 1){
+            $response = array(
+                'error' => 'O Número do CRP já encontra-se em uso !',
+                'nome' => $sup[0]->tx_nome,
+            );
+        }else{
+            $response = array(
+                'success' => 'O Número do CRP pode ser usado !',
+                'crp' => $request->crp,
+            );
+        }
+        return response()->json($response);
+    }
 }

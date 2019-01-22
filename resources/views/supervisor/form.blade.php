@@ -2,7 +2,9 @@
 
 @section('title', 'Cadastro de Supervisor')
 @section('content')
-    
+
+    <script src="{{ asset('js/prontuario/supervisor.js')}}"></script>
+
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2>Supervisor</h2>

@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
         $this::post('/store',       ['uses' => 'SupervisorController@store',   'as' => 'supervisor.store']);
         $this::get('/edit/{id}',    ['uses' => 'SupervisorController@edit',    'as' => 'supervisor.edit']);
         $this::get('/destroy/{id}', ['uses' => 'SupervisorController@destroy', 'as' => 'supervisor.destroy']);
+        $this::post('/validaCrp',   ['uses' => 'SupervisorController@validaCrp', 'as' => 'supervisor.validaCrp']);
     });
 
     $this::group(['prefix' => 'user'], function () {
