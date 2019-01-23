@@ -112,8 +112,8 @@
                                     <span class="fa arrow"></span>
                                 </a>
                                 <ul class="nav nav-second-level collapse">
-                                    <li><a href="{{ route('supervisor.index') }}">Supervisor</a></li>
                                     <li><a href="{{ route('aluno.index') }}">Aluno</a></li>
+                                    <li><a href="{{ route('supervisor.index') }}">Supervisor</a></li>
                                 </ul>
                             </li>
                             <li>

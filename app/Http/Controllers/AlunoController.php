@@ -36,9 +36,11 @@ class AlunoController extends Controller
         }
 
         try {
-            $alunos = DB::table('tb_aluno')
-                ->where('status', 'A')
-                ->orderBy('tx_nome', 'asc')
+            $alunos = DB::table('tb_aluno as al')
+                ->select('al.*', 'sup.tx_nome as nome_supervisor')
+                ->join('tb_supervisor as sup', 'sup.id_supervisor', '=', 'al.id_supervisor')
+                ->where('al.status', 'A')
+                ->orderBy('al.tx_nome', 'asc')
                 ->get();
 
             return view('aluno.index', compact('alunos', $alunos));
@@ -161,14 +163,14 @@ class AlunoController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
         try {
-            $aluno = Aluno::find($id);
+            $aluno = Aluno::find($request->id_aluno);
             $aluno->status = 'I';
             $aluno->save();
 
@@ -177,9 +179,13 @@ class AlunoController extends Controller
             $user->status = 'I';
             $user->save();
 
-            return redirect()->route('aluno.index');
+            $response = array(
+                'success' => 'success!'
+            );
+            return response()->json($response);
+
         } catch (Exception $e) {
-            throw new exception('Não foi possível excluir o registro do Perfil ' . $aluno->tx_nome . ' !');
+            return response()->json($e);
         }
     }
 }

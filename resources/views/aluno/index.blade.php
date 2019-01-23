@@ -55,14 +55,13 @@
                                                class="glyphicon glyphicon-pencil">
                                             </a>
                                             &nbsp;&nbsp;&nbsp;
-                                            <a href="destroy/{{ $aluno->id_aluno }}"
+                                            <a href="#" onclick="deletar({{ $aluno->id_aluno }})"
                                                class="glyphicon glyphicon-trash">
-
                                             </a>
                                         </td>
                                         <td> {{ $aluno->tx_nome }}</td>
                                         <td> {{ $aluno->nu_semestre }}</td>
-                                        <td> {{ $aluno->id_supervisor }}</td>
+                                        <td> {{ $aluno->nome_supervisor }}</td>
                                         <td> {{ $aluno->tx_email }}</td>
                                     </tr>
                                 @endforeach
@@ -74,5 +73,35 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function deletar(aluno) {
+            swal({
+                    title: 'Atenção',
+                    text: 'Tem certeza que deseja excluir este(a) Aluno(a) ?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Sim',
+                    cancelButtonText: 'Cancelar',
+                    closeOnConfirm: false
+                },
+                function(){
+                    $.ajax({
+                        type: 'POST',
+                        url: '/aluno/destroy',
+                        data: {_token: '{{ csrf_token() }}', id_aluno: aluno},
+                        success: function (data) {
+                            if(data.success){
+                                swal('Deletado!', 'O registro do(a) aluno(a) foi deletado com sucesso!', 'success');
+                                window.location.href = '/aluno/index';
+                            }else{
+                                console.log(data);
+                            }
+                        }
+                    });
+                });
+        }
+    </script>
 
 @endsection

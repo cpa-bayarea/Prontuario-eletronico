@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
         $this::get('/form',         ['uses' => 'AlunoController@create',  'as' => 'aluno.create']);
         $this::post('/store',       ['uses' => 'AlunoController@store',   'as' => 'aluno.store']);
         $this::get('/edit/{id}',    ['uses' => 'AlunoController@edit',    'as' => 'aluno.edit']);
-        $this::get('/destroy/{id}', ['uses' => 'AlunoController@destroy', 'as' => 'aluno.destroy']);
+        $this::post('/destroy/',    ['uses' => 'AlunoController@destroy', 'as' => 'aluno.destroy']);
     });
 
     $this::group(['prefix' => 'acolhimento'], function () {
