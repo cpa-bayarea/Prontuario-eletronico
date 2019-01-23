@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\SupervisorModel as Supervisor;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Access\Gate as Gate;
 use App\AlunoModel as Aluno;
 use App\User as User;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class AlunoController extends Controller
 
@@ -29,19 +31,18 @@ class AlunoController extends Controller
      */
     public function index()
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
         try {
-            // Retorna todos os Supervisors que tem o status Ativo.
-            $alunos = Aluno::all();
+            $alunos = DB::table('tb_aluno')
+                ->where('status', 'A')
+                ->orderBy('tx_nome', 'asc')
+                ->get();
 
-            return view('supervisor.index', compact(['supervisors', 'supervisor_user', 'line_supervisor'],
-                [$alunos, $supervisor_user, $line_supervisor])
-            );
+            return view('aluno.index', compact('alunos', $alunos));
         } catch (\Exception $e) {
-            echo $e; die;
             throw new Exception('Não foi possível trazer os dados dos Supervisors !');
         }
     }
@@ -53,11 +54,12 @@ class AlunoController extends Controller
      */
     public function create()
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
-        return view('perfil.form');
+        $supervisores = Supervisor::where('status', 'A')->get();
+        return view('aluno.form', compact('supervisores', $supervisores));
     }
 
     /**
@@ -69,24 +71,38 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
         try {
-            if (!empty($request['id_perfil'])) {
+            if (!empty($request->id_perfil)) {
                 try {
-                    Perfil::find($request['id_perfil'])->update($request->input());
-                    return redirect()->route('supervisor.index');
+                    Aluno::find($request['id_perfil'])->update($request->input());
+                    return redirect()->route('aluno.index');
                 } catch (Exception $e) {
                     throw new exception('Não foi possível alterar o registro do Demandante ' . $request->nome . ' !');
                 }
             }
-            $alunos = new Perfil();
-            $alunos->nome = $request->nome;
-            $alunos->status = 'A';
-            $alunos->save();
+            $aluno = new Aluno();
+            $aluno->tx_nome       = $request->tx_nome;
+            $aluno->nu_semestre   = $request->nu_semestre;
+            $aluno->nu_matricula  = $request->nu_matricula;
+            $aluno->nu_telefone   = $request->nu_telefone;
+            $aluno->nu_celular    = $request->nu_celular;
+            $aluno->tx_email      = $request->tx_email;
+            $aluno->status        = $request->status;
+            $aluno->id_supervisor = $request->id_supervisor;
+            $aluno->status        = 'A';
+            $aluno->save();
 
-            return redirect()->route('supervisor.index');
+            $user = new User();
+            $user->username  = $request->nu_matricula;
+            $user->status    = 'A';
+            $user->password  = bcrypt($request->tx_senha);
+            $user->tx_perfil = 'Supervisor';
+            $user->save();
+
+            return redirect()->route('aluno.index');
         } catch (Exception $e) {
             throw new exception('Não foi possível salvar o Perfil' . $request->nome . ' !');
         }
@@ -112,16 +128,17 @@ class AlunoController extends Controller
      */
     public function edit($id)
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
         try {
-            $alunos = Perfil::find($id);
-            return view('perfil.edit', compact('supervisors', $alunos));
+            $aluno = Aluno::where('id_aluno', $id)->first();
+            $supervisores = Supervisor::where('status', 'A')->get();
+            return view('aluno.form', compact(['aluno', 'supervisores'], [$aluno, $supervisores]));
 
         } catch (Exception $e) {
-            throw new exception('Não foi possível recuperar os dados do perfil ' . $alunos->tx_nome . ' !');
+            throw new exception('Não foi possível recuperar os dados do perfil ' . $aluno->tx_nome . ' !');
         }
     }
 
@@ -146,17 +163,23 @@ class AlunoController extends Controller
      */
     public function destroy($id)
     {
-        if(!\Gate::allows('Admin')){
+        if(!\Gate::allows('Gestor')){
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
 
         try {
-            $alunos = Perfil::find($id);
-            $alunos->status = 'I';
-            $alunos->save();
-            return redirect()->route('supervisor.index');
+            $aluno = Aluno::find($id);
+            $aluno->status = 'I';
+            $aluno->save();
+
+            # Desativa o cadastro do Usuário na tabela principal.
+            $user = User::where('username', $aluno->nu_matricula)->first();
+            $user->status = 'I';
+            $user->save();
+
+            return redirect()->route('aluno.index');
         } catch (Exception $e) {
-            throw new exception('Não foi possível excluir o registro do Perfil ' . $alunos->tx_nome . ' !');
+            throw new exception('Não foi possível excluir o registro do Perfil ' . $aluno->tx_nome . ' !');
         }
     }
 }

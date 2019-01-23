@@ -79,7 +79,7 @@
                                 </ul>
                             </div>
                             <div class="logo-element">
-                                <a href="../home/index.php">PE+</a>
+                                <a href="/">PE+</a>
                             </div>
                         </li>
                         <li>
@@ -113,7 +113,7 @@
                                 </a>
                                 <ul class="nav nav-second-level collapse">
                                     <li><a href="{{ route('supervisor.index') }}">Supervisor</a></li>
-                                    <li><a href="{{ route('user.index') }}">Aluno</a></li>
+                                    <li><a href="{{ route('aluno.index') }}">Aluno</a></li>
                                 </ul>
                             </li>
                             <li>

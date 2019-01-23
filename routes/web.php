@@ -35,6 +35,14 @@ Route::group(['middleware' => 'auth'], function () {
         $this::post('/validarMatricula', ['uses' => 'UserController@validarMatricula', 'as' => 'user.validarMatricula']);
     });
 
+    $this::group(['prefix' => 'aluno'], function () {
+        $this::get('/index',        ['uses' => 'AlunoController@index',   'as' => 'aluno.index']);
+        $this::get('/form',         ['uses' => 'AlunoController@create',  'as' => 'aluno.create']);
+        $this::post('/store',       ['uses' => 'AlunoController@store',   'as' => 'aluno.store']);
+        $this::get('/edit/{id}',    ['uses' => 'AlunoController@edit',    'as' => 'aluno.edit']);
+        $this::get('/destroy/{id}', ['uses' => 'AlunoController@destroy', 'as' => 'aluno.destroy']);
+    });
+
     $this::group(['prefix' => 'acolhimento'], function () {
         $this::get('/index',        ['uses' => 'AcolhimentoController@index',   'as' => 'acolhimento.index']);
         $this::get('/form',         ['uses' => 'AcolhimentoController@create',  'as' => 'acolhimento.create']);
