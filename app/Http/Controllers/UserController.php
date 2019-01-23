@@ -572,4 +572,30 @@ class UserController extends Controller
 
         return isset($return) ? $return : '';
     }
+
+    /**
+     * Verifica se a matrícula informada existe no sistema.
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function validarMatricula(Request $request)
+    {
+        $matricula = isset($request->username) ? $request->username : $request->nu_matricula;
+
+        $user = UsuSis::where('nu_matricula', $matricula)->get();
+
+        if( count($user) >= 1){
+            $response = array(
+                'error' => 'A matrícula já encontra-se cadastrada no sistema !',
+                'nome' => $user[0]->tx_nome,
+            );
+        }else{
+            $response = array(
+                'success' => 'O número da matrícula pode ser usado !',
+            );
+        }
+        return response()->json($response);
+
+    }
+
 }

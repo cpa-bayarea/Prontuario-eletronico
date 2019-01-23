@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
         $this::post('/store',       ['uses' => 'SupervisorController@store',   'as' => 'supervisor.store']);
         $this::get('/edit/{id}',    ['uses' => 'SupervisorController@edit',    'as' => 'supervisor.edit']);
         $this::get('/destroy/{id}', ['uses' => 'SupervisorController@destroy', 'as' => 'supervisor.destroy']);
-        $this::post('/validaCrp',   ['uses' => 'SupervisorController@validaCrp', 'as' => 'supervisor.validaCrp']);
+        $this::post('/validarCrp',   ['uses' => 'SupervisorController@validarCrp', 'as' => 'supervisor.validarCrp']);
     });
 
     $this::group(['prefix' => 'user'], function () {
@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
         $this::post('/store',       ['uses' => 'UserController@store',   'as' => 'user.store']);
         $this::get('/edit/{id}',    ['uses' => 'UserController@edit',    'as' => 'user.edit']);
         $this::get('/destroy/{id}', ['uses' => 'UserController@destroy', 'as' => 'user.destroy']);
+        $this::post('/validarMatricula', ['uses' => 'UserController@validarMatricula', 'as' => 'user.validarMatricula']);
     });
 
     $this::group(['prefix' => 'acolhimento'], function () {

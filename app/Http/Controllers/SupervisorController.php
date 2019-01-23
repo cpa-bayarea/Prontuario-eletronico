@@ -212,7 +212,13 @@ class SupervisorController extends Controller
             $supervisor = Supervisor::find($id);
             $supervisor->status = 'I';
             $supervisor->save();
+
+            # Desativa o cadastro do Usuário na tabela principal.
+            $user = User::where('username', $supervisor->nu_matricula)->first();
+            $user->status = 'I';
+            $user->save();
             return redirect()->route('supervisor.index');
+
         } catch (Exception $e) {
             throw new exception('Não foi possível excluir o registro do Supervisor ' . $supervisor->tx_nome . ' !');
         }
@@ -224,7 +230,7 @@ class SupervisorController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function validaCrp(Request $request)
+    public function validarCrp(Request $request)
     {
         $sup = Supervisor::where('nu_crp', $request->crp)->get();
         if( count($sup) >= 1){
