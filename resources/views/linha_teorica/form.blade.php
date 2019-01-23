@@ -31,16 +31,21 @@
 
                         <form class="form-horizontal" action="{{ route('linha.store') }}" method="post">
                             @csrf
+                            <div id="oculto">
+                                <input type="hidden" name="id_linha" value="{{ isset($linha->id_linha) ? $linha->id_linha : null }}">
+                            </div>
                             <div class="form-group">
                                 <label for="nome" class="col-sm-2 control-label">Nome <span class="obrigatorio">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="nome" name="tx_nome" required>
+                                    <input type="text" class="form-control" id="nome" name="tx_nome"
+                                           value="{{ isset($linha->tx_nome) ? $linha->tx_nome : null }}" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="dsc" class="col-sm-2 control-label">Descrição</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="dsc" name="tx_desc">
+                                    <input type="text" class="form-control" id="dsc" name="tx_desc"
+                                           value="{{ isset($linha->tx_desc) ? $linha->tx_desc : null }}">
                                 </div>
                             </div>
 

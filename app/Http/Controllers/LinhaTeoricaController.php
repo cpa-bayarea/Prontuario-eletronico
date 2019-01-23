@@ -78,17 +78,14 @@ class LinhaTeoricaController extends Controller
             abort(403, "Página não autorizada! Você não tem permissão para acessar nessa página!");
         }
         try{
-            # Verifica o status da Linha teorica.
-            $request->status = $request->status ? $request->status : 'I';
-
-            if (!empty($request['id_linha'])) {
+            if (!empty($request->id_linha)) {
                 try {
                     # Procura pela linha teórica.
                     $linha = Linha::where('id_linha', $request['id_linha'])->first();
 
                     $linha->tx_nome = $request->tx_nome;
                     $linha->tx_desc = $request->tx_desc;
-                    $linha->status  = $request->status;
+                    $linha->status  = isset($request->status) ? $request->status : $linha->status;
                     $linha->save();
 
                     return redirect()->route('linha.index');
@@ -134,7 +131,7 @@ class LinhaTeoricaController extends Controller
             $linha = Linha::where('id_linha', $id)->first();
             $checked = ($linha->status == "A") ? 'checked' : '';
 
-            return view('linha_teorica.edit', compact(['linha', 'checked'], [$linha, $checked]));
+            return view('linha_teorica.form', compact(['linha', 'checked'], [$linha, $checked]));
         } catch (\Exception $e) {
             throw new \exception('Não foi possível editar a linha teórica de número '.$id.' !');
         }
