@@ -176,7 +176,7 @@ class SupervisorController extends Controller
                 ->orderBy('tx_nome', 'asc')
                 ->get();
 
-            return view('supervisor.edit', compact(['supervisor', 'linhas'], [$supervisor, $linhas]));
+            return view('supervisor.form', compact(['supervisor', 'linhas'], [$supervisor, $linhas]));
 
         } catch (Exception $e) {
             throw new exception('Não foi possível recuperar os dados do supervisor ' . $supervisor[0]['tx_nome'] . ' !');

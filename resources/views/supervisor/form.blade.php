@@ -33,25 +33,39 @@
 
                         <form class="form-horizontal" action="{{ route('supervisor.store') }}" method="post">
                             @csrf
+                            <div id="oculto">
+                                <input type="hidden" name="id_supervisor" hidden id="supervisor_id"
+                                       value="{{ isset($supervisor->id_supervisor) ? $supervisor->id_supervisor : null }}">
+                            </div>
                             <div class="form-group">
                                 <label for="nome" class="col-sm-2 control-label">Nome <span class="obrigatorio">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="nome" name="tx_nome" required maxlength="100">
+                                    <input type="text" class="form-control" id="nome" name="tx_nome"
+                                           required maxlength="100"
+                                           value="{{ isset($supervisor->tx_nome) ? $supervisor->tx_nome : null }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="crp" class="col-sm-2 control-label">CRP <span class="obrigatorio">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control inteiro" id="crp" name="nu_crp" maxlength="7" required>
+                                    <input type="text" class="form-control inteiro" id="crp" name="nu_crp" maxlength="7"
+                                           required value="{{ isset($supervisor->nu_crp) ? $supervisor->nu_crp : null }}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="linha_teorica" class="col-sm-2 control-label">{{ __('Linha Teórica') }}<span class="obrigatorio">*</span></label>
+                                <label for="linha_teorica" class="col-sm-2 control-label">{{ __('Linha Teórica') }}
+                                    <span class="obrigatorio">*</span>
+                                </label>
                                 <div class="col-sm-10">
                                     <select name="id_linha" class="form-control" id="linha_teorica" required>
                                         <option selected disabled>Selecione</option>
                                         @foreach($linhas as $linha)
-                                            <option class="form-control" value="{{ $linha->id_linha }}">{{ $linha->tx_nome }}</option>
+                                            @if(isset($supervisor))
+                                                {{ $selected = ( $linha->id_linha === $supervisor->id_linha_teorica) ? 'selected' : '' }}
+                                            @endif
+                                            <option class="form-control" {{ isset($selected) ? $selected : '' }}
+                                                value="{{ $linha->id_linha }}"> {{ $linha->tx_nome }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -59,31 +73,38 @@
                             <div class="form-group">
                                 <label for="matricula" class="col-sm-2 control-label">Matrícula <span class="obrigatorio">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control inteiro" id="matricula" name="nu_matricula" maxlength="11" required>
+                                    <input type="text" class="form-control inteiro" id="matricula"
+                                           name="nu_matricula" maxlength="11" required
+                                           value="{{ isset($supervisor->nu_matricula) ? $supervisor->nu_matricula : null }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="telefone" class="col-sm-2 control-label">Telefone <span class="obrigatorio">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control inteiro" id="telefone" name="nu_telefone" maxlength="11" required>
+                                    <input type="text" class="form-control inteiro" id="telefone"
+                                           name="nu_telefone" maxlength="11" required
+                                           value="{{ isset($supervisor->nu_telefone) ? $supervisor->nu_telefone : null }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="celular" class="col-sm-2 control-label">Celular</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control inteiro" id="celular" name="nu_celular" maxlength="11">
+                                    <input type="text" class="form-control inteiro" id="celular"
+                                           name="nu_celular" maxlength="11"
+                                           value="{{ isset($supervisor->nu_celular) ? $supervisor->nu_celular : null }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="col-sm-2 control-label">E-mail <span class="obrigatorio">*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="email" name="tx_email" required>
+                                    <input type="email" class="form-control" id="email" name="tx_email" required
+                                           value="{{ isset($supervisor->tx_email) ? $supervisor->tx_email : null }}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="password" class="col-sm-2 control-label">Senha <span class="obrigatorio">*</span></label>
+                                <label for="password" class="col-sm-2 control-label">Senha</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="password" name="tx_senha" required>
+                                    <input type="password" class="form-control" id="password" name="tx_senha">
                                 </div>
                             </div>
 

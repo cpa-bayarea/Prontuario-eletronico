@@ -8,6 +8,7 @@
 $(document).ready(function () {
 
     var token = $('input[name="_token"]').val();
+    var id_super = $('#supervisor_id').val();
 
     $('#crp').change(function () {
         var crp = $(this).val();
@@ -24,6 +25,10 @@ $(document).ready(function () {
             validarMatriculaAjax(token, mat);
         }
     });
+
+    if( id_super == null || id_super == '' ){
+        $('#password').attr('required', true);
+    }
 
 });
 
